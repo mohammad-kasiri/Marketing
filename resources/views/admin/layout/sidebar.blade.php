@@ -60,8 +60,15 @@
                         </ul>
                     </div>
                 </li>
-
-
+                <!--begin::Menu Nav-->
+                <ul class="menu-nav ">
+                    <li class="menu-item">
+                        <a  href="{{route('admin.product.index')}}" class="menu-link menu-toggle">
+                            <i class="menu-icon flaticon-shopping-basket"></i>
+                            <span class="menu-text">مدیریت محصولات</span>
+                        </a>
+                    </li>
+                </ul>
             </ul>
         </div>
         <!--end::Menu Container-->
