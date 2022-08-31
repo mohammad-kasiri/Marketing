@@ -13,4 +13,12 @@ class Product extends Model
     const PAGINATION_LIMIT = 20;
 
     protected $fillable=['title'];
+
+    public function invoices()
+    {
+        return $this->belongsToMany(Invoice::class,
+            'invoice_product',
+            'product_id',
+            'invoice_id');
+    }
 }

@@ -41,7 +41,13 @@ class AgentController extends Controller
 
     public function show(User $agent)
     {
-        return view('admin.users.agents.show')->with(['agent' => $agent]);
+        $invoices = $agent->invoice()->latest()->take(10)->get();
+
+
+
+        return view('admin.users.agents.show')
+            ->with(['agent'   => $agent])
+            ->with(['invoices' => $invoices]);
     }
 
     public function edit(User $agent)

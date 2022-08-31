@@ -2,8 +2,8 @@
     <!--begin::Brand-->
     <div class="brand flex-column-auto " id="kt_brand">
         <!--begin::Logo-->
-        <a href="{{route('index')}}" class="brand-logo">
-            <img alt="Logo" src="{{asset('dashboard/img/logo.png')}}" class="img-fluid w-25">
+        <a href="{{route('agent.index')}}" class="brand-logo">
+            <img alt="Logo" src="{{asset('dashboard/img/logo.png')}}" class="img-fluid">
         </a>
         <!--end::Logo-->
 
@@ -36,76 +36,15 @@
             data-menu-scroll="1" data-menu-dropdown-timeout="500">
             <!--begin::Menu Nav-->
             <ul class="menu-nav ">
-                @canany(['patients'])
-                <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
-                    <a  href="javascript:;" class="menu-link menu-toggle">
-                        <i class="menu-icon flaticon2-group"></i>
-                        <span class="menu-text">مدیریت کاربران</span>
-                        <i class="menu-arrow"></i>
-                    </a>
-                    <div class="menu-submenu ">
-                        <i class="menu-arrow"></i>
-                        <ul class="menu-subnav">
-                            @can( 'patients' )
-                                <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
-                                    <a  href="{{route('admin.patients.index')}}" class="menu-link ">
-                                        <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                                        <span class="menu-text">بیماران</span>
-                                    </a>
-                                </li>
-                            @endcan
-
-                            @can( 'doctors' )
-                            <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
-                                <a  href="{{route('admin.doctors.index')}}" class="menu-link ">
-                                    <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                                    <span class="menu-text">پزشکان</span>
-                                </a>
-                            </li>
-                            @endcan
-
-                            <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
-                                <a  href="https://ahanamn.com/admin/user?level=admin" class="menu-link ">
-                                    <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                                    <span class="menu-text">مدیران</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                @endcanany
-
-                @canany(['roles'])
-                    <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
-                        <a  href="javascript:;" class="menu-link menu-toggle">
-                            <i class="menu-icon flaticon-lock"></i>
-                            <span class="menu-text">مدیریت دسترسی ها</span>
-                            <i class="menu-arrow"></i>
+                <!--begin::Menu Nav-->
+                <ul class="menu-nav ">
+                    <li class="menu-item">
+                        <a  href="{{route('agent.invoice.index')}}" class="menu-link menu-toggle">
+                            <i class="menu-icon flaticon2-checking"></i>
+                            <span class="menu-text">مدیریت فاکتور ها</span>
                         </a>
-                        <div class="menu-submenu ">
-                            <i class="menu-arrow"></i>
-                            <ul class="menu-subnav">
-                                @can('roles.users.index')
-                                    <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
-                                        <a  href="{{route('admin.roles.users.index')}}" class="menu-link ">
-                                            <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                                            <span class="menu-text">نقش کاربران</span>
-                                        </a>
-                                    </li>
-                                @endcan
-
-                                @can('roles.index')
-                                    <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
-                                        <a  href="{{route('admin.roles.index')}}" class="menu-link ">
-                                            <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                                            <span class="menu-text">لیست نقش ها</span>
-                                        </a>
-                                    </li>
-                                @endcan
-                            </ul>
-                        </div>
                     </li>
-                @endcanany
+                </ul>
 
             </ul>
         </div>

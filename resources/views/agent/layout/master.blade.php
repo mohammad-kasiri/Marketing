@@ -12,18 +12,18 @@
 <!--begin::Main-->
 
 <!--begin::Header Mobile-->
-    @include('admin.layout.mobile-header')
+    @include('agent.layout.mobile-header')
 <!--end::Header Mobile-->
 
 <div class="d-flex flex-column flex-root">
     <div class="d-flex flex-row flex-column-fluid page">
         <!--begin::Aside-->
-        @include('admin.layout.sidebar')
+        @include('agent.layout.sidebar')
         <!--end::Aside-->
         <!--begin::Wrapper-->
         <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
             <!--begin::Header-->
-            @include('admin.layout.header' , ['name' => auth()->user()->full_name])
+            @include('agent.layout.header' , ['name' => auth()->user()->full_name])
             <!--end::Header-->
             <div class="content  d-flex flex-column flex-column-fluid" id="kt_content">
                 @yield('subheader')
@@ -31,7 +31,7 @@
                     @yield('content')
                 </div>
             </div>
-            @include('admin.layout.footer')
+            @include('agent.layout.footer')
         </div>
         <!--end::Wrapper-->
     </div>

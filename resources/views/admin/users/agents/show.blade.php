@@ -94,20 +94,20 @@
                                 </span>
                                 </a>
                             </div>
-{{--                            <div class="navi-item mb-2">--}}
-{{--                                <a href="custom/apps/profile/profile-1/account-information.html" class="navi-link py-4 ">--}}
-{{--                                    <span class="navi-icon mr-2">--}}
-{{--                                        <span class="svg-icon">--}}
-{{--                                            <!--begin::Svg Icon | path:assets/media/svg/icons/کد/Compiling.svg-->--}}
-{{--                                                <x-dashboard.icons.svg.money/>--}}
-{{--                                            <!--end::Svg Icon-->--}}
-{{--                                        </span>--}}
-{{--                                    </span>--}}
-{{--                                    <span class="navi-text font-size-lg">--}}
-{{--                                        لیست رسیدها--}}
-{{--                                    </span>--}}
-{{--                                </a>--}}
-{{--                            </div>--}}
+                            <div class="navi-item mb-2">
+                                <a  href="{{route('admin.agent.invoice.index' , ['agent' =>  $agent->id])}}" class="navi-link py-4 ">
+                                <span class="navi-icon mr-2">
+                                    <span class="svg-icon">
+                                        <!--begin::Svg Icon | path:assets/media/svg/icons/عمومی/User.svg-->
+                                            <x-dashboard.icons.svg.money/>
+                                        <!--end::Svg Icon-->
+                                    </span>
+                                </span>
+                                    <span class="navi-text font-size-lg">
+                                    فاکتور های کاربر
+                                </span>
+                                </a>
+                            </div>
                         </div>
                         <!--end::Nav-->
                     </div>
@@ -130,8 +130,89 @@
                     <!--end::Header-->
                     <!--begin::Body-->
                     <div class="card-body py-2">
+                        <div class="row">
+                            <!-- Begin :: WEEKLY CHART -->
+                            <div class="col-xl-6">
+                                <div class="card card-custom card-stretch gutter-b">
+                                    <!--begin::Body-->
+                                    <div class="card-body d-flex flex-column p-0">
+                                        <div class="d-flex align-items-center justify-content-between card-spacer flex-grow-1">
+                                            <div class="d-flex flex-column mr-2">
+                                                <a href="#" class="text-dark-75 text-hover-primary font-weight-bolder font-size-h5">فروش هفتگی</a>
+                                                <span class="text-muted font-weight-bold mt-2">فروش هفتگی </span>
+                                            </div>
+                                        </div>
+                                        <div id="agent_weekly" data-user="{{$agent->id}}" data-percentage="{{$agent->percentage}}" class="card-rounded-bottom" style="height: 150px"></div>
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                            </div>
+                            <!-- end :: WEEKLY CHART -->
+                            <!-- Begin :: Monthly CHART -->
+                            <div class="col-xl-6">
+                                <div class="card card-custom card-stretch gutter-b">
+                                    <!--begin::Body-->
+                                    <div class="card-body d-flex flex-column p-0">
+                                        <div class="d-flex align-items-center justify-content-between card-spacer flex-grow-1">
+                                            <div class="d-flex flex-column mr-2">
+                                                <a href="#" class="text-dark-75 text-hover-primary font-weight-bolder font-size-h5">فروش ماهانه</a>
+                                                <span class="text-muted font-weight-bold mt-2">فروش ماهانه </span>
+                                            </div>
+                                        </div>
+                                        <div id="agent_monthly" data-user="{{$agent->id}}" data-percentage="{{$agent->percentage}}" class="card-rounded-bottom" style="height: 150px"></div>
+                                    </div>
+                                    <!--end::Body-->
+                                </div>
+                            </div>
+                            <!-- end :: Monthly CHART -->
+                        </div>
+                    </div>
+                    <!--end::Body-->
+                </div>
+                <!--end::پیشرفت Table Widget 7-->
+                <!--begin::پیشرفت Table: Widget 7-->
+                <div class="card card-custom gutter-b">
+                    <!--begin::Header-->
+                    <div class="card-header border-0 pt-5">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="card-label font-weight-bolder text-dark">10 فاکتور آخر</span>
+                        </h3>
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    <div class="card-body py-2">
                         <!--begin::Table-->
-                            <!-- *******          *********       ******* -->
+                        <div class="table-responsive-sm">
+                            <table class="table ">
+                                <thead>
+                                <tr class="text-muted">
+                                    <th class="text-center">مبلغ</th>
+                                    <th class="text-center">حساب</th>
+                                    <th class="text-center">توضیحات</th>
+                                    <th class="text-center">تاریخ ایجاد</th>
+                                    <th class="text-center">وضعیت</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($invoices as $key=>$invoice)
+                                    <tr>
+                                        <td class="text-center align-middle text-nowrap"> {{$invoice->price}} </td>
+                                        <td class="text-center align-middle text-nowrap"> {{$invoice->account_number}} </td>
+                                        <td class="text-center align-middle text-nowrap"> {{$invoice->status()}} </td>
+                                        <td class="text-center align-middle text-nowrap"> {{$invoice->created_at()}} </td>
+                                        <td class="text-center align-middle text-nowrap">
+                                            <button class="btn btn-outline-danger"
+                                                    data-container="body"
+                                                    data-delay="500"
+                                                    data-toggle="popover"
+                                                    data-placement="top"
+                                                    data-content="{{$invoice->description}}">توضیحات</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                         <!--end::Table-->
                     </div>
                     <!--end::Body-->

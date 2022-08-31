@@ -32,7 +32,7 @@ class UserFactory extends Factory
             'percentage' => rand(2 , 15),
             'email_verified_at' => $this->getEmailVerificationDate($email),
             'mobile_verified_at' => $this->faker->dateTimeBetween('-1 years', 'now', 'Asia/Tehran'),
-            'password' => Arr::random([Hash::make('11111111') , null] ),  // 11111111
+            'password' => Arr::random([Hash::make('11111111')]),  // 11111111
             'remember_token' => Arr::random([Str::random(50) , null]),
         ];
     }

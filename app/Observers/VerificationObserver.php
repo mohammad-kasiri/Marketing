@@ -16,6 +16,15 @@ class VerificationObserver
      */
     public function created(Verification $verification)
     {
-        //SMS::tokens(["token" => $verification->code])->sendLookUp($verification->mobile);
+        $apiKey = "NmxgXph4NawzHQrmpTaMRbWZigexb2xp3MkimwrTUNE=";
+        $client = new \IPPanel\Client($apiKey);
+        $bulkID = $client->sendPattern(
+            "uw6nxcuhaj",    // pattern code
+            "3000505",      // originator
+            "$verification->mobile",  // recipient
+            ['OTP' =>  "$verification->code"] // pattern values
+        );
+
+        //SMS::send($verification->mobile , $verification->code);
     }
 }

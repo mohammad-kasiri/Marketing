@@ -84,4 +84,9 @@ class User extends Authenticatable implements HasMedia
                 ->toMediaCollection('avatar');
         }
     }
+
+    public function invoice()
+    {
+        return $this->hasMany(Invoice::class);
+    }
 }

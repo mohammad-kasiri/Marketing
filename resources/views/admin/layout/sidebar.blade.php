@@ -2,8 +2,8 @@
     <!--begin::Brand-->
     <div class="brand flex-column-auto " id="kt_brand">
         <!--begin::Logo-->
-        <a href="{{route('index')}}" class="brand-logo">
-            <img alt="Logo" src="{{asset('dashboard/img/logo.png')}}" class="img-fluid w-25">
+        <a href="{{route('admin.index')}}" class="brand-logo">
+            <img alt="Logo" src="{{asset('dashboard/img/logo.png')}}" class="img-fluid">
         </a>
         <!--end::Logo-->
 
@@ -49,12 +49,6 @@
                                 <a  href="{{route('admin.agent.index')}}" class="menu-link ">
                                     <i class="menu-bullet menu-bullet-dot"><span></span></i>
                                     <span class="menu-text">بازاریاب ها</span>
-                                </a>
-                            </li>
-                            <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
-                                <a class="menu-link ">
-                                    <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                                    <span class="menu-text">مدیران</span>
                                 </a>
                             </li>
                         </ul>

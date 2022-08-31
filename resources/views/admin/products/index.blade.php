@@ -7,7 +7,7 @@
             ['title' => 'افزودن محصولات جدید' , 'icon' => '<i class="fas fa-plus icon-nm"></i>' , 'route' => route('admin.product.create') ],
         ];
     @endphp
-    <x-dashboard.subheader :links='$buttons ?? []' :title="'لیست محصولات'" />
+    <x-dashboard.subheader :links='[]' :title="'لیست محصولات'" />
 @endsection
 
 @section('content')
@@ -26,6 +26,28 @@
                 </div>
             @endif
         <!--end::Notice-->
+            <div class="card card-custom my-5">
+                <div class="card-header flex-wrap border-0 pt-6 pb-0">
+                    <div class="card-title">
+                        <h3 class="card-label">
+                            افزودن محصول
+                        </h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form action="{{route('admin.product.store')}}" method="post">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-10">
+                                <x-dashboard.form.row-input label="عنوان محصول"  name="title" type="text"/>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-outline-primary btn-block">افزودن محصول</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <!--begin::Card-->
             <div class="card card-custom">
                 <div class="card-header flex-wrap border-0 pt-6 pb-0">
@@ -51,15 +73,19 @@
                                     <td class="text-center align-middle"> {{\App\Functions\PaginationCounter::item($products , $key)}} </td>
                                     <td class="text-center align-middle text-nowrap"> {{$product->title}}</td>
                                     <td class="text-center align-middle text-nowrap">
-                                        <a href="{{route('admin.product.edit' , $product->id)}}"
-                                           class="btn btn-icon btn-circle btn-sm btn-outline-info"
-                                           data-container="body"
-                                           data-delay="500"
-                                           data-toggle="popover"
-                                           data-placement="top"
-                                           data-content="مشاهده">
-                                            <i class="far fa-pen"></i>
-                                        </a>
+                                        <form action="{{route('admin.product.destroy' , $product->id)}}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button
+                                                class="btn btn-icon btn-circle btn-sm btn-outline-danger"
+                                                data-container="body"
+                                                data-delay="500"
+                                                data-toggle="popover"
+                                                data-placement="top"
+                                                data-content="حذف">
+                                                <i class="far fa-trash-alt"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

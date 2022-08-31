@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Facades\SMS;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OtpLoginRequest;
 use App\Models\User;

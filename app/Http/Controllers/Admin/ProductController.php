@@ -53,6 +53,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
+        Session::flash('message', 'محصول با موفقیت حذف شد.');
         return redirect()->back();
     }
 }
