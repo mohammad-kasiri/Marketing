@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Agent;
 
+use App\Functions\DateFormatter;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\Product;
@@ -12,7 +13,7 @@ class InvoiceController extends Controller
 {
     public function index()
     {
-        $invoices = auth()->user()->invoice()->paginate(Invoice::PAGINATION_LIMIT);
+        $invoices = auth()->user()->invoice()->latest()->paginate(Invoice::PAGINATION_LIMIT);
         return  view('agent.invoices.index')->with(['invoices' => $invoices]);
     }
 
@@ -31,11 +32,14 @@ class InvoiceController extends Controller
             'description'    => ['nullable'],
             'products'       => ['required' , 'array'],
             'products.*'     => ['required' , 'numeric'],
+            'paid_at_date'   => ['required' , 'min:10' , 'max:10'],
+            'paid_at_time'   => ['required'],
         ]);
         $invoice = auth()->user()->invoice()->create([
             'price'          => $request->price,
             'account_number' => $request->account_number,
-            'description'    => $request->description
+            'description'    => $request->description,
+            'paid_at'        => DateFormatter::format($request->paid_at_date , $request->paid_at_time),
         ]);
 
         if(isset($request->products) && is_array($request->products) && count($request->products) > 0)
@@ -49,6 +53,9 @@ class InvoiceController extends Controller
 
     public function edit(Invoice $invoice)
     {
+        if($invoice->status != 'sent')
+            return redirect()->back();
+
         $products= Product::all();
         return view('agent.invoices.edit')
             ->with(['invoice'  => $invoice])
@@ -63,12 +70,15 @@ class InvoiceController extends Controller
             'description'    => ['nullable'],
             'products'       => ['required' , 'array'],
             'products.*'     => ['required' , 'numeric'],
+            'paid_at_date'   => ['required' , 'min:10' , 'max:10'],
+            'paid_at_time'   => ['required'],
         ]);
 
         $invoice->update([
             'price'          => $request->price,
             'account_number' => $request->account_number,
-            'description'    => $request->description
+            'description'    => $request->description,
+            'paid_at'        => DateFormatter::format($request->paid_at_date , $request->paid_at_time),
         ]);
 
         if(isset($request->products) && is_array($request->products) && count($request->products) > 0)

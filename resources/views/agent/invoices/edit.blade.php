@@ -33,10 +33,16 @@
                             <x-dashboard.form.row-input label="مبلغ" name="price" type="number" value="{{$invoice->price}}"/>
                         </div>
                         <div class="col-md-8">
-                            <x-dashboard.form.row-input label="شماره ی حساب" name="account_number" value="{{$invoice->account_number}}"/>
+                            <x-dashboard.form.row-input label="چهار رقم آخر شماره کارت" name="account_number" value="{{$invoice->account_number}}"/>
                         </div>
                         <div class="col-md-8">
                             <x-dashboard.form.row-input label="توضیحات" name="description" value="{{$invoice->description}}"/>
+                        </div>
+                        <div class="col-md-8">
+                            <x-dashboard.form.row-input label="تاریخ پرداخت"  name="paid_at_date" datepicker="true" value="{{$invoice->jalaliPaidDate()}}" />
+                        </div>
+                        <div class="col-md-8">
+                            <x-dashboard.form.row-input label="ساعت پرداخت"  name="paid_at_time" type="time"  value="{{$invoice->jalaliPaidTime()}}"/>
                         </div>
                     </div>
 

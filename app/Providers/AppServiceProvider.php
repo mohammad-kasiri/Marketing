@@ -14,7 +14,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        //Public folder name changed with public_html
+        $this->app->bind('path.public', function(){
+            return base_path().'/public_html';
+        });
     }
 
     /**
@@ -24,6 +27,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+
         Paginator::defaultView('vendor.pagination.metronic');
     }
 }

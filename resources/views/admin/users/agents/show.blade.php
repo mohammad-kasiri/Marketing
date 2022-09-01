@@ -138,8 +138,7 @@
                                     <div class="card-body d-flex flex-column p-0">
                                         <div class="d-flex align-items-center justify-content-between card-spacer flex-grow-1">
                                             <div class="d-flex flex-column mr-2">
-                                                <a href="#" class="text-dark-75 text-hover-primary font-weight-bolder font-size-h5">فروش هفتگی</a>
-                                                <span class="text-muted font-weight-bold mt-2">فروش هفتگی </span>
+                                                <a class="text-dark-75 text-hover-primary font-weight-bolder font-size-h5">فروش هفتگی</a>
                                             </div>
                                         </div>
                                         <div id="agent_weekly" data-user="{{$agent->id}}" data-percentage="{{$agent->percentage}}" class="card-rounded-bottom" style="height: 150px"></div>
@@ -155,8 +154,7 @@
                                     <div class="card-body d-flex flex-column p-0">
                                         <div class="d-flex align-items-center justify-content-between card-spacer flex-grow-1">
                                             <div class="d-flex flex-column mr-2">
-                                                <a href="#" class="text-dark-75 text-hover-primary font-weight-bolder font-size-h5">فروش ماهانه</a>
-                                                <span class="text-muted font-weight-bold mt-2">فروش ماهانه </span>
+                                                <a class="text-dark-75 text-hover-primary font-weight-bolder font-size-h5">فروش ماهانه</a>
                                             </div>
                                         </div>
                                         <div id="agent_monthly" data-user="{{$agent->id}}" data-percentage="{{$agent->percentage}}" class="card-rounded-bottom" style="height: 150px"></div>
@@ -187,19 +185,19 @@
                                 <thead>
                                 <tr class="text-muted">
                                     <th class="text-center">مبلغ</th>
-                                    <th class="text-center">حساب</th>
+                                    <th class="text-center">چهار رقم آخر شماره کارت</th>
                                     <th class="text-center">توضیحات</th>
-                                    <th class="text-center">تاریخ ایجاد</th>
+                                    <th class="text-center">تاریخ واریز</th>
                                     <th class="text-center">وضعیت</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($invoices as $key=>$invoice)
                                     <tr>
-                                        <td class="text-center align-middle text-nowrap"> {{$invoice->price}} </td>
+                                        <td class="text-center align-middle text-nowrap"> {{$invoice->price() }}  تومان </td>
                                         <td class="text-center align-middle text-nowrap"> {{$invoice->account_number}} </td>
                                         <td class="text-center align-middle text-nowrap"> {{$invoice->status()}} </td>
-                                        <td class="text-center align-middle text-nowrap"> {{$invoice->created_at()}} </td>
+                                        <td class="text-center align-middle text-nowrap"> {{$invoice->paid_at()}} </td>
                                         <td class="text-center align-middle text-nowrap">
                                             <button class="btn btn-outline-danger"
                                                     data-container="body"

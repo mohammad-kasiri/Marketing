@@ -42,7 +42,7 @@
                             <tr class="text-muted">
                                 <th class="text-center">#</th>
                                 <th class="text-center">مبلغ</th>
-                                <th class="text-center">حساب</th>
+                                <th class="text-center">چهار رقم آخر شماره کارت</th>
                                 <th class="text-center">توضیحات</th>
                                 <th class="text-center">تاریخ ایجاد</th>
                                 <th class="text-center">وضعیت</th>
@@ -53,7 +53,7 @@
                             @foreach($invoices as $key=>$invoice)
                                 <tr>
                                     <td class="text-center align-middle"> {{\App\Functions\PaginationCounter::item($invoices , $key)}} </td>
-                                    <td class="text-center align-middle text-nowrap"> {{$invoice->price}} </td>
+                                    <td class="text-center align-middle text-nowrap"> {{$invoice->price()}} تومان </td>
                                     <td class="text-center align-middle text-nowrap"> {{$invoice->account_number}} </td>
                                     <td class="text-center align-middle text-nowrap"> {{$invoice->status()}} </td>
                                     <td class="text-center align-middle text-nowrap"> {{$invoice->created_at()}} </td>
@@ -66,28 +66,30 @@
                                                 data-content="{{$invoice->description}}">توضیحات</button>
                                     </td>
                                     <td class="text-center align-middle text-nowrap">
-                                        <a href="{{route('agent.invoice.edit' , $invoice->id)}}"
-                                           class="btn btn-icon btn-circle btn-sm btn-outline-info"
-                                           data-container="body"
-                                           data-delay="500"
-                                           data-toggle="popover"
-                                           data-placement="top"
-                                           data-content="مشاهده">
-                                            <i class="far fa-eye"></i>
-                                        </a>
-                                        <form action="{{route('agent.invoice.destroy' , $invoice->id)}}" method="post" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button
-                                                class="btn btn-icon btn-circle btn-sm btn-outline-danger"
-                                                data-container="body"
-                                                data-delay="500"
-                                                data-toggle="popover"
-                                                data-placement="top"
-                                                data-content="حذف">
-                                                <i class="far fa-trash-alt"></i>
-                                            </button>
-                                        </form>
+                                        @if($invoice->status == 'sent')
+                                            <a href="{{route('agent.invoice.edit' , $invoice->id)}}"
+                                               class="btn btn-icon btn-circle btn-sm btn-outline-info"
+                                               data-container="body"
+                                               data-delay="500"
+                                               data-toggle="popover"
+                                               data-placement="top"
+                                               data-content="مشاهده">
+                                                <i class="far fa-eye"></i>
+                                            </a>
+                                            <form action="{{route('agent.invoice.destroy' , $invoice->id)}}" method="post" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button
+                                                    class="btn btn-icon btn-circle btn-sm btn-outline-danger"
+                                                    data-container="body"
+                                                    data-delay="500"
+                                                    data-toggle="popover"
+                                                    data-placement="top"
+                                                    data-content="حذف">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

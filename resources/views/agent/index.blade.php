@@ -117,7 +117,7 @@
                                     @foreach($invoices as $key=>$invoice)
                                         <tr>
                                             <td class="text-center align-middle"> {{ $key +1}} </td>
-                                            <td class="text-center align-middle text-nowrap"> {{$invoice->price}}</td>
+                                            <td class="text-center align-middle text-nowrap"> {{$invoice->price()}} تومان </td>
                                             <td class="text-center align-middle text-nowrap"> {{$invoice->created_at()}}</td>
                                         </tr>
                                     @endforeach

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{mix('dashboard/css/dashboard.css')}}" rel="stylesheet" type="text/css"/>
+    <link rel="icon" type="image/png" href="{{asset('/dashboard/img/logo.png')}}">
 </head>
 <!--end::Head-->
 

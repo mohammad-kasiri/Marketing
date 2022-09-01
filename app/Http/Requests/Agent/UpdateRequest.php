@@ -30,7 +30,7 @@ class UpdateRequest extends FormRequest
             'first_name'      => ['required' , 'min:3', 'max:15', 'bail'] ,
             'last_name'       => ['required' , 'min:3', 'max:25', 'bail'] ,
             'gender'          => ['required' , Rule::in(['male' , 'female']), 'bail'],
-            'email'           => ['nullable' , 'email' , 'unique:users,email' , 'bail'],
+            'email'           => ['nullable' , 'email' , 'unique:users,email,'.$user_id , 'bail'],
             'percentage'      => ['nullable' , 'numeric'],
             'avatar'          => ['nullable' , 'image'  , 'max:2048']
         ];

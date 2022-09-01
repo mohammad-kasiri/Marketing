@@ -111,5 +111,7 @@ return array(
 
         "label"               =>       "عنوان",
         "description"         =>       "توضیحات",
+
+        "title"               =>       "عنوان",
     ),
 );

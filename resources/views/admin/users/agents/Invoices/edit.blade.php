@@ -30,7 +30,7 @@
                     @method('PATCH')
                     <div class="row justify-content-center">
                         <div class="col-md-8">
-                            <x-dashboard.form.row-input label="مبلغ" name="price" type="number" value="{{$invoice->price}}"/>
+                            <x-dashboard.form.row-input label="مبلغ (تومان)" name="price" type="number" value="{{$invoice->price}}"/>
                         </div>
                         <div class="col-md-8">
                             <x-dashboard.form.row-input label="شماره ی حساب" name="account_number" value="{{$invoice->account_number}}"/>
@@ -44,6 +44,12 @@
                                 <option value="approved" {{$invoice->status == 'approved' ? 'selected' : ''}}>تایید شده</option>
                                 <option value="rejected" {{$invoice->status == 'rejected' ? 'selected' : ''}}>رد شده</option>
                             </x-dashboard.form.select.row>
+                        </div>
+                        <div class="col-md-8">
+                            <x-dashboard.form.row-input label="تاریخ پرداخت"  name="paid_at_date" datepicker="true" value="{{$invoice->jalaliPaidDate()}}" />
+                        </div>
+                        <div class="col-md-8">
+                            <x-dashboard.form.row-input label="ساعت پرداخت"  name="paid_at_time" type="time"  value="{{$invoice->jalaliPaidTime()}}"/>
                         </div>
                     </div>
 

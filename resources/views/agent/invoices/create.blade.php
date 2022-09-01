@@ -28,13 +28,19 @@
                 <form action="{{route('agent.invoice.store')}}" method="post"> @csrf
                 <div class="row justify-content-center">
                     <div class="col-md-8">
-                        <x-dashboard.form.row-input label="مبلغ" name="price" type="number"/>
+                        <x-dashboard.form.row-input label="مبلغ (تومان)" name="price" type="number"/>
                     </div>
                     <div class="col-md-8">
-                        <x-dashboard.form.row-input label="شماره ی حساب" name="account_number"/>
+                        <x-dashboard.form.row-input label="چهار رقم آخر شماره کارت" name="account_number"/>
                     </div>
                     <div class="col-md-8">
                         <x-dashboard.form.row-input label="توضیحات" name="description"/>
+                    </div>
+                    <div class="col-md-8">
+                        <x-dashboard.form.row-input label="تاریخ پرداخت"  name="paid_at_date" datepicker="true"/>
+                    </div>
+                    <div class="col-md-8">
+                        <x-dashboard.form.row-input label="ساعت پرداخت"  name="paid_at_time" type="time"/>
                     </div>
                 </div>
 

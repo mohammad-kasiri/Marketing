@@ -36,33 +36,24 @@
             data-menu-scroll="1" data-menu-dropdown-timeout="500">
             <!--begin::Menu Nav-->
             <ul class="menu-nav ">
-                <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
-                    <a  href="javascript:;" class="menu-link menu-toggle">
-                        <i class="menu-icon flaticon2-group"></i>
-                        <span class="menu-text">مدیریت کاربران</span>
-                        <i class="menu-arrow"></i>
+                <li class="menu-item" >
+                    <a  href="{{route('admin.agent.index')}}" class="menu-link ">
+                        <i class="menu-icon flaticon-users-1"><span></span></i>
+                        <span class="menu-text">بازاریاب ها</span>
                     </a>
-                    <div class="menu-submenu ">
-                        <i class="menu-arrow"></i>
-                        <ul class="menu-subnav">
-                            <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
-                                <a  href="{{route('admin.agent.index')}}" class="menu-link ">
-                                    <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                                    <span class="menu-text">بازاریاب ها</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
-                <!--begin::Menu Nav-->
-                <ul class="menu-nav ">
-                    <li class="menu-item">
-                        <a  href="{{route('admin.product.index')}}" class="menu-link menu-toggle">
-                            <i class="menu-icon flaticon-shopping-basket"></i>
-                            <span class="menu-text">مدیریت محصولات</span>
-                        </a>
-                    </li>
-                </ul>
+                <li class="menu-item">
+                    <a  href="{{route('admin.product.index')}}" class="menu-link menu-toggle">
+                        <i class="menu-icon flaticon-shopping-basket"></i>
+                        <span class="menu-text">مدیریت محصولات</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a  href="{{route('admin.invoice.index')}}" class="menu-link menu-toggle">
+                        <i class="menu-icon flaticon2-chart"></i>
+                        <span class="menu-text">مدیریت فاکتور ها</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <!--end::Menu Container-->

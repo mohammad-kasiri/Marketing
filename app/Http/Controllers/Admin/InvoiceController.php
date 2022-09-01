@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Functions\DateFormatter;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\Product;
@@ -11,25 +12,24 @@ use Illuminate\Support\Facades\Session;
 
 class InvoiceController extends Controller
 {
-    public function index(User $agent)
+    public function index(Request $request)
     {
-        $invoices = $agent->invoice()->latest()->paginate(Invoice::PAGINATION_LIMIT);
+        $invoices = Invoice::query()->with('user')->filter(request()->all()) ;
+        $users    = User::all();
 
-        return view('admin.users.agents.Invoices.index')
-               ->with(['invoices' => $invoices])
-               ->with(['agent'    => $agent]);
+        return view('admin.invoices.index')
+            ->with(['users'    => $users])
+            ->with(['invoices' => $invoices]);
     }
-
-    public function edit(User $agent, Invoice $invoice)
+    public function edit(Invoice $invoice)
     {
         $products= Product::all();
-        return view('admin.users.agents.Invoices.edit')
+        return view('admin.invoices.edit')
             ->with(['invoice' => $invoice])
-            ->with(['products' => $products])
-            ->with(['agent'    => $agent]);
+            ->with(['products' => $products]);
     }
 
-    public function update(User $agent, Invoice $invoice, Request $request)
+    public function update(Invoice $invoice, Request $request)
     {
         $this->validate($request , [
             'price'          => ['required','numeric'],
@@ -38,13 +38,16 @@ class InvoiceController extends Controller
             'products'       => ['required' , 'array'],
             'products.*'     => ['required' , 'numeric'],
             'status'         => ['required' , 'in:sent,approved,rejected'],
+            'paid_at_date'   => ['required' , 'min:10' , 'max:10'],
+            'paid_at_time'   => ['required'],
         ]);
 
         $invoice->update([
             'price'          => $request->price,
             'account_number' => $request->account_number,
             'description'    => $request->description,
-            'status'         => $request->status
+            'status'         => $request->status,
+            'paid_at'        => DateFormatter::format($request->paid_at_date , $request->paid_at_time),
         ]);
 
         if(isset($request->products) && is_array($request->products) && count($request->products) > 0)
@@ -53,13 +56,13 @@ class InvoiceController extends Controller
         }
 
         Session::flash('message', 'فاکتور با موفقیت ویرایش شد.');
-        return redirect()->route('admin.agent.invoice.index', ['agent' => $agent->id]);
+        return redirect()->route('admin.invoice.index');
     }
 
     public function destroy(User $agent, Invoice $invoice)
     {
         $invoice->delete();
         Session::flash('message', 'فاکتور با موفقیت حذف شد.');
-        return redirect()->route('admin.agent.invoice.index' , ['agent' => $agent->id]);
+        return redirect()->route('admin.invoice.index');
     }
 }

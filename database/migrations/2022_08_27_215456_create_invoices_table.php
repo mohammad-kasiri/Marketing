@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('account_number')->nullable();
             $table->string('description' , 500)->nullable();
             $table->string('status')->default('sent');
+            $table->timestamp('paid_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -47,9 +47,9 @@
                             <tr class="text-muted">
                                 <th class="text-center">#</th>
                                 <th class="text-center">مبلغ</th>
-                                <th class="text-center">حساب</th>
+                                <th class="text-center">چهار رقم آخر شماره کارت</th>
                                 <th class="text-center">توضیحات</th>
-                                <th class="text-center">تاریخ ایجاد</th>
+                                <th class="text-center">تاریخ واریز</th>
                                 <th class="text-center">وضعیت</th>
                                 <th class="text-center">عملیات</th>
                             </tr>
@@ -58,10 +58,10 @@
                             @foreach($invoices as $key=>$invoice)
                                 <tr>
                                     <td class="text-center align-middle"> {{\App\Functions\PaginationCounter::item($invoices , $key)}} </td>
-                                    <td class="text-center align-middle text-nowrap"> {{$invoice->price}} </td>
-                                    <td class="text-center align-middle text-nowrap"> {{$invoice->account_number}} </td>
+                                    <td class="text-center align-middle text-nowrap"> {{$invoice->price()}} تومان </td>
+                                    <td class="text-center align-middle text-nowrap"> {{$invoice->account_number}}  </td>
                                     <td class="text-center align-middle text-nowrap"> {{$invoice->status()}} </td>
-                                    <td class="text-center align-middle text-nowrap"> {{$invoice->created_at()}} </td>
+                                    <td class="text-center align-middle text-nowrap"> {{$invoice->paid_at()}} </td>
                                     <td class="text-center align-middle text-nowrap">
                                         <button class="btn btn-outline-danger"
                                                 data-container="body"
