@@ -32,7 +32,7 @@ class InvoiceController extends Controller
     public function update(Invoice $invoice, Request $request)
     {
         $this->validate($request , [
-            'price'          => ['required','numeric'],
+            'price'          => ['required'],
             'account_number' => ['required','numeric'],
             'description'    => ['nullable'],
             'products'       => ['required' , 'array'],
@@ -43,7 +43,7 @@ class InvoiceController extends Controller
         ]);
 
         $invoice->update([
-            'price'          => $request->price,
+            'price'          => str_replace(',' , '' , $request->price),
             'account_number' => $request->account_number,
             'description'    => $request->description,
             'status'         => $request->status,
@@ -64,5 +64,17 @@ class InvoiceController extends Controller
         $invoice->delete();
         Session::flash('message', 'فاکتور با موفقیت حذف شد.');
         return redirect()->route('admin.invoice.index');
+    }
+
+    public function status(Invoice $invoice, Request $request)
+    {
+        $this->validate($request, [
+            'status' => ['required' , 'in:approved,rejected,sent']
+        ]);
+
+        $invoice->status = $request->status;
+        $invoice->save();
+        return redirect()->back();
+
     }
 }

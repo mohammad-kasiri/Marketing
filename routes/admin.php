@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\AgentInvoiceController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\API\ChartController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,10 @@ Route::middleware(['auth' , 'is_admin'])->prefix('admin')->name('admin.')->group
     Route::get('invoice/{invoice}/edit',                    [InvoiceController::class , 'edit'])        ->name('invoice.edit');
     Route::patch('invoice/{invoice}',                       [InvoiceController::class , 'update'])      ->name('invoice.update');
     Route::delete('invoice/{invoice}',                      [InvoiceController::class , 'destroy'])     ->name('invoice.destroy');
+
+    Route::patch('invoice/{invoice}/status',                [InvoiceController::class , 'status'])     ->name('invoice.update.status');
+
+    Route::get ('report',                                   [ReportController::class , 'index'])        ->name('report.index');
 
 
     Route::get('chart/weekly' ,                             [ChartController::class   , 'weekly'])      ->name('chart.total.weekly');

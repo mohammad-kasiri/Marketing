@@ -33,7 +33,7 @@ class AgentInvoiceController extends Controller
     public function update(User $agent, Invoice $invoice, Request $request)
     {
         $this->validate($request , [
-            'price'          => ['required','numeric'],
+            'price'          => ['required'],
             'account_number' => ['required','numeric'],
             'description'    => ['nullable'],
             'products'       => ['required' , 'array'],
@@ -44,7 +44,7 @@ class AgentInvoiceController extends Controller
         ]);
 
         $invoice->update([
-            'price'          => $request->price,
+            'price'          => str_replace(',' , '' , $request->price),
             'account_number' => $request->account_number,
             'description'    => $request->description,
             'status'         => $request->status,

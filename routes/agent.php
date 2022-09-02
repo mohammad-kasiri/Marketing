@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Agent\HomeController;
 use App\Http\Controllers\Agent\InvoiceController;
+use App\Http\Controllers\Agent\ReportController;
 use App\Http\Controllers\API\ChartController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,9 @@ Route::middleware(['auth'])->prefix('agent')->name('agent.')->group(function () 
     Route::get('invoice/{invoice}/edit',   [InvoiceController::class , 'edit'])          ->name('invoice.edit');
     Route::patch('invoice/{invoice}',      [InvoiceController::class , 'update'])        ->name('invoice.update');
     Route::delete('invoice/{invoice}',     [InvoiceController::class , 'destroy'])       ->name('invoice.destroy');
+
+    Route::get ('report',                  [ReportController::class , 'index'])          ->name('report.index');
+
 
     Route::get('chart/w/{agent}' ,         [ChartController::class   , 'agentWeekly'])   ->name('chart.agent.weekly');
     Route::get('chart/m/{agent}' ,         [ChartController::class   , 'agentMonthly'])  ->name('chart.agent.monthly');

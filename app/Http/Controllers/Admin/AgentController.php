@@ -66,11 +66,12 @@ class AgentController extends Controller
     private function agentInputs($request)
     {
         return [
-            'first_name' => $request->validated('first_name'),
-            'last_name'  => $request->validated('last_name'),
-            'gender'     => $request->validated('gender'),
-            'email'      => $request->validated('email'),
-            'percentage' => $request->validated('percentage'),
+            'first_name'   => $request->validated('first_name'),
+            'last_name'    => $request->validated('last_name'),
+            'gender'       => $request->validated('gender'),
+            'email'        => $request->validated('email'),
+            'percentage'   => $request->validated('percentage'),
+            'sheba_number' => $request->validated('sheba_number'),
         ];
     }
 }

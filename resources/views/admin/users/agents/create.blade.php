@@ -100,10 +100,11 @@
                                         <div class="col-xl-12">
                                             <div class="form-group row">
                                                 <div class="col-lg-9 col-xl-6">
-                                                    <h3 class="mb-10 font-weight-bold text-dark">درصد بازاریاب</h3>
+                                                    <h3 class="mb-10 font-weight-bold text-dark">اطلاعات بازاریاب</h3>
                                                 </div>
                                             </div>
                                             <x-dashboard.form.row-input label="درصد بازاریاب"  name="percentage" type="number"/>
+                                            <x-dashboard.form.row-input label="شماره شبا"     name="sheba_number" type="number"/>
                                         </div>
                                     </div>
                                 </div>

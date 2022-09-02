@@ -25,6 +25,7 @@ class User extends Authenticatable implements HasMedia
         'mobile',
         'email',
         'percentage',
+        'sheba_number',
         'password',
     ];
 
@@ -39,7 +40,7 @@ class User extends Authenticatable implements HasMedia
 
     public function scopeAgents($query)
     {
-        return $query->where('level', '=', 'agent');
+        return $query->where('level','agent');
     }
 
     public function getFullNameAttribute()

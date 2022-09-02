@@ -39,9 +39,21 @@
                 <!--begin::Menu Nav-->
                 <ul class="menu-nav ">
                     <li class="menu-item">
+                        <a  href="{{route('agent.index')}}" class="menu-link menu-toggle">
+                            <i class="menu-icon flaticon-home"></i>
+                            <span class="menu-text">پیشخوان</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
                         <a  href="{{route('agent.invoice.index')}}" class="menu-link menu-toggle">
                             <i class="menu-icon flaticon2-checking"></i>
                             <span class="menu-text">مدیریت فاکتور ها</span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a  href="{{route('agent.report.index')}}" class="menu-link menu-toggle">
+                            <i class="menu-icon flaticon-pie-chart-1"></i>
+                            <span class="menu-text">گزارش گیری بازه ای</span>
                         </a>
                     </li>
                 </ul>

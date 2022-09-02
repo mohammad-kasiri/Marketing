@@ -186,9 +186,9 @@
                                 <tr class="text-muted">
                                     <th class="text-center">مبلغ</th>
                                     <th class="text-center">چهار رقم آخر شماره کارت</th>
-                                    <th class="text-center">توضیحات</th>
-                                    <th class="text-center">تاریخ واریز</th>
                                     <th class="text-center">وضعیت</th>
+                                    <th class="text-center">تاریخ واریز</th>
+                                    <th class="text-center">توضیحات</th>
                                 </tr>
                                 </thead>
                                 <tbody>

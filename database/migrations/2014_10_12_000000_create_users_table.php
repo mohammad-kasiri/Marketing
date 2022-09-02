@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('last_name'  , 25)->nullable();
 
             $table->float('percentage')->default(5);
+            $table->string('sheba_number',30)->nullable();
 
             $table->string('mobile' , 13)->unique();
             $table->string('email'  , 50)->unique()->nullable();

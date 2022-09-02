@@ -82,6 +82,7 @@
                                 <th class="text-center">تاریخ ایجاد</th>
                                 <th class="text-center">وضعیت</th>
                                 <th class="text-center">عملیات</th>
+                                <th class="text-center">کنترل</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -92,7 +93,7 @@
                                     <td class="text-center align-middle text-nowrap"> {{ $invoice->price()}} تومان </td>
                                     <td class="text-center align-middle text-nowrap"> {{ $invoice->account_number}}  </td>
                                     <td class="text-center align-middle text-nowrap"> {{ $invoice->status()}} </td>
-                                    <td class="text-center align-middle text-nowrap"> {{ $invoice->created_at()}} </td>
+                                    <td class="text-center align-middle text-nowrap"> {{ $invoice->paid_at()}} </td>
                                     <td class="text-center align-middle text-nowrap">
                                         <button class="btn btn-outline-danger"
                                                 data-container="body"
@@ -122,6 +123,62 @@
                                                 data-placement="top"
                                                 data-content="حذف">
                                                 <i class="far fa-trash-alt"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+
+                                    <td class="text-center align-middle text-nowrap">
+                                        <form action="{{route('admin.invoice.update.status' , ['invoice' => $invoice->id])}}" id="update{{$invoice->id}}" method="post" class="d-inline">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button
+                                                class="btn btn-icon btn-circle btn-sm btn-outline-success"
+                                                data-container="body"
+                                                data-delay="500"
+                                                data-toggle="popover"
+                                                data-placement="top"
+                                                data-content="تایید فاکتور"
+                                                type="submit"
+                                                form="update{{$invoice->id}}"
+                                                name="status"
+                                                value="approved">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                        </form>
+
+                                        <form action="{{route('admin.invoice.update.status' , ['invoice' => $invoice->id])}}" id="update{{$invoice->id}}" method="post" class="d-inline">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button
+                                                class="btn btn-icon btn-circle btn-sm btn-outline-danger"
+                                                data-container="body"
+                                                data-delay="500"
+                                                data-toggle="popover"
+                                                data-placement="top"
+                                                data-content="رد فاکتور"
+                                                type="submit"
+                                                form="update{{$invoice->id}}"
+                                                name="status"
+                                                value="rejected">
+                                                <i class="fas fa-skull"></i>
+                                            </button>
+                                        </form>
+
+                                        <form action="{{route('admin.invoice.update.status' , ['invoice' => $invoice->id])}}" id="update{{$invoice->id}}" method="post" class="d-inline">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button
+                                                class="btn btn-icon btn-circle btn-sm btn-outline-warning"
+                                                data-container="body"
+                                                data-delay="500"
+                                                data-toggle="popover"
+                                                data-placement="top"
+                                                data-content="ارسال شده"
+                                                type="submit"
+                                                form="update{{$invoice->id}}"
+                                                name="status"
+                                                value="sent">
+                                                <i class="fas fa-exclamation"></i>
                                             </button>
                                         </form>
                                     </td>

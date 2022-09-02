@@ -28,7 +28,7 @@
                 <form action="{{route('agent.invoice.store')}}" method="post"> @csrf
                 <div class="row justify-content-center">
                     <div class="col-md-8">
-                        <x-dashboard.form.row-input label="مبلغ (تومان)" name="price" type="number"/>
+                        <x-dashboard.form.row-input label="مبلغ (تومان)" name="price" type="text" separate="1"/>
                     </div>
                     <div class="col-md-8">
                         <x-dashboard.form.row-input label="چهار رقم آخر شماره کارت" name="account_number"/>

@@ -27,7 +27,7 @@ class InvoiceController extends Controller
     public function store(Request $request)
     {
         $this->validate($request , [
-            'price'          => ['required','numeric'],
+            'price'          => ['required'],
             'account_number' => ['required','numeric'],
             'description'    => ['nullable'],
             'products'       => ['required' , 'array'],
@@ -36,7 +36,7 @@ class InvoiceController extends Controller
             'paid_at_time'   => ['required'],
         ]);
         $invoice = auth()->user()->invoice()->create([
-            'price'          => $request->price,
+            'price'          => str_replace(',' , '' , $request->price),
             'account_number' => $request->account_number,
             'description'    => $request->description,
             'paid_at'        => DateFormatter::format($request->paid_at_date , $request->paid_at_time),
@@ -65,7 +65,7 @@ class InvoiceController extends Controller
     public function update(Request $request, Invoice $invoice)
     {
         $this->validate($request , [
-            'price'          => ['required','numeric'],
+            'price'          => ['required'],
             'account_number' => ['required','numeric'],
             'description'    => ['nullable'],
             'products'       => ['required' , 'array'],
@@ -75,7 +75,7 @@ class InvoiceController extends Controller
         ]);
 
         $invoice->update([
-            'price'          => $request->price,
+            'price'          => str_replace(',' , '' , $request->price),
             'account_number' => $request->account_number,
             'description'    => $request->description,
             'paid_at'        => DateFormatter::format($request->paid_at_date , $request->paid_at_time),

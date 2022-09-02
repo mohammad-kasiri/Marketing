@@ -30,7 +30,7 @@
                     @method('PATCH')
                     <div class="row justify-content-center">
                         <div class="col-md-8">
-                            <x-dashboard.form.row-input label="مبلغ" name="price" type="number" value="{{$invoice->price}}"/>
+                            <x-dashboard.form.row-input label="مبلغ (تومان) " name="price" type="text" value="{{$invoice->price}}" separate="1"/>
                         </div>
                         <div class="col-md-8">
                             <x-dashboard.form.row-input label="چهار رقم آخر شماره کارت" name="account_number" value="{{$invoice->account_number}}"/>

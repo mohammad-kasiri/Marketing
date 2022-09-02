@@ -15,7 +15,7 @@
                             <x-dashboard.icons.svg.equalizer/>
                         </span>
                             <div class="text-inverse-dark font-weight-bolder font-size-h5 mb-2 mt-5">میزان فروش امروز</div>
-                            <div class="font-weight-bold text-inverse-dark font-size-sm"> {{$today_sum}} تومان </div>
+                            <div class="font-weight-bold text-inverse-dark font-size-sm"> {{number_format($today_sum)}} تومان </div>
                         </div>
                         <!--end::Body-->
                     </a>
@@ -31,7 +31,7 @@
                             <x-dashboard.icons.svg.equalizer/>
                         </span>
                             <div class="text-inverse-dark font-weight-bolder font-size-h5 mb-2 mt-5">میزان فروش این هفته</div>
-                            <div class="font-weight-bold text-inverse-dark font-size-sm"> {{$weekly_sum}} تومان </div>
+                            <div class="font-weight-bold text-inverse-dark font-size-sm"> {{number_format($weekly_sum)}} تومان </div>
                         </div>
                         <!--end::Body-->
                     </a>
@@ -47,7 +47,7 @@
                             <x-dashboard.icons.svg.equalizer/>
                         </span>
                             <div class="text-inverse-dark font-weight-bolder font-size-h5 mb-2 mt-5">میزان فروش این ماه</div>
-                            <div class="font-weight-bold text-inverse-dark font-size-sm"> {{$monthly_sum}} تومان </div>
+                            <div class="font-weight-bold text-inverse-dark font-size-sm"> {{number_format($monthly_sum)}} تومان </div>
                         </div>
                         <!--end::Body-->
                     </a>
@@ -65,7 +65,7 @@
                             <div class="d-flex align-items-center justify-content-between card-spacer flex-grow-1">
                                 <div class="d-flex flex-column mr-2">
                                     <a href="#" class="text-dark-75 text-hover-primary font-weight-bolder font-size-h5">فروش هفتگی</a>
-                                    <span class="text-muted font-weight-bold mt-2"> {{$weekly_sum}}  تومان</span>
+                                    <span class="text-muted font-weight-bold mt-2"> {{number_format($weekly_sum)}}  تومان</span>
                                 </div>
                             </div>
                             <div id="agent_total_weekly" data-user="{{auth()->id()}}" class="card-rounded-bottom" style="height: 150px"></div>
@@ -82,7 +82,7 @@
                             <div class="d-flex align-items-center justify-content-between card-spacer flex-grow-1">
                                 <div class="d-flex flex-column mr-2">
                                     <a href="#" class="text-dark-75 text-hover-primary font-weight-bolder font-size-h5">فروش ماهانه</a>
-                                    <span class="text-muted font-weight-bold mt-2"> {{$monthly_sum}} تومان </span>
+                                    <span class="text-muted font-weight-bold mt-2"> {{number_format($monthly_sum)}} تومان </span>
                                 </div>
                             </div>
                             <div id="agent_total_monthly" data-user="{{auth()->id()}}" class="card-rounded-bottom" style="height: 150px"></div>

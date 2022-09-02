@@ -112,6 +112,7 @@
                                                     </div>
                                                 </div>
                                                 <x-dashboard.form.row-input label="درصد بازاریاب"  name="percentage" type="number" value="{{$agent->percentage}}"/>
+                                                <x-dashboard.form.row-input label="شماره شبا"     name="sheba_number" type="number" value="{{$agent->sheba_number}}"/>
                                             </div>
                                         </div>
                                     </div>

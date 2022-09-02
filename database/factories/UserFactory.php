@@ -46,13 +46,14 @@ class UserFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'level'      => 'admin',
-                'gender'     => 'male',
-                'first_name' => 'محمد',
-                'last_name'  => 'کثیری',
-                'mobile'     => '09109529484',
-                'email'      => 'mohammad.kasirey@gmail.com',
-                'password'   => Hash::make(11111111),
+                'level'         => 'admin',
+                'gender'        => 'male',
+                'first_name'    => 'محمد',
+                'last_name'     => 'کثیری',
+                'mobile'        => '09109529484',
+                'email'         => 'mohammad.kasirey@gmail.com',
+                'password'      => Hash::make(11111111),
+                'sheba_number'  => rand(10000000 , 99999999).rand(10000000 , 99999999).rand(10000000 , 99999999),
                 'email_verified_at' => now(),
             ];
         });
