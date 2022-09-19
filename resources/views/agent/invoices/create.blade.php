@@ -1,17 +1,17 @@
 @extends('agent.layout.master')
-@section('title' , "افزودن فاکتور جدید" )
-@section('headline', "افزودن فاکتور جدید")
+@section('title' , "افزودن رسید   جدید" )
+@section('headline', "افزودن رسید   جدید")
 
 @section('subheader')
     @php
         $buttons = [
             [
-                'title' => 'بازگشت به لیست فاکتور ها' ,
+                'title' => 'بازگشت به لیست رسید   ها' ,
                 'icon'   =>  '<i class="fas fa-undo icon-nm"></i>' ,
                 'route' => route('agent.invoice.index') ],
         ];
     @endphp
-    <x-dashboard.subheader :links='$buttons??[]' :title="'افزودن فاکتور جدید'" />
+    <x-dashboard.subheader :links='$buttons??[]' :title="'افزودن رسید   جدید'" />
 @endsection
 
 @section('content')
@@ -20,7 +20,7 @@
             <div class="card-header flex-wrap border-0 pt-6 pb-0">
                 <div class="card-title">
                     <h3 class="card-label">
-                        افزودن فاکتور جدید
+                        افزودن رسید   جدید
                     </h3>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                     </div>
                 </div>
 
-                <button class="btn btn-primary float-right" type="submit"> افزودن فاکتور</button>
+                <button class="btn btn-primary float-right" type="submit"> افزودن رسید  </button>
                 </form>
             </div>
         </div>

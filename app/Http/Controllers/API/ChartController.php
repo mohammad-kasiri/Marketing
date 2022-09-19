@@ -22,7 +22,7 @@ class ChartController extends Controller
 
         foreach ($days as $day)
             $sale[] = (int) Invoice::query()
-                ->whereDay('created_at', $day)
+                ->whereDay('paid_at', $day)
                 ->where('user_id' , $request->agent)
                 ->sum('price');
 
@@ -50,7 +50,7 @@ class ChartController extends Controller
 
         foreach ($days as $day)
             $sale[] = (int) Invoice::query()
-                ->whereMonth('created_at', $day)
+                ->whereMonth('paid_at', $day)
                 ->where('user_id' , $request->agent)
                 ->sum('price');
 
@@ -78,7 +78,7 @@ class ChartController extends Controller
 
         foreach ($days as $day)
             $sale[] = (int) Invoice::query()
-                ->whereDay('created_at', $day)
+                ->whereDay('paid_at', $day)
                 ->sum('price');
 
 
@@ -105,7 +105,7 @@ class ChartController extends Controller
 
         foreach ($days as $day)
             $sale[] = (int) Invoice::query()
-                ->whereMonth('created_at', $day)
+                ->whereMonth('paid_at', $day)
                 ->sum('price');
 
 

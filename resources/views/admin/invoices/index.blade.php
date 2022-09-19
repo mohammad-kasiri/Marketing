@@ -1,9 +1,9 @@
 @extends('admin.layout.master')
-@section('title' , " لیست فاکتور ها ")
-@section('headline', "لیست فاکتور ها")
+@section('title' , " لیست رسید   ها ")
+@section('headline', "لیست رسید   ها")
 
 @section('subheader')
-    <x-dashboard.subheader :links='[]' :title="'لیست فاکتور ها'" />
+    <x-dashboard.subheader :links='[]' :title="'لیست رسید   ها'" />
 @endsection
 
 @section('content')
@@ -65,7 +65,7 @@
                 <div class="card-header flex-wrap border-0 pt-6 pb-0">
                     <div class="card-title">
                         <h3 class="card-label">
-                            لیست فاکتورها
+                            لیست رسید  ها
                         </h3>
                     </div>
                 </div>
@@ -78,9 +78,9 @@
                                 <th class="text-center">کاربر</th>
                                 <th class="text-center">مبلغ</th>
                                 <th class="text-center">چهار رقم آخر شماره کارت</th>
-                                <th class="text-center">توضیحات</th>
-                                <th class="text-center">تاریخ ایجاد</th>
                                 <th class="text-center">وضعیت</th>
+                                <th class="text-center">تاریخ ایجاد</th>
+                                <th class="text-center">توضیحات</th>
                                 <th class="text-center">عملیات</th>
                                 <th class="text-center">کنترل</th>
                             </tr>
@@ -92,7 +92,9 @@
                                     <td class="text-center align-middle text-nowrap"> {{ $invoice->user->full_name }} </td>
                                     <td class="text-center align-middle text-nowrap"> {{ $invoice->price()}} تومان </td>
                                     <td class="text-center align-middle text-nowrap"> {{ $invoice->account_number}}  </td>
-                                    <td class="text-center align-middle text-nowrap"> {{ $invoice->status()}} </td>
+                                    <td class="text-center align-middle text-nowrap
+                                         text-{{$invoice->status_color()}}">
+                                        {{ $invoice->status()}} </td>
                                     <td class="text-center align-middle text-nowrap"> {{ $invoice->paid_at()}} </td>
                                     <td class="text-center align-middle text-nowrap">
                                         <button class="btn btn-outline-danger"
@@ -137,7 +139,7 @@
                                                 data-delay="500"
                                                 data-toggle="popover"
                                                 data-placement="top"
-                                                data-content="تایید فاکتور"
+                                                data-content="تایید رسید  "
                                                 type="submit"
                                                 form="update{{$invoice->id}}"
                                                 name="status"
@@ -155,7 +157,7 @@
                                                 data-delay="500"
                                                 data-toggle="popover"
                                                 data-placement="top"
-                                                data-content="رد فاکتور"
+                                                data-content="رد رسید  "
                                                 type="submit"
                                                 form="update{{$invoice->id}}"
                                                 name="status"

@@ -6,7 +6,10 @@ use App\Http\Controllers\Admin\AgentInvoiceController;
 use App\Http\Controllers\Admin\InvoiceController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\API\ChartController;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth' , 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -37,9 +40,17 @@ Route::middleware(['auth' , 'is_admin'])->prefix('admin')->name('admin.')->group
     Route::patch('invoice/{invoice}',                       [InvoiceController::class , 'update'])      ->name('invoice.update');
     Route::delete('invoice/{invoice}',                      [InvoiceController::class , 'destroy'])     ->name('invoice.destroy');
 
-    Route::patch('invoice/{invoice}/status',                [InvoiceController::class , 'status'])     ->name('invoice.update.status');
+    Route::patch('invoice/{invoice}/status',                [InvoiceController::class , 'status'])      ->name('invoice.update.status');
 
     Route::get ('report',                                   [ReportController::class , 'index'])        ->name('report.index');
+    Route::get ('setting',                                  [SettingController::class , 'index'])       ->name('setting.index');
+    Route::patch('setting',                                 [SettingController::class , 'update'])      ->name('setting.update');
+
+    Route::get ('transaction',                              [TransactionController::class , 'index'])   ->name('transaction.index');
+    Route::post('transaction/{user}',                       [TransactionController::class , 'store'])   ->name('transaction.store');
+    Route::get('transaction/{transaction}/edit',            [TransactionController::class , 'edit'])    ->name('transaction.edit');
+    Route::patch('transaction/{transaction}/update',        [TransactionController::class , 'update'])  ->name('transaction.update');
+    Route::patch('transaction/{transaction}/status',        [TransactionController::class , 'status'])  ->name('transaction.update.status');
 
 
     Route::get('chart/weekly' ,                             [ChartController::class   , 'weekly'])      ->name('chart.total.weekly');

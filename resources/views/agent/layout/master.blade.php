@@ -8,6 +8,19 @@
     <link href="{{mix('dashboard/css/dashboard.css')}}" rel="stylesheet" type="text/css"/>
     <link  href="{{asset("dashboard/css/jalaliDatepicker.min.css")}}"type="text/css" rel="stylesheet">
     <link rel="icon" type="image/png" href="{{asset('/dashboard/img/logo.png')}}">
+    <style>
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
 </head>
 
 <body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">

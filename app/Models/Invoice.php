@@ -39,10 +39,18 @@ class Invoice extends Model
 
     public function status()
     {
-        if($this->status == 'sent')     return 'ارسال شده';
+        if($this->status == 'sent')     return 'در حال بررسی';
         if($this->status == 'approved') return 'تایید شده';
-        if($this->status == 'rejected') return 'غیر قابل قبول';
+        if($this->status == 'rejected') return 'رد شده';
     }
+
+    public function status_color()
+    {
+        if($this->status == 'sent')     return 'warning';
+        if($this->status == 'approved') return 'success';
+        if($this->status == 'rejected') return 'danger';
+    }
+
     public function price()
     {
         return number_format($this->price);

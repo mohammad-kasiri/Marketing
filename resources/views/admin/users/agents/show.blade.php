@@ -104,7 +104,7 @@
                                     </span>
                                 </span>
                                     <span class="navi-text font-size-lg">
-                                    فاکتور های کاربر
+                                    رسید   های کاربر
                                 </span>
                                 </a>
                             </div>
@@ -173,7 +173,7 @@
                     <!--begin::Header-->
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label font-weight-bolder text-dark">10 فاکتور آخر</span>
+                            <span class="card-label font-weight-bolder text-dark">10 رسید   آخر</span>
                         </h3>
                     </div>
                     <!--end::Header-->
@@ -196,7 +196,14 @@
                                     <tr>
                                         <td class="text-center align-middle text-nowrap"> {{$invoice->price() }}  تومان </td>
                                         <td class="text-center align-middle text-nowrap"> {{$invoice->account_number}} </td>
-                                        <td class="text-center align-middle text-nowrap"> {{$invoice->status()}} </td>
+                                        <td class="text-center align-middle text-nowrap
+                                        @if($invoice->status == 'sent')
+                                            text-warning
+                                        @elseif($invoice->status == 'rejected')
+                                            text-danger
+                                        @elseif($invoice->status == 'approved')
+                                            text-success
+                                        @endif"> {{$invoice->status()}} </td>
                                         <td class="text-center align-middle text-nowrap"> {{$invoice->paid_at()}} </td>
                                         <td class="text-center align-middle text-nowrap">
                                             <button class="btn btn-outline-danger"

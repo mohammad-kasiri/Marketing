@@ -55,14 +55,14 @@ class InvoiceController extends Controller
             $invoice->products()->sync($request->products);
         }
 
-        Session::flash('message', 'فاکتور با موفقیت ویرایش شد.');
+        Session::flash('message', 'رسید   با موفقیت ویرایش شد.');
         return redirect()->route('admin.invoice.index');
     }
 
     public function destroy(User $agent, Invoice $invoice)
     {
         $invoice->delete();
-        Session::flash('message', 'فاکتور با موفقیت حذف شد.');
+        Session::flash('message', 'رسید   با موفقیت حذف شد.');
         return redirect()->route('admin.invoice.index');
     }
 

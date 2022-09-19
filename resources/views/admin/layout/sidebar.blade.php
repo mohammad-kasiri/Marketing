@@ -36,34 +36,46 @@
             data-menu-scroll="1" data-menu-dropdown-timeout="500">
             <!--begin::Menu Nav-->
             <ul class="menu-nav ">
-                <li class="menu-item">
+                <li class="menu-item {{ request()->is('admin') ? 'menu-item-active' : '' }}">
                     <a  href="{{route('admin.index')}}" class="menu-link menu-toggle">
                         <i class="menu-icon flaticon-home"></i>
                         <span class="menu-text">پیشخوان</span>
                     </a>
                 </li>
-                <li class="menu-item" >
+                <li class="menu-item {{ request()->is('admin/agent*') ? 'menu-item-active' : '' }}" >
                     <a  href="{{route('admin.agent.index')}}" class="menu-link ">
                         <i class="menu-icon flaticon-users-1"><span></span></i>
                         <span class="menu-text">بازاریاب ها</span>
                     </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{ request()->is('admin/product*') ? 'menu-item-active' : '' }}">
                     <a  href="{{route('admin.product.index')}}" class="menu-link menu-toggle">
                         <i class="menu-icon flaticon-shopping-basket"></i>
                         <span class="menu-text">مدیریت محصولات</span>
                     </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item  {{ request()->is('admin/invoice*') ? 'menu-item-active' : '' }}">
                     <a  href="{{route('admin.invoice.index')}}" class="menu-link menu-toggle">
                         <i class="menu-icon flaticon2-chart"></i>
-                        <span class="menu-text">مدیریت فاکتور ها</span>
+                        <span class="menu-text">مدیریت رسید   ها</span>
                     </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item c">
                     <a  href="{{route('admin.report.index')}}" class="menu-link menu-toggle">
                         <i class="menu-icon flaticon-pie-chart-1"></i>
                         <span class="menu-text">گزارش گیری بازه ای</span>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->is('admin/transaction*') ? 'menu-item-active' : '' }}">
+                    <a  href="{{route('admin.transaction.index')}}" class="menu-link menu-toggle">
+                        <i class="menu-icon flaticon2-percentage"></i>
+                        <span class="menu-text">لیست  پورسانت   ها</span>
+                    </a>
+                </li>
+                <li class="menu-item {{ request()->is('admin/setting*') ? 'menu-item-active' : '' }}">
+                    <a  href="{{route('admin.setting.index')}}" class="menu-link menu-toggle">
+                        <i class="menu-icon flaticon-cogwheel-2"></i>
+                        <span class="menu-text">تنظیمات</span>
                     </a>
                 </li>
             </ul>

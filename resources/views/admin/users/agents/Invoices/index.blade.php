@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
-@section('title' , " لیست فاکتور های " .$agent->full_name )
-@section('headline', " لیست فاکتور های " . $agent->full_name )
+@section('title' , " لیست رسید   های " .$agent->full_name )
+@section('headline', " لیست رسید   های " . $agent->full_name )
 
 @section('subheader')
     @php
@@ -13,7 +13,7 @@
              ],
         ];
     @endphp
-    <x-dashboard.subheader :links='$buttons ?? []' :title="'لیست فاکتور ها'" />
+    <x-dashboard.subheader :links='$buttons ?? []' :title="'لیست رسید   ها'" />
 @endsection
 
 @section('content')
@@ -36,7 +36,7 @@
                 <div class="card-header flex-wrap border-0 pt-6 pb-0">
                     <div class="card-title">
                         <h3 class="card-label">
-                            لیست فاکتورها
+                            لیست رسید  ها
                         </h3>
                     </div>
                 </div>
@@ -48,9 +48,9 @@
                                 <th class="text-center">#</th>
                                 <th class="text-center">مبلغ</th>
                                 <th class="text-center">چهار رقم آخر شماره کارت</th>
-                                <th class="text-center">توضیحات</th>
-                                <th class="text-center">تاریخ واریز</th>
                                 <th class="text-center">وضعیت</th>
+                                <th class="text-center">تاریخ واریز</th>
+                                <th class="text-center">توضیحات</th>
                                 <th class="text-center">عملیات</th>
                             </tr>
                             </thead>
@@ -60,7 +60,9 @@
                                     <td class="text-center align-middle"> {{\App\Functions\PaginationCounter::item($invoices , $key)}} </td>
                                     <td class="text-center align-middle text-nowrap"> {{$invoice->price()}} تومان </td>
                                     <td class="text-center align-middle text-nowrap"> {{$invoice->account_number}}  </td>
-                                    <td class="text-center align-middle text-nowrap"> {{$invoice->status()}} </td>
+                                    <td class="text-center align-middle text-nowrap
+                                        text-{{$invoice->status_color()}}
+                                        "> {{$invoice->status()}} </td>
                                     <td class="text-center align-middle text-nowrap"> {{$invoice->paid_at()}} </td>
                                     <td class="text-center align-middle text-nowrap">
                                         <button class="btn btn-outline-danger"

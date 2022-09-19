@@ -47,7 +47,7 @@ class InvoiceController extends Controller
             $invoice->products()->attach($request->products);
         }
 
-        Session::flash('message', 'فاکتور با موفقیت ایجاد شد.');
+        Session::flash('message', 'رسید   با موفقیت ایجاد شد.');
         return redirect()->route('agent.invoice.index');
     }
 
@@ -85,7 +85,7 @@ class InvoiceController extends Controller
         {
             $invoice->products()->sync($request->products);
         }
-        Session::flash('message', 'فاکتور با موفقیت ویرایش شد.');
+        Session::flash('message', 'رسید   با موفقیت ویرایش شد.');
         return redirect()->route('agent.invoice.index');
     }
 
@@ -93,7 +93,7 @@ class InvoiceController extends Controller
     public function destroy(Invoice $invoice)
     {
         $invoice->delete();
-        Session::flash('message', 'فاکتور با موفقیت حذف شد.');
+        Session::flash('message', 'رسید   با موفقیت حذف شد.');
         return redirect()->route('agent.invoice.index');
     }
 

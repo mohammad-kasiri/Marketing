@@ -18,6 +18,11 @@ class ReportController extends Controller
             return view('admin.report.index')
                 ->with(['users' => $users]);
         }
+        if (is_null(request()->user)  || is_null(request()->to_date) || is_null(request()->from_date))
+        {
+            return view('admin.report.index')
+                ->with(['users' => $users]);
+        }
 
         $to_date   = DateFormatter::format(request()->input('to_date') , '00:00');
         $from_date = DateFormatter::format(request()->input('from_date') , '00:00');

@@ -1,15 +1,26 @@
 @extends('admin.layout.master')
-@section('title' , " لیست فاکتور ها ")
-@section('headline', "لیست فاکتور ها")
+@section('title' , " لیست رسید   ها ")
+@section('headline', "لیست رسید   ها")
 
 @section('subheader')
-    <x-dashboard.subheader :links='[]' :title="'لیست فاکتور ها'" />
+    <x-dashboard.subheader :links='[]' :title="'لیست رسید   ها'" />
 @endsection
 
 @section('content')
     <div class="container-fluid mt-3">
         <!--begin::Container-->
         <div class=" container ">
+            @if(\Illuminate\Support\Facades\Session::has('message'))
+                <div class="alert alert-custom alert-light-success fade show mb-5" role="alert">
+                    <div class="alert-icon"><i class="flaticon2-checkmark"></i></div>
+                    <div class="alert-text">{{\Illuminate\Support\Facades\Session::get('message')}}</div>
+                    <div class="alert-close">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="نزدیک">
+                            <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                        </button>
+                    </div>
+                </div>
+            @endif
             <!--begin::Notice-->
             <div class="card card-custom mb-4">
                 <div class="card-header flex-wrap border-0 pt-6 pb-0">
@@ -99,52 +110,79 @@
                         </a>
                     </div>
                 </div>
-                <div class="card card-custom">
-                    <div class="card-header flex-wrap border-0 pt-6 pb-0">
-                        <div class="card-title">
-                            <h3 class="card-label">
-                                لیست فاکتورها
-                            </h3>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card card-custom">
+                            <div class="card-header flex-wrap border-0 pt-6 pb-0">
+                                <div class="card-title">
+                                    <h3 class="card-label">
+                                        لیست رسید  ها
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive-sm">
+                                    <table class="table ">
+                                        <thead>
+                                        <tr class="text-muted">
+                                            <th class="text-center">#</th>
+                                            <th class="text-center">کاربر</th>
+                                            <th class="text-center">مبلغ</th>
+                                            <th class="text-center">چهار رقم آخر شماره کارت</th>
+                                            <th class="text-center">وضعیت</th>
+                                            <th class="text-center">تاریخ واریز</th>
+                                            <th class="text-center">توضیحات</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($invoices as $key=>$invoice)
+                                            <tr>
+                                                <td class="text-center align-middle"> {{$key +1}} </td>
+                                                <td class="text-center align-middle text-nowrap"> {{ $invoice->user->full_name }} </td>
+                                                <td class="text-center align-middle text-nowrap"> {{ $invoice->price()}} تومان </td>
+                                                <td class="text-center align-middle text-nowrap"> {{ $invoice->account_number}}  </td>
+                                                <td class="text-center align-middle text-nowrap"> {{ $invoice->status()}} </td>
+                                                <td class="text-center align-middle text-nowrap"> {{ $invoice->paid_at()}} </td>
+                                                <td class="text-center align-middle text-nowrap">
+                                                    <button class="btn btn-outline-danger"
+                                                            data-container="body"
+                                                            data-delay="500"
+                                                            data-toggle="popover"
+                                                            data-placement="top"
+                                                            data-content="{{$invoice->description}}">توضیحات</button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive-sm">
-                            <table class="table ">
-                                <thead>
-                                <tr class="text-muted">
-                                    <th class="text-center">#</th>
-                                    <th class="text-center">کاربر</th>
-                                    <th class="text-center">مبلغ</th>
-                                    <th class="text-center">چهار رقم آخر شماره کارت</th>
-                                    <th class="text-center">وضعیت</th>
-                                    <th class="text-center">تاریخ واریز</th>
-                                    <th class="text-center">توضیحات</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($invoices as $key=>$invoice)
-                                    <tr>
-                                        <td class="text-center align-middle"> {{$key +1}} </td>
-                                        <td class="text-center align-middle text-nowrap"> {{ $invoice->user->full_name }} </td>
-                                        <td class="text-center align-middle text-nowrap"> {{ $invoice->price()}} تومان </td>
-                                        <td class="text-center align-middle text-nowrap"> {{ $invoice->account_number}}  </td>
-                                        <td class="text-center align-middle text-nowrap"> {{ $invoice->status()}} </td>
-                                        <td class="text-center align-middle text-nowrap"> {{ $invoice->paid_at()}} </td>
-                                        <td class="text-center align-middle text-nowrap">
-                                            <button class="btn btn-outline-danger"
-                                                    data-container="body"
-                                                    data-delay="500"
-                                                    data-toggle="popover"
-                                                    data-placement="top"
-                                                    data-content="{{$invoice->description}}">توضیحات</button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                    <div class="col-md-4">
+                        <div class="card card-custom">
+                            <div class="card-header flex-wrap border-0 pt-6 pb-0">
+                                <div class="card-title">
+                                    <h3 class="card-label">
+                                        ایجاد  پورسانت
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <form action="{{route('admin.transaction.store' , ['user' => $agent->id])}}" method="post">@csrf
+                                    <x-dashboard.form.row-input label="فروش خالص" name="total" type="text" value="{{$total_amount}}"  separate="1" />
+                                    <x-dashboard.form.row-input label="سهم بازاریاب" name="percentage" type="text" value="{{($total_amount  / 100) * $agent->percentage}}" separate="1" />
+                                    <x-dashboard.form.row-input label="از تاریخ" name="from_date" type="text" value="{{request()->input('from_date')}}" />
+                                    <x-dashboard.form.row-input label="تا تاریخ" name="to_date" type="text" value="{{request()->input('to_date')}}"/>
+                                    <x-dashboard.form.row-input label="شماره پیگیری" name="tracing_number" type="text" />
+                                    <x-dashboard.form.row-input label="توضیحات" name="description" type="text" />
+                                    <button class="btn btn-primary float-right" type="submit">ذخیره  پورسانت  </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             @endif
         </div>
         <!--end::Container-->

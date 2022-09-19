@@ -33,7 +33,12 @@ class LoginController extends Controller
 
         Auth::login($user,  $request->has('remember'));
 
-        return redirect()->route('index');
+        if($user->level == 'admin')
+        {
+            return redirect()->route('admin.index');
+        }else {
+            return redirect()->route('agent.index');
+        }
     }
 
     public function logout()

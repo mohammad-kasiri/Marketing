@@ -63,7 +63,7 @@
                     <div class="card-body d-flex flex-column p-0">
                         <div class="d-flex align-items-center justify-content-between card-spacer flex-grow-1">
                             <div class="d-flex flex-column mr-2">
-                                <a href="#" class="text-dark-75 text-hover-primary font-weight-bolder font-size-h5">فروش هفتگی</a>
+                                <a class="text-dark-75 text-hover-primary font-weight-bolder font-size-h5">فروش هفتگی</a>
                                 <span class="text-muted font-weight-bold mt-2"> {{number_format($weekly_sum)}}  تومان</span>
                             </div>
                         </div>
@@ -80,7 +80,7 @@
                     <div class="card-body d-flex flex-column p-0">
                         <div class="d-flex align-items-center justify-content-between card-spacer flex-grow-1">
                             <div class="d-flex flex-column mr-2">
-                                <a href="#" class="text-dark-75 text-hover-primary font-weight-bolder font-size-h5">فروش ماهانه</a>
+                                <a class="text-dark-75 text-hover-primary font-weight-bolder font-size-h5">فروش ماهانه</a>
                                 <span class="text-muted font-weight-bold mt-2"> {{number_format($monthly_sum)}} تومان </span>
                             </div>
                         </div>
@@ -93,12 +93,12 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <div class="card card-custom">
                     <div class="card-header flex-wrap border-0 pt-6 pb-0">
                         <div class="card-title">
                             <h3 class="card-label">
-                                10 فاکتور آخر
+                                10 رسید   آخر
                             </h3>
                         </div>
                     </div>
@@ -122,6 +122,62 @@
                                         <td class="text-center align-middle text-nowrap"> {{$invoice->paid_at()}}</td>
                                     </tr>
                                 @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-custom">
+                    <div class="card-header flex-wrap border-0 pt-6 pb-0">
+                        <div class="card-title">
+                            <h3 class="card-label">
+                                رنکینگ
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive-sm">
+                            <table class="table ">
+                                <thead>
+                                <tr class="text-muted">
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">بازاریاب</th>
+                                    <th class="text-center">فروش خالص</th>
+                                    <th class="text-center">درصد بازاریاب</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($ranks as $key=>$rank)
+                                        <tr>
+                                            <td class="text-center align-middle text-nowrap">
+                                                {{$key+1}}
+                                            </td>
+                                            @foreach($users as $user)
+                                                @if($rank->user_id == $user->id)
+                                                    <td class="text-center align-middle text-nowrap">
+                                                        {{$user->full_name}}
+                                                    </td>
+                                                @endif
+                                            @endforeach
+                                            <td class="text-center align-middle text-nowrap"> {{number_format($rank->total)}}</td>
+
+                                            @foreach($users as $user)
+                                                @if($rank->user_id == $user->id && $key != 0)
+                                                    <td class="text-center align-middle text-nowrap">
+                                                        {{number_format( (($rank->total/100) * $user->percentage)) }}
+                                                    </td>
+                                                @endif
+
+                                                @if($rank->user_id == $user->id && $key == 0)
+                                                    <td class="text-center align-middle text-nowrap">
+                                                        {{number_format( (($rank->total/100) * 8)) }}
+                                                    </td>
+                                                @endif
+                                            @endforeach
+                                    </tr>
+                                  @endforeach
                                 </tbody>
                             </table>
                         </div>

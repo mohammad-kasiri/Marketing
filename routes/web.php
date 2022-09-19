@@ -17,6 +17,4 @@ Route::middleware(['guest'])->group(function (){
     Route::post('otp-login', [OtpLonginController::class , 'login'])->name('otp-login.submit')->middleware('throttle:auth_attempt');
 
     Route::post ('otp', [OtpController::class , 'store'])->name('otp.store')->middleware('throttle:auth_attempt');;
-
-
 });

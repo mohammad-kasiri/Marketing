@@ -5,10 +5,10 @@
 @section('subheader')
     @php
         $buttons = [
-            ['title' => 'افزودن فاکتور جدید' , 'icon' => '<i class="fas fa-plus icon-nm"></i>' , 'route' => route('agent.invoice.create') ],
+            ['title' => 'افزودن رسید   جدید' , 'icon' => '<i class="fas fa-plus icon-nm"></i>' , 'route' => route('agent.invoice.create') ],
         ];
     @endphp
-    <x-dashboard.subheader :links='$buttons ?? []' :title="'لیست فاکتور ها'" />
+    <x-dashboard.subheader :links='$buttons ?? []' :title="'لیست رسید   ها'" />
 @endsection
 
 @section('content')
@@ -31,7 +31,7 @@
                 <div class="card-header flex-wrap border-0 pt-6 pb-0">
                     <div class="card-title">
                         <h3 class="card-label">
-                            لیست فاکتورها
+                            لیست رسید  ها
                         </h3>
                     </div>
                 </div>
@@ -55,7 +55,16 @@
                                     <td class="text-center align-middle"> {{\App\Functions\PaginationCounter::item($invoices , $key)}} </td>
                                     <td class="text-center align-middle text-nowrap"> {{$invoice->price()}} تومان </td>
                                     <td class="text-center align-middle text-nowrap"> {{$invoice->account_number}} </td>
-                                    <td class="text-center align-middle text-nowrap"> {{$invoice->status()}} </td>
+                                    <td class="text-center align-middle text-nowrap
+                                        @if($invoice->status == 'sent')
+                                            text-warning
+                                        @elseif($invoice->status == 'rejected')
+                                            text-danger
+                                        @elseif($invoice->status == 'approved')
+                                            text-success
+                                        @endif
+                                    "> {{$invoice->status()}}
+                                    </td>
                                     <td class="text-center align-middle text-nowrap"> {{$invoice->created_at()}} </td>
                                     <td class="text-center align-middle text-nowrap">
                                         <button class="btn btn-outline-danger"

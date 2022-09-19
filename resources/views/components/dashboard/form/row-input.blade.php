@@ -8,12 +8,17 @@
     'autosearch'   => false,
     'disabled'     => false,
     'separate'      => false,
+    'readonly'      => false,
+
 ])
 
 <div class="form-group row">
     <label class="col-xl-3 col-lg-3 col-form-label @error($name) text-danger @enderror">{{$label}}</label>
     <div class="col-lg-9 col-xl-9">
-        <input class="form-control form-control-lg form-control-solid  @if($separate) number_sep @endif @error($name) is-invalid @enderror"
+        <input class="form-control form-control-lg form-control-solid
+            @if($readonly) readonly @endif
+            @if($separate) number_sep @endif
+            @error($name) is-invalid @enderror"
             name="{{$name}}"
             type="{{$type ?? "text"}}"
             placeholder="{{$label . ' را وارد کنید. '}}"
