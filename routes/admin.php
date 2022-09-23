@@ -47,6 +47,7 @@ Route::middleware(['auth' , 'is_admin'])->prefix('admin')->name('admin.')->group
     Route::patch('setting',                                 [SettingController::class , 'update'])      ->name('setting.update');
 
     Route::get ('transaction',                              [TransactionController::class , 'index'])   ->name('transaction.index');
+    Route::get('transaction/create',                        [TransactionController::class , 'create'])  ->name('transaction.create');
     Route::post('transaction/{user}',                       [TransactionController::class , 'store'])   ->name('transaction.store');
     Route::get('transaction/{transaction}/edit',            [TransactionController::class , 'edit'])    ->name('transaction.edit');
     Route::patch('transaction/{transaction}/update',        [TransactionController::class , 'update'])  ->name('transaction.update');
