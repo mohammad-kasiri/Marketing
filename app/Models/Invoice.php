@@ -17,11 +17,11 @@ class Invoice extends Model
 
     public function created_at()
     {
-        return Jalalian::forge($this->created_at)->format('%A, %d %B %Y');
+        return Jalalian::forge($this->created_at)->format(' H:i | %A, %d %B %Y ');
     }
     public function paid_at()
     {
-        return Jalalian::forge($this->paid_at)->format('%A, %d %B %Y');
+        return Jalalian::forge($this->paid_at)->format(' H:i | %A, %d %B %Y  ');
     }
 
     public function user()
@@ -41,7 +41,7 @@ class Invoice extends Model
     {
         if($this->status == 'sent')     return 'در حال بررسی';
         if($this->status == 'approved') return 'تایید شده';
-        if($this->status == 'rejected') return 'رد شده';
+        if($this->status == 'rejected') return 'عدم تایید';
     }
 
     public function status_color()

@@ -1,9 +1,14 @@
 @extends('admin.layout.master')
-@section('title' , " لیست  پورسانت   ها ")
-@section('headline', "لیست  پورسانت   ها")
+@section('title' , " لیست  پورسانت ها ")
+@section('headline', "لیست  پورسانت ها")
 
 @section('subheader')
-    <x-dashboard.subheader :links='[]' :title="'لیست  پورسانت   ها'" />
+    @php
+        $buttons = [
+            ['title' => 'افزودن پورسانت جدید' , 'icon' => '<i class="fas fa-plus icon-nm"></i>' , 'route' => route('admin.transaction.create') ],
+        ];
+    @endphp
+    <x-dashboard.subheader :links='$buttons ?? []' :title="'لیست  پورسانت   ها'" />
 @endsection
 
 @section('content')

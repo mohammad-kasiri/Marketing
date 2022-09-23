@@ -24,6 +24,7 @@ class ChartController extends Controller
             $sale[] = (int) Invoice::query()
                 ->whereDay('paid_at', $day)
                 ->where('user_id' , $request->agent)
+                ->where('status' , 'approved')
                 ->sum('price');
 
 
@@ -52,6 +53,7 @@ class ChartController extends Controller
             $sale[] = (int) Invoice::query()
                 ->whereMonth('paid_at', $day)
                 ->where('user_id' , $request->agent)
+                ->where('status' , 'approved')
                 ->sum('price');
 
 
@@ -79,6 +81,7 @@ class ChartController extends Controller
         foreach ($days as $day)
             $sale[] = (int) Invoice::query()
                 ->whereDay('paid_at', $day)
+                ->where('status' , 'approved')
                 ->sum('price');
 
 
@@ -106,6 +109,7 @@ class ChartController extends Controller
         foreach ($days as $day)
             $sale[] = (int) Invoice::query()
                 ->whereMonth('paid_at', $day)
+                ->where('status' , 'approved')
                 ->sum('price');
 
 

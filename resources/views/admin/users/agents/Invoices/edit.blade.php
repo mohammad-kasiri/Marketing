@@ -42,7 +42,7 @@
                             <x-dashboard.form.select.row name="status"  label="وضعیت">
                                 <option value="sent"     {{$invoice->status == 'sent' ? 'selected' : ''}}>ارسال شده</option>
                                 <option value="approved" {{$invoice->status == 'approved' ? 'selected' : ''}}>تایید شده</option>
-                                <option value="rejected" {{$invoice->status == 'rejected' ? 'selected' : ''}}>رد شده</option>
+                                <option value="rejected" {{$invoice->status == 'rejected' ? 'selected' : ''}}>عدم تایید</option>
                             </x-dashboard.form.select.row>
                         </div>
                         <div class="col-md-8">

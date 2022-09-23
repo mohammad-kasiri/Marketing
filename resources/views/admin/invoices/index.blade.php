@@ -51,7 +51,7 @@
                                     <option></option>
                                     <option value="sent"     {{request()->input('status ')== 'sent' ? 'selected' : ''}}>ارسال شده</option>
                                     <option value="approved" {{request()->input('status ')== 'approved' ? 'selected' : ''}}>تایید شده</option>
-                                    <option value="rejected" {{request()->input('status ')== 'rejected' ? 'selected' : ''}}>رد شده</option>
+                                    <option value="rejected" {{request()->input('status ')== 'rejected' ? 'selected' : ''}}>عدم تایید</option>
                                 </x-dashboard.form.select.row>
                             </div>
                             <div class="col-md-8">
@@ -157,7 +157,7 @@
                                                 data-delay="500"
                                                 data-toggle="popover"
                                                 data-placement="top"
-                                                data-content="رد رسید  "
+                                                data-content="عدم تایید رسید  "
                                                 type="submit"
                                                 form="update{{$invoice->id}}"
                                                 name="status"

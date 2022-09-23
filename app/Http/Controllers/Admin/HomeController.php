@@ -15,13 +15,17 @@ class HomeController extends Controller
     public function index()
     {
         $invoices   = Invoice::query()->with('user')->latest()->take(10)->get();
-        $today_sum  = (int) Invoice::query()->whereDay('paid_at', Carbon::today())->sum('price');
+        $today_sum  = (int) Invoice::query()
+            ->whereDay('paid_at', Carbon::today())
+            ->where('status' , 'approved')
+            ->sum('price');
 
         //GET SALE AMOUNT FOR EACH DAY
         $sale = [];
         for ($i = 6; $i>=0; $i--)
             $sale[] = (int) Invoice::query()
                 ->whereDay('paid_at', Carbon::today()->subDays($i))
+                ->where('status' , 'approved')
                 ->sum('price');
 
         $weekly_sum  = array_sum($sale);
@@ -31,6 +35,7 @@ class HomeController extends Controller
         for ($i = 11; $i>=0; $i--)
             $sale[] = (int) Invoice::query()
                 ->whereMonth('paid_at', Carbon::today()->subMonth($i))
+                ->where('status' , 'approved')
                 ->sum('price');
 
         $monthly_sum = array_sum($sale);
@@ -43,7 +48,7 @@ class HomeController extends Controller
             if ($data->getDay() == 25)
             {
                 $array = \Morilog\Jalali\CalendarUtils::toGregorian($data->getYear(), $data->getMonth(), $data->getDay());
-                $month25th = Carbon::create($array[0], $array[1], $array[2], 0, 0, 0);
+                $month25th = Carbon::create($array[0], $array[1], $array[2], 2, 0, 0);
                 break;
             }
         }
