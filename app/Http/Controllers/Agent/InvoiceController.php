@@ -27,19 +27,24 @@ class InvoiceController extends Controller
     public function store(Request $request)
     {
         $this->validate($request , [
-            'price'          => ['required'],
-            'account_number' => ['required','numeric'],
-            'description'    => ['nullable'],
-            'products'       => ['required' , 'array'],
-            'products.*'     => ['required' , 'numeric'],
-            'paid_at_date'   => ['required' , 'min:10' , 'max:10'],
-            'paid_at_time'   => ['required'],
+            'price'                 => ['required'],
+            'paid_by'               => ['required' , 'in:card,gateway'],
+            'account_number'        => ['nullable','numeric'],
+            'gateway_tracking_code' => ['nullable','numeric'],
+            'description'           => ['nullable'],
+            'products'              => ['required' , 'array'],
+            'products.*'            => ['required' , 'numeric'],
+            'paid_at_date'          => ['required' , 'min:10' , 'max:10'],
+            'paid_at_time'          => ['required'],
         ]);
+
         $invoice = auth()->user()->invoice()->create([
-            'price'          => str_replace(',' , '' , $request->price),
-            'account_number' => $request->account_number,
-            'description'    => $request->description,
-            'paid_at'        => DateFormatter::format($request->paid_at_date , $request->paid_at_time),
+            'price'                 => str_replace(',' , '' , $request->price),
+            'paid_by'               => $request->paid_by,
+            'account_number'        => $request->account_number,
+            'gateway_tracking_code' => $request->gateway_tracking_code,
+            'description'           => $request->description,
+            'paid_at'               => DateFormatter::format($request->paid_at_date , $request->paid_at_time),
         ]);
 
         if(isset($request->products) && is_array($request->products) && count($request->products) > 0)

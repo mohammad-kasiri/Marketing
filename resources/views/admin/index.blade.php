@@ -110,6 +110,7 @@
                                     <th class="text-center">#</th>
                                     <th class="text-center">عنوان</th>
                                     <th class="text-center">بازاریاب</th>
+                                    <th class="text-center">وضعیت</th>
                                     <th class="text-center">تاریخ ثبت</th>
                                 </tr>
                                 </thead>
@@ -119,6 +120,10 @@
                                         <td class="text-center align-middle"> {{ $key +1}} </td>
                                         <td class="text-center align-middle text-nowrap"> {{$invoice->price()}} تومان </td>
                                         <td class="text-center align-middle text-nowrap"> {{$invoice->user->full_name}}</td>
+                                        <td class="text-center align-middle text-nowrap
+                                                    text-{{$invoice->status_color()}}">
+                                            {{$invoice->status()}}
+                                        </td>
                                         <td class="text-center align-middle text-nowrap"> {{$invoice->paid_at()}}</td>
                                     </tr>
                                 @endforeach

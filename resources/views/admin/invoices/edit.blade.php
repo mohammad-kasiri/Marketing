@@ -33,14 +33,24 @@
                             <x-dashboard.form.row-input label="مبلغ (تومان)" name="price" type="text" value="{{$invoice->price}}" separate="1"/>
                         </div>
                         <div class="col-md-8">
+                            <x-dashboard.form.radio.row label="پرداخت شده توسط:">
+                                <x-dashboard.form.radio.button name="paid_by" value="card" label="کارت به کارت" checked="{{$invoice->paid_by == 'card'}}"/>
+                                <x-dashboard.form.radio.button name="paid_by" value="gateway" label="درگاه پرداخت" checked="{{$invoice->paid_by == 'gateway'}}"/>
+                            </x-dashboard.form.radio.row>
+                        </div>
+                        <div class="col-md-8" id="AccountNumberRow">
                             <x-dashboard.form.row-input label="چهار رقم آخر شماره کارت" name="account_number" value="{{$invoice->account_number}}"/>
                         </div>
+                        <div class="col-md-8" id="GatewayTrackingCodeRow">
+                            <x-dashboard.form.row-input label="شماره پیگیری درگاه" name="gateway_tracking_code" value="{{$invoice->gateway_tracking_code}}"/>
+                        </div>
+
                         <div class="col-md-8">
                             <x-dashboard.form.row-input label="توضیحات" name="description" value="{{$invoice->description}}"/>
                         </div>
                         <div class="col-md-8">
                             <x-dashboard.form.select.row name="status"  label="وضعیت">
-                                <option value="sent"     {{$invoice->status == 'sent' ? 'selected' : ''}}>ارسال شده</option>
+                                <option value="sent"     {{$invoice->status == 'sent' ? 'selected' : ''}}>در حال بررسی </option>
                                 <option value="approved" {{$invoice->status == 'approved' ? 'selected' : ''}}>تایید شده</option>
                                 <option value="rejected" {{$invoice->status == 'rejected' ? 'selected' : ''}}>عدم تایید</option>
                             </x-dashboard.form.select.row>
@@ -82,4 +92,35 @@
     </div>
 @endsection
 
+@section('script')
+    <script>
+        $('document').ready(function (){
+            let paid_by = $('input[name="paid_by"]:checked').val()
+
+            let AccountNumberRow = $('#AccountNumberRow');
+            let GatewayTrackingCodeRow = $('#GatewayTrackingCodeRow');
+
+            if (paid_by == 'card')      GatewayTrackingCodeRow.hide();
+            if (paid_by == 'gateway')   AccountNumberRow.hide();
+
+            $("input[name='paid_by']").click(function() {
+                let paid_by = $('input[name="paid_by"]:checked').val()
+
+                if (paid_by == 'card')
+                {
+                    GatewayTrackingCodeRow.hide();
+                    AccountNumberRow.show()
+                }
+
+                if (paid_by == 'gateway')
+                {
+                    GatewayTrackingCodeRow.show();
+                    AccountNumberRow.hide();
+                }
+
+            });
+
+        })
+    </script>
+@endsection
 

@@ -13,7 +13,7 @@ class Invoice extends Model
 
     const PAGINATION_LIMIT = 20;
 
-    protected $fillable=['price', 'account_number', 'description', 'status', 'paid_at'];
+    protected $fillable=['price', 'paid_by', 'account_number', 'gateway_tracking_code', 'description', 'status', 'paid_at'];
 
     public function created_at()
     {
@@ -21,7 +21,7 @@ class Invoice extends Model
     }
     public function paid_at()
     {
-        return Jalalian::forge($this->paid_at)->format(' H:i | %A, %d %B %Y  ');
+        return Jalalian::forge($this->paid_at)->format('   %A, %d %B      H:i   ');
     }
 
     public function user()

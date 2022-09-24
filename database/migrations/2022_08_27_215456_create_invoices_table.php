@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('price')->default(0);
+            $table->string('paid_by')->nullable();
             $table->string('account_number')->nullable();
+            $table->string('gateway_tracking_code')->nullable();
             $table->string('description' , 500)->nullable();
             $table->string('status')->default('sent');
             $table->timestamp('paid_at')->nullable();

@@ -42,7 +42,7 @@
                             <tr class="text-muted">
                                 <th class="text-center">#</th>
                                 <th class="text-center">مبلغ</th>
-                                <th class="text-center">چهار رقم آخر شماره کارت</th>
+                                <th class="text-center">مقصد</th>
                                 <th class="text-center">توضیحات</th>
                                 <th class="text-center">تاریخ ایجاد</th>
                                 <th class="text-center">وضعیت</th>
@@ -54,16 +54,21 @@
                                 <tr>
                                     <td class="text-center align-middle"> {{\App\Functions\PaginationCounter::item($invoices , $key)}} </td>
                                     <td class="text-center align-middle text-nowrap"> {{$invoice->price()}} تومان </td>
-                                    <td class="text-center align-middle text-nowrap"> {{$invoice->account_number}} </td>
-                                    <td class="text-center align-middle text-nowrap
-                                        @if($invoice->status == 'sent')
-                                            text-warning
-                                        @elseif($invoice->status == 'rejected')
-                                            text-danger
-                                        @elseif($invoice->status == 'approved')
-                                            text-success
+                                    <td class="text-center align-middle text-nowrap">
+                                        @if($invoice->paid_by == 'card')
+                                            <i class="fab fa-cc-visa"></i>
+                                            {{ $invoice->account_number}}
                                         @endif
-                                    "> {{$invoice->status()}}
+
+                                        @if($invoice->paid_by == 'gateway')
+                                            <i class="fas fa-warehouse"></i>
+                                            {{ $invoice->gateway_tracking_code}}
+                                        @endif
+
+                                    </td>
+                                    <td class="text-center align-middle text-nowrap
+                                               text-{{$invoice->status_color()}}">
+                                        {{$invoice->status()}}
                                     </td>
                                     <td class="text-center align-middle text-nowrap"> {{$invoice->created_at()}} </td>
                                     <td class="text-center align-middle text-nowrap">

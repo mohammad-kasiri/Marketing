@@ -77,7 +77,7 @@
                                 <th class="text-center">#</th>
                                 <th class="text-center">کاربر</th>
                                 <th class="text-center">مبلغ</th>
-                                <th class="text-center">چهار رقم آخر شماره کارت</th>
+                                <th class="text-center">مقصد</th>
                                 <th class="text-center">وضعیت</th>
                                 <th class="text-center">تاریخ ایجاد</th>
                                 <th class="text-center">توضیحات</th>
@@ -91,7 +91,18 @@
                                     <td class="text-center align-middle"> {{\App\Functions\PaginationCounter::item($invoices , $key)}} </td>
                                     <td class="text-center align-middle text-nowrap"> {{ $invoice->user->full_name }} </td>
                                     <td class="text-center align-middle text-nowrap"> {{ $invoice->price()}} تومان </td>
-                                    <td class="text-center align-middle text-nowrap"> {{ $invoice->account_number}}  </td>
+                                    <td class="text-center align-middle text-nowrap">
+                                        @if($invoice->paid_by == 'card')
+                                            <i class="fab fa-cc-visa"></i>
+                                            {{ $invoice->account_number}}
+                                        @endif
+
+                                        @if($invoice->paid_by == 'gateway')
+                                            <i class="fas fa-warehouse"></i>
+                                            {{ $invoice->gateway_tracking_code}}
+                                        @endif
+
+                                    </td>
                                     <td class="text-center align-middle text-nowrap
                                          text-{{$invoice->status_color()}}">
                                         {{ $invoice->status()}} </td>
