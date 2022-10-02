@@ -38,14 +38,16 @@ class InvoiceController extends Controller
             'paid_at_time'          => ['required'],
         ]);
 
-        $invoice = auth()->user()->invoice()->create([
+        $status = $this->checkStatus();
+
+        $invoice = auth()->user()->invoice()->create(array_merge([
             'price'                 => str_replace(',' , '' , $request->price),
             'paid_by'               => $request->paid_by,
             'account_number'        => $request->account_number,
             'gateway_tracking_code' => $request->gateway_tracking_code,
             'description'           => $request->description,
             'paid_at'               => DateFormatter::format($request->paid_at_date , $request->paid_at_time),
-        ]);
+        ] , $status));
 
         if(isset($request->products) && is_array($request->products) && count($request->products) > 0)
         {
@@ -102,4 +104,26 @@ class InvoiceController extends Controller
         return redirect()->route('agent.invoice.index');
     }
 
+
+    private function checkStatus() : array
+    {
+        $paid_by =  request()->input('paid_by') == 'card' ? 'card' : 'gateway';
+        $tracking_metric = request()->input('paid_by') == 'card' ? 'account_number' : 'gateway_tracking_code';
+
+        $suspiciousInvoice = Invoice::query()
+            ->whereDay('paid_at' ,DateFormatter::format(request()->input('paid_at_date') ,request()->input('paid_at_time')))   // CHECK PAID_AT
+            ->where('price'      , str_replace(',' , '' , request()->input('price')))          // PRICE
+            ->where($tracking_metric    , request()->input($tracking_metric))     // TRACKING METRIC
+            ->first();
+
+
+        if (! $suspiciousInvoice)
+            return ['status' => 'sent'];
+
+        return
+            [
+                'status'            => 'suspicious' ,
+                'suspicious_with'   => $suspiciousInvoice->id
+            ];
+    }
 }

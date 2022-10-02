@@ -23,6 +23,10 @@ return new class extends Migration
             $table->string('description' , 500)->nullable();
             $table->string('status')->default('sent');
             $table->timestamp('paid_at')->nullable();
+
+            $table->unsignedBigInteger('suspicious_with')->nullable();
+            $table->foreign('suspicious_with')->references('id')->on('invoices')->onDelete('cascade');
+
             $table->softDeletes();
             $table->timestamps();
         });

@@ -13,7 +13,7 @@ class Invoice extends Model
 
     const PAGINATION_LIMIT = 20;
 
-    protected $fillable=['price', 'paid_by', 'account_number', 'gateway_tracking_code', 'description', 'status', 'paid_at'];
+    protected $fillable=['price', 'suspicious_with', 'paid_by', 'account_number', 'gateway_tracking_code', 'description', 'status', 'paid_at'];
 
     public function created_at()
     {
@@ -29,6 +29,11 @@ class Invoice extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function suspicious()
+    {
+        return $this->belongsTo(static::class , 'suspicious_with');
+    }
+
     public function products()
     {
         return $this->belongsToMany(Product::class,
@@ -39,16 +44,18 @@ class Invoice extends Model
 
     public function status()
     {
-        if($this->status == 'sent')     return 'در حال بررسی';
-        if($this->status == 'approved') return 'تایید شده';
-        if($this->status == 'rejected') return 'عدم تایید';
+        if($this->status == 'sent')       return 'در حال بررسی';
+        if($this->status == 'approved')   return 'تایید شده';
+        if($this->status == 'rejected')   return 'عدم تایید';
+        if($this->status == 'suspicious') return  auth()->user()->level == 'admin' ? 'مشکوک' : 'در حال بررسی';
     }
 
     public function status_color()
     {
-        if($this->status == 'sent')     return 'warning';
-        if($this->status == 'approved') return 'success';
-        if($this->status == 'rejected') return 'danger';
+        if($this->status == 'sent')       return 'primary';
+        if($this->status == 'approved')   return 'success';
+        if($this->status == 'rejected')   return 'danger';
+        if($this->status == 'suspicious') return  auth()->user()->level == 'admin' ? 'warning' : 'primary';
     }
 
     public function price()

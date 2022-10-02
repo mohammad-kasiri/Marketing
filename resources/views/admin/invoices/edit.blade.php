@@ -25,6 +25,28 @@
                 </div>
             </div>
             <div class="card-body">
+                @if( $invoice->status == 'suspicious' )
+                    <div class="alert alert-custom alert-light-warning fade show mb-5" role="alert">
+                        <div class="alert-icon">
+                            <i class="flaticon2-cross"></i>
+                        </div>
+                        <div class="alert-text">
+                            یک رسید مشابه به این رسید وجود دارد
+                            <a href="{{route('admin.invoice.edit' , ['invoice' => $invoice->suspicious_with])}}"
+                               target="_blank"
+                               class="btn btn-outline-warning mx-5">
+                                مشاهده  رسید مشابه
+                                <i class="fas fa-external-link-alt mx-2"></i>
+                            </a>
+
+                        </div>
+                        <div class="alert-close">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="نزدیک">
+                                <span aria-hidden="true"><i class="ki ki-close"></i></span>
+                            </button>
+                        </div>
+                    </div>
+                @endif
                 <form action="{{route('admin.invoice.update' , ['invoice' => $invoice->id])}}" method="post">
                     @csrf
                     @method('PATCH')
@@ -53,6 +75,7 @@
                                 <option value="sent"     {{$invoice->status == 'sent' ? 'selected' : ''}}>در حال بررسی </option>
                                 <option value="approved" {{$invoice->status == 'approved' ? 'selected' : ''}}>تایید شده</option>
                                 <option value="rejected" {{$invoice->status == 'rejected' ? 'selected' : ''}}>عدم تایید</option>
+                                <option value="rejected" {{$invoice->status == 'suspicious' ? 'selected' : ''}}>مشکوک</option>
                             </x-dashboard.form.select.row>
                         </div>
                         <div class="col-md-8">

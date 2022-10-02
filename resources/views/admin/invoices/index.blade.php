@@ -52,6 +52,7 @@
                                     <option value="sent"     {{request()->input('status ')== 'sent' ? 'selected' : ''}}>ارسال شده</option>
                                     <option value="approved" {{request()->input('status ')== 'approved' ? 'selected' : ''}}>تایید شده</option>
                                     <option value="rejected" {{request()->input('status ')== 'rejected' ? 'selected' : ''}}>عدم تایید</option>
+                                    <option value="suspicious" {{request()->input('status ')== 'suspicious' ? 'selected' : ''}}>مشکوک</option>
                                 </x-dashboard.form.select.row>
                             </div>
                             <div class="col-md-8">
