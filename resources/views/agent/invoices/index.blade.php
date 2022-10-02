@@ -80,7 +80,7 @@
                                                 data-content="{{$invoice->description}}">توضیحات</button>
                                     </td>
                                     <td class="text-center align-middle text-nowrap">
-                                        @if($invoice->status == 'sent')
+                                        @if($invoice->status == 'sent' || $invoice->status == 'suspicious')
                                             <a href="{{route('agent.invoice.edit' , $invoice->id)}}"
                                                class="btn btn-icon btn-circle btn-sm btn-outline-info"
                                                data-container="body"

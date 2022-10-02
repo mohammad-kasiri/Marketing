@@ -60,7 +60,7 @@ class InvoiceController extends Controller
 
     public function edit(Invoice $invoice)
     {
-        if($invoice->status != 'sent')
+        if($invoice->status != 'sent' && $invoice->status != 'suspicious' )
             return redirect()->back();
 
         $products= Product::all();
@@ -72,21 +72,27 @@ class InvoiceController extends Controller
     public function update(Request $request, Invoice $invoice)
     {
         $this->validate($request , [
-            'price'          => ['required'],
-            'account_number' => ['required','numeric'],
-            'description'    => ['nullable'],
-            'products'       => ['required' , 'array'],
-            'products.*'     => ['required' , 'numeric'],
-            'paid_at_date'   => ['required' , 'min:10' , 'max:10'],
-            'paid_at_time'   => ['required'],
+            'price'                 => ['required'],
+            'paid_by'               => ['required' , 'in:card,gateway'],
+            'account_number'        => ['nullable','numeric'],
+            'gateway_tracking_code' => ['nullable','numeric'],
+            'description'           => ['nullable'],
+            'products'              => ['required' , 'array'],
+            'products.*'            => ['required' , 'numeric'],
+            'paid_at_date'          => ['required' , 'min:10' , 'max:10'],
+            'paid_at_time'          => ['required'],
         ]);
 
-        $invoice->update([
-            'price'          => str_replace(',' , '' , $request->price),
-            'account_number' => $request->account_number,
-            'description'    => $request->description,
-            'paid_at'        => DateFormatter::format($request->paid_at_date , $request->paid_at_time),
-        ]);
+        $status = $this->checkStatus($invoice->id);
+
+        $invoice->update(array_merge([
+            'price'                 => str_replace(',' , '' , $request->price),
+            'paid_by'               => $request->paid_by,
+            'account_number'        => $request->account_number,
+            'gateway_tracking_code' => $request->gateway_tracking_code,
+            'description'           => $request->description,
+            'paid_at'               => DateFormatter::format($request->paid_at_date , $request->paid_at_time),
+        ] , $status));
 
         if(isset($request->products) && is_array($request->products) && count($request->products) > 0)
         {
@@ -105,16 +111,28 @@ class InvoiceController extends Controller
     }
 
 
-    private function checkStatus() : array
+    private function checkStatus($id = null) : array
     {
         $paid_by =  request()->input('paid_by') == 'card' ? 'card' : 'gateway';
         $tracking_metric = request()->input('paid_by') == 'card' ? 'account_number' : 'gateway_tracking_code';
 
-        $suspiciousInvoice = Invoice::query()
-            ->whereDay('paid_at' ,DateFormatter::format(request()->input('paid_at_date') ,request()->input('paid_at_time')))   // CHECK PAID_AT
-            ->where('price'      , str_replace(',' , '' , request()->input('price')))          // PRICE
-            ->where($tracking_metric    , request()->input($tracking_metric))     // TRACKING METRIC
-            ->first();
+
+        if (is_null($id)) {
+
+            $suspiciousInvoice = Invoice::query()
+                ->whereDay('paid_at' ,DateFormatter::format(request()->input('paid_at_date') ,request()->input('paid_at_time')))   // CHECK PAID_AT
+                ->where('price'      , str_replace(',' , '' , request()->input('price')))          // PRICE
+                ->where($tracking_metric    , request()->input($tracking_metric))->first();     // TRACKING METRIC
+
+        }else{
+            $suspiciousInvoice = Invoice::query()
+                ->whereDay('paid_at' ,DateFormatter::format(request()->input('paid_at_date') ,request()->input('paid_at_time')))   // CHECK PAID_AT
+                ->where('price'      , str_replace(',' , '' , request()->input('price')))          // PRICE
+                ->where($tracking_metric    , request()->input($tracking_metric))
+                ->where('id', '!=' , $id)
+                ->first();     // TRACKING METRIC
+        }
+
 
 
         if (! $suspiciousInvoice)
