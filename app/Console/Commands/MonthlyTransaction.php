@@ -34,7 +34,7 @@ class MonthlyTransaction extends Command
                 if ($data->getDay() == $monthDayToCheck && $data->getMonth() == $month - 1)
                 {
                     $array = \Morilog\Jalali\CalendarUtils::toGregorian($data->getYear(), $data->getMonth(), $data->getDay());
-                    $month25th = Carbon::create($array[0], $array[1], $array[2], 0, 0, 0);
+                    $month25th = Carbon::create($array[0], $array[1], $array[2], 2, 0, 0);
                     break;
                 }
             }
@@ -85,7 +85,7 @@ class MonthlyTransaction extends Command
             if ($data->getDay() == 25)
             {
                 $array = \Morilog\Jalali\CalendarUtils::toGregorian($data->getYear(), $data->getMonth(), $data->getDay());
-                $month25th = Carbon::create($array[0], $array[1], $array[2], 0, 0, 0);
+                $month25th = Carbon::create($array[0], $array[1], $array[2], 2, 0, 0);
             }
         }
 
