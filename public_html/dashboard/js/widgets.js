@@ -69,131 +69,51 @@ var KTWidgets = function() {
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
-                var options = {
-                    series: [{
-                        name: 'فروش خالص',
-                        data:data.sale
-                    }],
-                    chart: {
-                        type: 'area',
-                        height: 150,
-                        toolbar: {
-                            show: false
-                        },
-                        zoom: {
-                            enabled: false
-                        },
-                        sparkline: {
-                            enabled: true
-                        }
-                    },
-                    plotOptions: {},
-                    legend: {
-                        show: false
-                    },
-                    dataLabels: {
-                        enabled: false
-                    },
-                    fill: {
-                        type: 'solid',
-                        opacity: 1
-                    },
-                    stroke: {
-                        curve: 'smooth',
-                        show: true,
-                        width: 3,
-                        colors: [KTApp.getSettings()['colors']['theme']['base']['success']]
-                    },
-                    xaxis: {
-                        categories: data.days,
-                        axisBorder: {
-                            show: false,
-                        },
-                        axisTicks: {
-                            show: false
-                        },
-                        labels: {
-                            show: false,
-                            style: {
-                                colors: KTApp.getSettings()['colors']['gray']['gray-500'],
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        },
-                        crosshairs: {
-                            show: false,
-                            position: 'front',
-                            stroke: {
-                                color: KTApp.getSettings()['colors']['gray']['gray-300'],
-                                width: 1,
-                                dashArray: 3
-                            }
-                        },
-                        tooltip: {
-                            enabled: true,
-                            formatter: undefined,
-                            offsetY: 0,
-                            style: {
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        }
-                    },
-                    yaxis: {
-                        labels: {
-                            show: false,
-                            style: {
-                                colors: KTApp.getSettings()['colors']['gray']['gray-500'],
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        }
-                    },
-                    states: {
-                        normal: {
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        },
-                        hover: {
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        },
-                        active: {
-                            allowMultipleDataPointsSelection: false,
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        }
-                    },
-                    tooltip: {
-                        style: {
-                            fontSize: '12px',
-                            fontFamily: KTApp.getSettings()['font-family']
-                        },
-                        y: {
-                            formatter: function(val) {
-                                let total = val
-                                let agent = (val / 100) * agent_percentage
-                                let a = `سهم بازاریاب   ${agent}    هزار تومان `
-                                return total + ' |  ' + a
+                Highcharts.chart('agent_weekly', {
 
-                            }
-                        },
+                    title: {
+                        text: ''
                     },
-                    colors: [KTApp.getSettings()['colors']['theme']['light']['success']],
-                    markers: {
-                        colors: [KTApp.getSettings()['colors']['theme']['light']['success']],
-                        strokeColor: [KTApp.getSettings()['colors']['theme']['base']['success']],
-                        strokeWidth: 3
+
+                    yAxis: {
+                        title: {
+                            text: 'فروش خالص'
+                        }
+                    },
+
+                    xAxis: {
+                        categories: data.days
+                    },
+
+
+
+
+                    series: [{
+                        name: '',
+                        data: data.sale
+                    }],
+
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxWidth: 500,
+                            },
+                            chartOptions: {
+                                legend: {
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom'
+                                }
+                            }
+                        }]
+                    },
+                    legend: {
+                        enabled:false
+                    },
+                    credits: {
+                        enabled: false
                     }
-                };
-                var chart = new ApexCharts(element, options);
-                chart.render();
+                });
             })
     }
     var agentMonthlyChart= function() {
@@ -212,131 +132,51 @@ var KTWidgets = function() {
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
-                var options = {
-                    series: [{
-                        name: 'فروش خالص',
-                        data:data.sale
-                    }],
-                    chart: {
-                        type: 'area',
-                        height: 150,
-                        toolbar: {
-                            show: false
-                        },
-                        zoom: {
-                            enabled: false
-                        },
-                        sparkline: {
-                            enabled: true
-                        }
-                    },
-                    plotOptions: {},
-                    legend: {
-                        show: false
-                    },
-                    dataLabels: {
-                        enabled: false
-                    },
-                    fill: {
-                        type: 'solid',
-                        opacity: 1
-                    },
-                    stroke: {
-                        curve: 'smooth',
-                        show: true,
-                        width: 3,
-                        colors: [KTApp.getSettings()['colors']['theme']['base']['danger']]
-                    },
-                    xaxis: {
-                        categories: data.days,
-                        axisBorder: {
-                            show: false,
-                        },
-                        axisTicks: {
-                            show: false
-                        },
-                        labels: {
-                            show: false,
-                            style: {
-                                colors: KTApp.getSettings()['colors']['gray']['gray-500'],
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        },
-                        crosshairs: {
-                            show: false,
-                            position: 'front',
-                            stroke: {
-                                color: KTApp.getSettings()['colors']['gray']['gray-300'],
-                                width: 1,
-                                dashArray: 3
-                            }
-                        },
-                        tooltip: {
-                            enabled: true,
-                            formatter: undefined,
-                            offsetY: 0,
-                            style: {
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        }
-                    },
-                    yaxis: {
-                        labels: {
-                            show: false,
-                            style: {
-                                colors: KTApp.getSettings()['colors']['gray']['gray-500'],
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        }
-                    },
-                    states: {
-                        normal: {
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        },
-                        hover: {
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        },
-                        active: {
-                            allowMultipleDataPointsSelection: false,
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        }
-                    },
-                    tooltip: {
-                        style: {
-                            fontSize: '12px',
-                            fontFamily: KTApp.getSettings()['font-family']
-                        },
-                        y: {
-                            formatter: function(val) {
-                                let total = val
-                                let agent = (val / 100) * agent_percentage
-                                let a = `سهم بازاریاب   ${agent}    هزار تومان `
-                                return total + ' |  ' + a
+                Highcharts.chart('agent_monthly', {
 
-                            }
-                        },
+                    title: {
+                        text: ''
                     },
-                    colors: [KTApp.getSettings()['colors']['theme']['light']['danger']],
-                    markers: {
-                        colors: [KTApp.getSettings()['colors']['theme']['light']['success']],
-                        strokeColor: [KTApp.getSettings()['colors']['theme']['base']['success']],
-                        strokeWidth: 3
+
+                    yAxis: {
+                        title: {
+                            text: 'فروش خالص'
+                        }
+                    },
+
+                    xAxis: {
+                        categories: data.days
+                    },
+
+
+
+
+                    series: [{
+                        name: '',
+                        data: data.sale
+                    }],
+
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxWidth: 500,
+                            },
+                            chartOptions: {
+                                legend: {
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom'
+                                }
+                            }
+                        }]
+                    },
+                    legend: {
+                        enabled:false
+                    },
+                    credits: {
+                        enabled: false
                     }
-                };
-                var chart = new ApexCharts(element, options);
-                chart.render();
+                });
             })
     }
 
@@ -353,127 +193,51 @@ var KTWidgets = function() {
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
-                var options = {
+                Highcharts.chart('total_weekly', {
+
+                    title: {
+                        text: ''
+                    },
+
+                    yAxis: {
+                        title: {
+                            text: 'فروش خالص'
+                        }
+                    },
+
+                    xAxis: {
+                        categories: data.days
+                    },
+
+
+
+
                     series: [{
-                        name: 'فروش خالص',
-                        data:data.sale
+                        name: '',
+                        data: data.sale
                     }],
-                    chart: {
-                        type: 'area',
-                        height: 150,
-                        toolbar: {
-                            show: false
-                        },
-                        zoom: {
-                            enabled: false
-                        },
-                        sparkline: {
-                            enabled: true
-                        }
+
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxWidth: 500,
+                            },
+                            chartOptions: {
+                                legend: {
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom'
+                                }
+                            }
+                        }]
                     },
-                    plotOptions: {},
                     legend: {
-                        show: false
+                        enabled:false
                     },
-                    dataLabels: {
+                    credits: {
                         enabled: false
-                    },
-                    fill: {
-                        type: 'solid',
-                        opacity: 1
-                    },
-                    stroke: {
-                        curve: 'smooth',
-                        show: true,
-                        width: 3,
-                        colors: [KTApp.getSettings()['colors']['theme']['base']['success']]
-                    },
-                    xaxis: {
-                        categories: data.days,
-                        axisBorder: {
-                            show: false,
-                        },
-                        axisTicks: {
-                            show: false
-                        },
-                        labels: {
-                            show: false,
-                            style: {
-                                colors: KTApp.getSettings()['colors']['gray']['gray-500'],
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        },
-                        crosshairs: {
-                            show: false,
-                            position: 'front',
-                            stroke: {
-                                color: KTApp.getSettings()['colors']['gray']['gray-300'],
-                                width: 1,
-                                dashArray: 3
-                            }
-                        },
-                        tooltip: {
-                            enabled: true,
-                            formatter: undefined,
-                            offsetY: 0,
-                            style: {
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        }
-                    },
-                    yaxis: {
-                        labels: {
-                            show: false,
-                            style: {
-                                colors: KTApp.getSettings()['colors']['gray']['gray-500'],
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        }
-                    },
-                    states: {
-                        normal: {
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        },
-                        hover: {
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        },
-                        active: {
-                            allowMultipleDataPointsSelection: false,
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        }
-                    },
-                    tooltip: {
-                        style: {
-                            fontSize: '12px',
-                            fontFamily: KTApp.getSettings()['font-family']
-                        },
-                        y: {
-                            formatter: function(val) {
-                              return val
-                            }
-                        },
-                    },
-                    colors: [KTApp.getSettings()['colors']['theme']['light']['success']],
-                    markers: {
-                        colors: [KTApp.getSettings()['colors']['theme']['light']['success']],
-                        strokeColor: [KTApp.getSettings()['colors']['theme']['base']['success']],
-                        strokeWidth: 3
                     }
-                };
-                var chart = new ApexCharts(element, options);
-                chart.render();
+                });
             })
     }
     var totalMonthlyChart= function() {
@@ -489,127 +253,51 @@ var KTWidgets = function() {
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
-                var options = {
+                Highcharts.chart('total_monthly', {
+
+                    title: {
+                        text: ''
+                    },
+
+                    yAxis: {
+                        title: {
+                            text: 'فروش خالص'
+                        }
+                    },
+
+                    xAxis: {
+                        categories: data.days
+                    },
+
+
+
+
                     series: [{
-                        name: 'فروش خالص',
-                        data:data.sale
+                        name: '',
+                        data: data.sale
                     }],
-                    chart: {
-                        type: 'area',
-                        height: 150,
-                        toolbar: {
-                            show: false
-                        },
-                        zoom: {
-                            enabled: false
-                        },
-                        sparkline: {
-                            enabled: true
-                        }
+
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxWidth: 500,
+                            },
+                            chartOptions: {
+                                legend: {
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom'
+                                }
+                            }
+                        }]
                     },
-                    plotOptions: {},
                     legend: {
-                        show: false
+                        enabled:false
                     },
-                    dataLabels: {
+                    credits: {
                         enabled: false
-                    },
-                    fill: {
-                        type: 'solid',
-                        opacity: 1
-                    },
-                    stroke: {
-                        curve: 'smooth',
-                        show: true,
-                        width: 3,
-                        colors: [KTApp.getSettings()['colors']['theme']['base']['danger']]
-                    },
-                    xaxis: {
-                        categories: data.days,
-                        axisBorder: {
-                            show: false,
-                        },
-                        axisTicks: {
-                            show: false
-                        },
-                        labels: {
-                            show: false,
-                            style: {
-                                colors: KTApp.getSettings()['colors']['gray']['gray-500'],
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        },
-                        crosshairs: {
-                            show: false,
-                            position: 'front',
-                            stroke: {
-                                color: KTApp.getSettings()['colors']['gray']['gray-300'],
-                                width: 1,
-                                dashArray: 3
-                            }
-                        },
-                        tooltip: {
-                            enabled: true,
-                            formatter: undefined,
-                            offsetY: 0,
-                            style: {
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        }
-                    },
-                    yaxis: {
-                        labels: {
-                            show: false,
-                            style: {
-                                colors: KTApp.getSettings()['colors']['gray']['gray-500'],
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        }
-                    },
-                    states: {
-                        normal: {
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        },
-                        hover: {
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        },
-                        active: {
-                            allowMultipleDataPointsSelection: false,
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        }
-                    },
-                    tooltip: {
-                        style: {
-                            fontSize: '12px',
-                            fontFamily: KTApp.getSettings()['font-family']
-                        },
-                        y: {
-                            formatter: function(val) {
-                               return val
-                            }
-                        },
-                    },
-                    colors: [KTApp.getSettings()['colors']['theme']['light']['danger']],
-                    markers: {
-                        colors: [KTApp.getSettings()['colors']['theme']['light']['success']],
-                        strokeColor: [KTApp.getSettings()['colors']['theme']['base']['success']],
-                        strokeWidth: 3
                     }
-                };
-                var chart = new ApexCharts(element, options);
-                chart.render();
+                });
             })
     }
 
@@ -627,127 +315,51 @@ var KTWidgets = function() {
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
-                var options = {
+                Highcharts.chart('agent_total_weekly', {
+
+                    title: {
+                        text: ''
+                    },
+
+                    yAxis: {
+                        title: {
+                            text: 'فروش خالص'
+                        }
+                    },
+
+                    xAxis: {
+                        categories: data.days
+                    },
+
+
+
+
                     series: [{
-                        name: 'فروش خالص',
-                        data:data.sale
+                        name: '',
+                        data: data.sale
                     }],
-                    chart: {
-                        type: 'area',
-                        height: 150,
-                        toolbar: {
-                            show: false
-                        },
-                        zoom: {
-                            enabled: false
-                        },
-                        sparkline: {
-                            enabled: true
-                        }
+
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxWidth: 500,
+                            },
+                            chartOptions: {
+                                legend: {
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom'
+                                }
+                            }
+                        }]
                     },
-                    plotOptions: {},
                     legend: {
-                        show: false
+                        enabled:false
                     },
-                    dataLabels: {
+                    credits: {
                         enabled: false
-                    },
-                    fill: {
-                        type: 'solid',
-                        opacity: 1
-                    },
-                    stroke: {
-                        curve: 'smooth',
-                        show: true,
-                        width: 3,
-                        colors: [KTApp.getSettings()['colors']['theme']['base']['danger']]
-                    },
-                    xaxis: {
-                        categories: data.days,
-                        axisBorder: {
-                            show: false,
-                        },
-                        axisTicks: {
-                            show: false
-                        },
-                        labels: {
-                            show: false,
-                            style: {
-                                colors: KTApp.getSettings()['colors']['gray']['gray-500'],
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        },
-                        crosshairs: {
-                            show: false,
-                            position: 'front',
-                            stroke: {
-                                color: KTApp.getSettings()['colors']['gray']['gray-300'],
-                                width: 1,
-                                dashArray: 3
-                            }
-                        },
-                        tooltip: {
-                            enabled: true,
-                            formatter: undefined,
-                            offsetY: 0,
-                            style: {
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        }
-                    },
-                    yaxis: {
-                        labels: {
-                            show: false,
-                            style: {
-                                colors: KTApp.getSettings()['colors']['gray']['gray-500'],
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        }
-                    },
-                    states: {
-                        normal: {
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        },
-                        hover: {
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        },
-                        active: {
-                            allowMultipleDataPointsSelection: false,
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        }
-                    },
-                    tooltip: {
-                        style: {
-                            fontSize: '12px',
-                            fontFamily: KTApp.getSettings()['font-family']
-                        },
-                        y: {
-                            formatter: function(val) {
-                               return val
-                            }
-                        },
-                    },
-                    colors: [KTApp.getSettings()['colors']['theme']['light']['danger']],
-                    markers: {
-                        colors: [KTApp.getSettings()['colors']['theme']['light']['success']],
-                        strokeColor: [KTApp.getSettings()['colors']['theme']['base']['success']],
-                        strokeWidth: 3
                     }
-                };
-                var chart = new ApexCharts(element, options);
-                chart.render();
+                });
             })
     }
     var AgentTotalMonthlyChart= function() {
@@ -764,127 +376,51 @@ var KTWidgets = function() {
         fetch(url)
             .then((response) => response.json())
             .then((data) => {
-                var options = {
+                Highcharts.chart('agent_total_monthly', {
+
+                    title: {
+                        text: ''
+                    },
+
+                    yAxis: {
+                        title: {
+                            text: 'فروش خالص'
+                        }
+                    },
+
+                    xAxis: {
+                        categories: data.days
+                    },
+
+
+
+
                     series: [{
-                        name: 'فروش خالص',
-                        data:data.sale
+                        name: '',
+                        data: data.sale
                     }],
-                    chart: {
-                        type: 'area',
-                        height: 150,
-                        toolbar: {
-                            show: false
-                        },
-                        zoom: {
-                            enabled: false
-                        },
-                        sparkline: {
-                            enabled: true
-                        }
+
+                    responsive: {
+                        rules: [{
+                            condition: {
+                                maxWidth: 500,
+                            },
+                            chartOptions: {
+                                legend: {
+                                    layout: 'horizontal',
+                                    align: 'center',
+                                    verticalAlign: 'bottom'
+                                }
+                            }
+                        }]
                     },
-                    plotOptions: {},
                     legend: {
-                        show: false
+                        enabled:false
                     },
-                    dataLabels: {
+                    credits: {
                         enabled: false
-                    },
-                    fill: {
-                        type: 'solid',
-                        opacity: 1
-                    },
-                    stroke: {
-                        curve: 'smooth',
-                        show: true,
-                        width: 3,
-                        colors: [KTApp.getSettings()['colors']['theme']['base']['danger']]
-                    },
-                    xaxis: {
-                        categories: data.days,
-                        axisBorder: {
-                            show: false,
-                        },
-                        axisTicks: {
-                            show: false
-                        },
-                        labels: {
-                            show: false,
-                            style: {
-                                colors: KTApp.getSettings()['colors']['gray']['gray-500'],
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        },
-                        crosshairs: {
-                            show: false,
-                            position: 'front',
-                            stroke: {
-                                color: KTApp.getSettings()['colors']['gray']['gray-300'],
-                                width: 1,
-                                dashArray: 3
-                            }
-                        },
-                        tooltip: {
-                            enabled: true,
-                            formatter: undefined,
-                            offsetY: 0,
-                            style: {
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        }
-                    },
-                    yaxis: {
-                        labels: {
-                            show: false,
-                            style: {
-                                colors: KTApp.getSettings()['colors']['gray']['gray-500'],
-                                fontSize: '12px',
-                                fontFamily: KTApp.getSettings()['font-family']
-                            }
-                        }
-                    },
-                    states: {
-                        normal: {
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        },
-                        hover: {
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        },
-                        active: {
-                            allowMultipleDataPointsSelection: false,
-                            filter: {
-                                type: 'none',
-                                value: 0
-                            }
-                        }
-                    },
-                    tooltip: {
-                        style: {
-                            fontSize: '12px',
-                            fontFamily: KTApp.getSettings()['font-family']
-                        },
-                        y: {
-                            formatter: function(val) {
-                               return val
-                            }
-                        },
-                    },
-                    colors: [KTApp.getSettings()['colors']['theme']['light']['danger']],
-                    markers: {
-                        colors: [KTApp.getSettings()['colors']['theme']['light']['success']],
-                        strokeColor: [KTApp.getSettings()['colors']['theme']['base']['success']],
-                        strokeWidth: 3
                     }
-                };
-                var chart = new ApexCharts(element, options);
-                chart.render();
+                });
             })
     }
 
@@ -913,4 +449,6 @@ if (typeof module !== 'undefined') {
 
 jQuery(document).ready(function() {
     KTWidgets.init();
+
+
 });
