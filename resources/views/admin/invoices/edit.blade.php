@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="card-body">
-                @if( $invoice->status == 'suspicious' )
+                @if( $invoice->status == 'suspicious' && !is_null($invoice->suspicious_with))
                     <div class="alert alert-custom alert-light-warning fade show mb-5" role="alert">
                         <div class="alert-icon">
                             <i class="flaticon2-cross"></i>
@@ -56,8 +56,9 @@
                         </div>
                         <div class="col-md-8">
                             <x-dashboard.form.radio.row label="پرداخت شده توسط:">
-                                <x-dashboard.form.radio.button name="paid_by" value="card" label="کارت به کارت" checked="{{$invoice->paid_by == 'card'}}"/>
-                                <x-dashboard.form.radio.button name="paid_by" value="gateway" label="درگاه پرداخت" checked="{{$invoice->paid_by == 'gateway'}}"/>
+                                <x-dashboard.form.radio.button name="paid_by" value="card"    label="کارت به کارت"  checked="{{$invoice->paid_by == 'card'}}"/>
+                                <x-dashboard.form.radio.button name="paid_by" value="gateway" label="درگاه پرداخت"  checked="{{$invoice->paid_by == 'gateway'}}"/>
+                                <x-dashboard.form.radio.button name="paid_by" value="site"    label="درگاه سایت"   checked="{{$invoice->paid_by == 'site'}}"/>
                             </x-dashboard.form.radio.row>
                         </div>
                         <div class="col-md-8" id="AccountNumberRow">
@@ -66,7 +67,9 @@
                         <div class="col-md-8" id="GatewayTrackingCodeRow">
                             <x-dashboard.form.row-input label="شماره پیگیری درگاه" name="gateway_tracking_code" value="{{$invoice->gateway_tracking_code}}"/>
                         </div>
-
+                        <div class="col-md-8" id="OrderNumberRow">
+                            <x-dashboard.form.row-input label="شماره سفارش" name="order_number" value="{{$invoice->order_number}}"/>
+                        </div>
                         <div class="col-md-8">
                             <x-dashboard.form.row-input label="توضیحات" name="description" value="{{$invoice->description}}"/>
                         </div>
@@ -75,7 +78,7 @@
                                 <option value="sent"     {{$invoice->status == 'sent' ? 'selected' : ''}}>در حال بررسی </option>
                                 <option value="approved" {{$invoice->status == 'approved' ? 'selected' : ''}}>تایید شده</option>
                                 <option value="rejected" {{$invoice->status == 'rejected' ? 'selected' : ''}}>عدم تایید</option>
-                                <option value="rejected" {{$invoice->status == 'suspicious' ? 'selected' : ''}}>مشکوک</option>
+                                <option value="suspicious" {{$invoice->status == 'suspicious' ? 'selected' : ''}}>مشکوک</option>
                             </x-dashboard.form.select.row>
                         </div>
                         <div class="col-md-8">
@@ -122,25 +125,42 @@
 
             let AccountNumberRow = $('#AccountNumberRow');
             let GatewayTrackingCodeRow = $('#GatewayTrackingCodeRow');
+            let OrderNumberRow = $('#OrderNumberRow');
 
-            if (paid_by == 'card')      GatewayTrackingCodeRow.hide();
-            if (paid_by == 'gateway')   AccountNumberRow.hide();
+            if (paid_by == 'card'){
+                GatewayTrackingCodeRow.hide();
+                OrderNumberRow.hide()
+            }
+
+            if (paid_by == 'gateway') {
+                AccountNumberRow.hide();
+                OrderNumberRow.hide();
+            }
+            if (paid_by == 'site') {
+                AccountNumberRow.hide();
+                GatewayTrackingCodeRow.hide();
+            }
+
 
             $("input[name='paid_by']").click(function() {
                 let paid_by = $('input[name="paid_by"]:checked').val()
 
-                if (paid_by == 'card')
-                {
+                if (paid_by == 'card'){
                     GatewayTrackingCodeRow.hide();
+                    OrderNumberRow.hide()
                     AccountNumberRow.show()
                 }
 
-                if (paid_by == 'gateway')
-                {
-                    GatewayTrackingCodeRow.show();
+                if (paid_by == 'gateway') {
                     AccountNumberRow.hide();
+                    OrderNumberRow.hide();
+                    GatewayTrackingCodeRow.show();
                 }
-
+                if (paid_by == 'site') {
+                    AccountNumberRow.hide();
+                    GatewayTrackingCodeRow.hide();
+                    OrderNumberRow.show();
+                }
             });
 
         })

@@ -65,6 +65,11 @@
                                             {{ $invoice->gateway_tracking_code}}
                                         @endif
 
+                                        @if($invoice->paid_by == 'site')
+                                            <i class="fas fa-globe-americas"></i>
+                                            {{ $invoice->order_number}}
+                                        @endif
+
                                     </td>
                                     <td class="text-center align-middle text-nowrap
                                                text-{{$invoice->status_color()}}">

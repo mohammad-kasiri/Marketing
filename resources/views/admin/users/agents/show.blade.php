@@ -94,20 +94,20 @@
                                 </span>
                                 </a>
                             </div>
-                            <div class="navi-item mb-2">
-                                <a  href="{{route('admin.agent.invoice.index' , ['agent' =>  $agent->id])}}" class="navi-link py-4 ">
-                                <span class="navi-icon mr-2">
-                                    <span class="svg-icon">
-                                        <!--begin::Svg Icon | path:assets/media/svg/icons/عمومی/User.svg-->
-                                            <x-dashboard.icons.svg.money/>
-                                        <!--end::Svg Icon-->
-                                    </span>
-                                </span>
-                                    <span class="navi-text font-size-lg">
-                                    رسید   های کاربر
-                                </span>
-                                </a>
-                            </div>
+{{--                            <div class="navi-item mb-2">--}}
+{{--                                <a  href="{{route('admin.agent.invoice.index' , ['agent' =>  $agent->id])}}" class="navi-link py-4 ">--}}
+{{--                                <span class="navi-icon mr-2">--}}
+{{--                                    <span class="svg-icon">--}}
+{{--                                        <!--begin::Svg Icon | path:assets/media/svg/icons/عمومی/User.svg-->--}}
+{{--                                            <x-dashboard.icons.svg.money/>--}}
+{{--                                        <!--end::Svg Icon-->--}}
+{{--                                    </span>--}}
+{{--                                </span>--}}
+{{--                                    <span class="navi-text font-size-lg">--}}
+{{--                                    رسید   های کاربر--}}
+{{--                                </span>--}}
+{{--                                </a>--}}
+{{--                            </div>--}}
                         </div>
                         <!--end::Nav-->
                     </div>

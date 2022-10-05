@@ -13,7 +13,7 @@ class Invoice extends Model
 
     const PAGINATION_LIMIT = 20;
 
-    protected $fillable=['price', 'suspicious_with', 'paid_by', 'account_number', 'gateway_tracking_code', 'description', 'status', 'paid_at'];
+    protected $fillable=['price', 'suspicious_with', 'paid_by', 'account_number', 'gateway_tracking_code', 'order_number', 'description', 'status', 'paid_at'];
 
     public function created_at()
     {
@@ -64,6 +64,11 @@ class Invoice extends Model
     }
 
     //------------------------------------------    Queries      ------------------------------------------//
+
+    public function scopeApproved($query)
+    {
+        return  $query->where("status" , '=' , 'approved');
+    }
 
     public function scopeStatusfilter($query , $key)
     {

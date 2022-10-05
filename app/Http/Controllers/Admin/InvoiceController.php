@@ -33,13 +33,16 @@ class InvoiceController extends Controller
     {
         $this->validate($request , [
             'price'                 => ['required'],
-            'paid_by'               => ['required','in:card,gateway'],
-            'account_number'        => ['nullable','numeric'],
-            'gateway_tracking_code' => ['nullable','numeric'],
+            'paid_by'               => ['required','in:card,gateway,site'],
+
+            'account_number'        => ['required_if:paid_by,==,card'   ],
+            'gateway_tracking_code' => ['required_if:paid_by,==,gateway'],
+            'order_number'          => ['required_if:paid_by,==,site'   ],
+
             'description'           => ['nullable'],
             'products'              => ['required' , 'array'],
             'products.*'            => ['required' , 'numeric'],
-            'status'                => ['required' , 'in:sent,approved,rejected'],
+            'status'                => ['required' , 'in:sent,approved,rejected,suspicious'],
             'paid_at_date'          => ['required' , 'min:10' , 'max:10'],
             'paid_at_time'          => ['required'],
         ]);
@@ -49,6 +52,7 @@ class InvoiceController extends Controller
             'paid_by'               => $request->paid_by,
             'account_number'        => $request->account_number,
             'gateway_tracking_code' => $request->gateway_tracking_code,
+            'order_number'          => $request->order_number,
             'description'           => $request->description,
             'status'                => $request->status,
             'paid_at'               => DateFormatter::format($request->paid_at_date , $request->paid_at_time),
@@ -59,14 +63,14 @@ class InvoiceController extends Controller
             $invoice->products()->sync($request->products);
         }
 
-        Session::flash('message', 'رسید   با موفقیت ویرایش شد.');
+        Session::flash('message', 'رسید با موفقیت ویرایش شد.');
         return redirect()->route('admin.invoice.index');
     }
 
     public function destroy(User $agent, Invoice $invoice)
     {
         $invoice->delete();
-        Session::flash('message', 'رسید   با موفقیت حذف شد.');
+        Session::flash('message', 'رسید با موفقیت حذف شد.');
         return redirect()->route('admin.invoice.index');
     }
 
