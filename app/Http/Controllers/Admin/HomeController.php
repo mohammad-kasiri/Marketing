@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
+use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class HomeController extends Controller
         $invoices   = Invoice::query()->with('user')->latest()->take(10)->get();
         $today_sum  = (int) Invoice::query()
             ->whereDay('paid_at', Carbon::today())
-            ->where('status' , 'approved')
+            ->approved()
             ->sum('price');
 
         //GET SALE AMOUNT FOR EACH DAY
@@ -25,7 +26,7 @@ class HomeController extends Controller
         for ($i = 6; $i>=0; $i--)
             $sale[] = (int) Invoice::query()
                 ->whereDay('paid_at', Carbon::today()->subDays($i))
-                ->where('status' , 'approved')
+                ->approved()
                 ->sum('price');
 
         $weekly_sum  = array_sum($sale);
@@ -35,7 +36,7 @@ class HomeController extends Controller
         for ($i = 11; $i>=0; $i--)
             $sale[] = (int) Invoice::query()
                 ->whereMonth('paid_at', Carbon::today()->subMonth($i))
-                ->where('status' , 'approved')
+                ->approved()
                 ->sum('price');
 
         $monthly_sum = array_sum($sale);
@@ -64,11 +65,27 @@ class HomeController extends Controller
 
         $ranks = array_values($ranks);
 
+
+        $products= Product::query()
+            ->select('id', 'title')
+            ->with('invoices', function ($query) {
+                return $query->select('id', 'status')->approved();
+        })->get()->toArray();
+
+        foreach ($products as $key => $product)
+            $products[$key]['invoices'] = count($product['invoices']);
+
+        $products = collect($products)->sortBy('invoices')->reverse();
+
+        $products = $products->values();;
+
+
         return view('admin.index')
             ->with(['invoices'    => $invoices])
             ->with(['today_sum'   => $today_sum])
             ->with(['weekly_sum'  => $weekly_sum])
             ->with(['monthly_sum' => $monthly_sum])
+            ->with(['products'    => $products])
             ->with(['users'       => $users])
             ->with(['ranks'       => $ranks]);
 

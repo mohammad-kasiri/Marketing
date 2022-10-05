@@ -93,7 +93,7 @@
         </div>
 
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div class="card card-custom">
                     <div class="card-header flex-wrap border-0 pt-6 pb-0">
                         <div class="card-title">
@@ -108,7 +108,7 @@
                                 <thead>
                                 <tr class="text-muted">
                                     <th class="text-center">#</th>
-                                    <th class="text-center">عنوان</th>
+                                    <th class="text-center">مبلغ</th>
                                     <th class="text-center">بازاریاب</th>
                                     <th class="text-center">وضعیت</th>
                                     <th class="text-center">تاریخ ثبت</th>
@@ -133,7 +133,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="card card-custom">
                     <div class="card-header flex-wrap border-0 pt-6 pb-0">
                         <div class="card-title">
@@ -183,6 +183,48 @@
                                             @endforeach
                                     </tr>
                                   @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-custom">
+                    <div class="card-header flex-wrap border-0 pt-6 pb-0">
+                        <div class="card-title">
+                            <h3 class="card-label">
+                                رنکینگ محصولات
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive-sm">
+                            <table class="table ">
+                                <thead>
+                                <tr class="text-muted">
+                                    <th class="text-center">#</th>
+                                    <th class="text-center">عنوان محصول</th>
+                                    <th class="text-center">تعداد فروش</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($products as $key=>$product)
+                                    <tr>
+                                        <td class="text-center align-middle text-nowrap">
+                                            {{$key+1}}
+                                        </td>
+
+                                        <td class="text-center align-middle text-nowrap">
+                                            {{$product['title']}}
+                                        </td>
+
+                                        <td class="text-center align-middle text-nowrap">
+                                            {{$product['invoices']}}
+                                        </td>
+
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
