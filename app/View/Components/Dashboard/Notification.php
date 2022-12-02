@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Dashboard;
 
+use App\Models\Task;
 use App\Notifications\Formatter\NotificationFormatter;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\Component;
@@ -14,9 +15,11 @@ class Notification extends Component
 
     public function __construct()
     {
-        $this->notifications = auth()->user()->unreadNotifications()->latest()->take(5)->get()->map(function ($item){
-            return NotificationFormatter::format($item);
-        });
+        $this->notifications = Task::query()
+            ->where('user_id', auth()->id())
+            ->where('remind_at','<=', now())
+            ->where('done_at', null)
+            ->latest()->get();
 
         $this->active =  count($this->notifications) > 0;
     }

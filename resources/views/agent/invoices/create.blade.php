@@ -16,6 +16,12 @@
 
 @section('content')
     <div class="container-fluid mt-3">
+        @if(request()->has('salesCase'))
+            <div class="alert alert-custom alert-light-primary fade show mb-5" role="alert">
+                <div class="alert-icon"><i class="flaticon-attachment"></i></div>
+                <div class="alert-text">ایجاد رسید برای پرونده فروش با شناسه ی {{request()->input('salesCase')}}</div>
+            </div>
+        @endif
         <div class="card card-custom">
             <div class="card-header flex-wrap border-0 pt-6 pb-0">
                 <div class="card-title">
@@ -26,6 +32,7 @@
             </div>
             <div class="card-body">
                 <form action="{{route('agent.invoice.store')}}" method="post"> @csrf
+                    <input type="hidden" name="salesCase" value="{{request()->input('salesCase')}}">
                 <div class="row justify-content-center">
                     <div class="col-md-8">
                         <x-dashboard.form.row-input label="مبلغ (تومان)" name="price" type="text" separate="1"/>
@@ -41,7 +48,7 @@
                         <x-dashboard.form.row-input label="چهار رقم آخر شماره کارت" name="account_number"/>
                     </div>
                     <div class="col-md-8" id="GatewayTrackingCodeRow">
-                        <x-dashboard.form.row-input label="شماره پیگیری درگاه" name="gateway_tracking_code"/>
+                        <x-dashboard.form.row-input label="شماره تراکنش" name="gateway_tracking_code"/>
                     </div>
                     <div class="col-md-8" id="OrderNumberRow">
                         <x-dashboard.form.row-input label="شماره سفارش" name="order_number"/>

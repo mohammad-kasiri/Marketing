@@ -4,8 +4,14 @@
 
 @section('content')
     <div class="container-fluid mt-3">
+        @if($unassignedSalesCasesCount < 100)
+            <div class="alert alert-danger" role="alert">
+                <h1 class="d-inline">{{$unassignedSalesCasesCount}}</h1>
+                <span class=" h4 ml-3">پرونده ی بدون ایجنت در لیست پرونده ها موجود است.</span>
+            </div>
+        @endif
         <div class="row">
-            <div class="col-xl-4">
+            <div class="col-xl-3">
                 <!--begin::آمار Widget 18-->
                 <a class="card card-custom bg-info bg-hover-state-info card-stretch card-stretch gutter-b">
                     <!--begin::Body-->
@@ -21,7 +27,7 @@
                 <!--end::آمار Widget 18-->
             </div>
 
-            <div class="col-xl-4">
+            <div class="col-xl-3">
                 <!--begin::آمار Widget 18-->
                 <a class="card card-custom bg-success bg-hover-state-success card-stretch gutter-b">
                     <!--begin::Body-->
@@ -37,7 +43,7 @@
                 <!--end::آمار Widget 18-->
             </div>
 
-            <div class="col-xl-4">
+            <div class="col-xl-3">
                 <!--begin::آمار Widget 18-->
                 <a class="card card-custom bg-primary bg-hover-state-primary card-stretch gutter-b">
                     <!--begin::Body-->
@@ -45,7 +51,7 @@
                         <span class="svg-icon svg-icon-white svg-icon-3x ml-n1">
                             <x-dashboard.icons.svg.equalizer/>
                         </span>
-                        <div class="text-inverse-dark font-weight-bolder font-size-h5 mb-2 mt-5">میزان فروش این ماه</div>
+                        <div class="text-inverse-dark font-weight-bolder font-size-h5 mb-2 mt-5">میزان فروش از ابتدای ماه مالی</div>
                         <div class="font-weight-bold text-inverse-dark font-size-sm"> {{number_format($monthly_sum)}} تومان </div>
                     </div>
                     <!--end::Body-->
@@ -53,8 +59,22 @@
                 <!--end::آمار Widget 18-->
             </div>
 
+            <div class="col-xl-3">
+                <!--begin::آمار Widget 18-->
+                <a class="card card-custom bg-danger bg-hover-state-danger card-stretch gutter-b">
+                    <!--begin::Body-->
+                    <div class="card-body">
+                        <span class="svg-icon svg-icon-white svg-icon-3x ml-n1">
+                            <x-dashboard.icons.svg.equalizer/>
+                        </span>
+                        <div class="text-inverse-dark font-weight-bolder font-size-h5 mb-2 mt-5">{{$unassignedSalesCasesCount}}  پرونده بدون ایجنت</div>
+                        <div class="font-weight-bold text-inverse-dark font-size-sm"> {{$salesCasesCount}} تعداد کل پرونده ها </div>
+                    </div>
+                    <!--end::Body-->
+                </a>
+                <!--end::آمار Widget 18-->
+            </div>
         </div>
-
         <div class="row">
             <!-- Begin :: WEEKLY CHART -->
             <div class="col-xl-6">
@@ -91,7 +111,6 @@
             </div>
             <!-- end :: Monthly CHART -->
         </div>
-
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-custom">
@@ -234,8 +253,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 @endsection
 

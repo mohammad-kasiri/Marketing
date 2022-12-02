@@ -38,6 +38,12 @@
                                 <option value="1"  {{$ranking == '1' ? 'selected' : ''}}>نمایش داده شود</option>
                             </x-dashboard.form.select.row>
                         </div>
+                        <div class="col-md-8">
+                            <x-dashboard.form.row-input type="number"
+                                                        value="{{$splitCount}}"
+                                                        name="splitCount"
+                                                        label=" تعداد پرونده به هر فروشنده"/>
+                        </div>
                     </div>
 
                     <button class="btn btn-primary float-right" type="submit"> ویرایش تنظیمات</button>

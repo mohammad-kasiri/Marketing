@@ -3,72 +3,81 @@
 
 namespace App\Sms;
 
-
-use App\Sms\Contract\Methods;
-use App\Sms\Contract\SMS;
 use Http;
+use mysql_xdevapi\ExecutionStatus;
 
 
-class Kavenegar  implements  SMS
+class Kavenegar
 {
-    private $template = "auth";
-    private $address;
-    private $lookup_address;
-    private $tokens = [];
 
-    public function __construct()
+    private $phone;
+    private $template;
+    private $firstToken = null;
+    private $secondToken= null;
+    private $thirdToken = null;
+
+    public function __construct($phone)
     {
-        $this->address         = config("sms.services.kavenegar.address");
-        $this->lookup_address  = config("sms.services.kavenegar.lookup_address");
+        $this->phone = $phone;
+        return $this;
     }
 
-    public function template($template) {
+    public function template($template)
+    {
         $this->template = $template;
         return $this;
     }
-
-    public function tokens(array $tokens) {
-        $this->tokens = $tokens;
+    public function setFirstToken($token)
+    {
+        $this->firstToken = $token;
+        return $this;
+    }
+    public function setSecondToken($token)
+    {
+        $this->secondToken = $token;
+        return $this;
+    }
+    public function setThirdToken($token)
+    {
+        $this->thirdToken = $token;
         return $this;
     }
 
-    public function send($receptor , $message)
+    public function send($message)
     {
         $body = [
-            "receptor" => $receptor,
+            "receptor" => $this->phone,
             "message"  => $message ,
         ];
-        $response = Http::get( $this->address,$body);
-        return  $this->hasSucceed($response) ? true : false;
+        $response = Http::get(config('sms.services.kavenegar.address'),$body);
     }
-
-    public function sendLookUp($receptor)
+    public function sendLookUp()
     {
         $body = [
-            "receptor"  => $receptor,
+            "receptor"  => $this->phone,
             "template"  => $this->template,
         ];
-        $body += $this->refactor($this->tokens);
 
-        $response = Http::get( $this->lookup_address,$body);
-        return  $this->hasSucceed($response) ? true : false;
+        if (!is_null($this->firstToken))
+            $body['token']= $this->refactor($this->firstToken);
+
+        if (!is_null($this->secondToken))
+            $body['token1']= $this->refactor($this->secondToken);
+
+        if (!is_null($this->thirdToken))
+            $body['token2']= $this->refactor($this->thirdToken);
+
+        $response = Http::get(config('sms.services.kavenegar.lookup_address'),$body);
+        dd($response->body() , $body);
+
     }
 
-    private function hasSucceed($response): bool
+    private function refactor(string $token) :string
     {
-        return $response->status() == 200 && json_decode($response->body())->entries[0]->status == 5;
-    }
-    private function refactor(array $tokens) : array
-    {
-        $func = function ($data){
-            $data = str_replace(" " , " ", $data);
-            $data = str_replace("-" , " ", $data);
-            $data = str_replace("_" , " ", $data);
-            $data = str_replace("\n", ".", $data);
-            return $data;
-        };
-
-        $tokens = array_map($func, $tokens);
-        return $tokens;
+        $token = str_replace(" " , " ", $token);
+        $token = str_replace("-" , " ", $token);
+        $token = str_replace("_" , " ", $token);
+        $token = str_replace("\n", ".", $token);
+        return $token;
     }
 }

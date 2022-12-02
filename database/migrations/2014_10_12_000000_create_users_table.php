@@ -32,6 +32,7 @@ return new class extends Migration
 
 
             $table->string('password' , 100)->nullable();
+            $table->boolean('is_active')->default(true);
             $table->rememberToken();
             $table->timestamps();
         });

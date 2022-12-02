@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Agent;
 
+use App\Functions\TimeCalculator;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\User;
@@ -19,51 +20,36 @@ class HomeController extends Controller
 
         $ranking = Cache::has('Setting_Ranking') ? Cache::get('Setting_Ranking') : false;
 
+        //Today Sum
         $today_sum  = (int) Invoice::query()
-                                    ->where('user_id' , auth()->id())
-                                    ->whereDay('paid_at', Carbon::today())
-                                    ->sum('price');
+            ->where('user_id' , auth()->id())
+            ->whereDate('paid_at', Carbon::today())
+            ->approved()
+            ->sum('price');
 
-        //GET SALE AMOUNT FOR EACH DAY
-        $sale = [];
-        for ($i = 6; $i>=0; $i--)
-            $sale[] = (int) Invoice::query()
-                ->where('user_id' , auth()->id())
-                ->whereDay('paid_at', Carbon::today()->subDays($i))
-                ->sum('price');
+        //Week Sum
+        $weekly_sum = (int) Invoice::query()
+            ->where('user_id' , auth()->id())
+            ->whereDate('paid_at','>=' , Carbon::today()->subDays(6))
+            ->approved()
+            ->sum('price');
 
-        $weekly_sum  = array_sum($sale);
+        //Monthly Sum
+        $monthly_sum = (int) Invoice::query()
+            ->where('user_id' , auth()->id())
+            ->whereDate('paid_at','>=', TimeCalculator::getMonthFirstDay())
+            ->approved()
+            ->sum('price');
 
-        //GET SALE AMOUNT FOR EACH DAY
-        $sale = [];
-        for ($i = 11; $i>=0; $i--)
-            $sale[] = (int) Invoice::query()
-                ->where('user_id' , auth()->id())
-                ->whereMonth('paid_at', Carbon::today()->subMonth($i))
-                ->sum('price');
-
-        $monthly_sum = array_sum($sale);
-
-        // Ranking  //
-        for ($i= 0; $i <= 32; $i++)
-        {
-            $data = Jalalian::now()->subDays($i);
-            if ($data->getDay() == 25)
-            {
-                $array = \Morilog\Jalali\CalendarUtils::toGregorian($data->getYear(), $data->getMonth(), $data->getDay());
-                $month25th = Carbon::create($array[0], $array[1], $array[2], 0, 0, 0);
-            }
-        }
-
+        // Users Ranking
         $users = User::all();
-
+        $monthFirstDay = TimeCalculator::getMonthFirstDay();
         $ranks = DB::table('invoices')
             ->select(DB::raw('sum(price) as total, user_id'))
             ->where('status' , 'approved')
-            ->where('paid_at' , '>' , $month25th)
+            ->where('paid_at' , '>' , $monthFirstDay)
             ->groupBy('user_id')
             ->get()->sortByDesc('total')->toArray();
-
         $ranks = array_values($ranks);
 
         return view('agent.index')
@@ -73,7 +59,7 @@ class HomeController extends Controller
             ->with(['monthly_sum' => $monthly_sum])
             ->with(['users'       => $users])
             ->with(['ranking'     => $ranking])
-            ->with(['ranks'       => $ranks]);;
+            ->with(['ranks'       => $ranks]);
 
     }
 

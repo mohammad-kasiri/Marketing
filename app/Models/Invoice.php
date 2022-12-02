@@ -34,6 +34,11 @@ class Invoice extends Model
         return $this->belongsTo(static::class , 'suspicious_with');
     }
 
+    public function salesCase()
+    {
+        return $this->hasMany(SalesCase::class);
+    }
+
     public function products()
     {
         return $this->belongsToMany(Product::class,

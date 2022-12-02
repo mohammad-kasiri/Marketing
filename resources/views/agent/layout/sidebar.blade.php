@@ -47,7 +47,19 @@
                     <li class="menu-item {{ request()->is('agent/invoice*') ? 'menu-item-active' : '' }}">
                         <a  href="{{route('agent.invoice.index')}}" class="menu-link menu-toggle">
                             <i class="menu-icon flaticon2-checking"></i>
-                            <span class="menu-text">مدیریت رسید   ها</span>
+                            <span class="menu-text">مدیریت رسید ها</span>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ request()->is('agent/saleCase*') ? 'menu-item-active' : '' }}" >
+                        <a  href="{{route('agent.sales-case.index')}}" class="menu-link ">
+                            <i class="menu-icon flaticon-file-2"><span></span></i>
+                            <span class="menu-text">پرونده های فروش</span>
+                        </a>
+                    </li>
+                    <li class="menu-item {{ request()->is('agent/saleCase*') ? 'menu-item-active' : '' }}" >
+                        <a  href="{{route('agent.task.index')}}" class="menu-link ">
+                            <i class="menu-icon fas fa-tasks"><span></span></i>
+                            <span class="menu-text">لیست کارها</span>
                         </a>
                     </li>
                     <li class="menu-item {{ request()->is('agent/report*') ? 'menu-item-active' : '' }}">

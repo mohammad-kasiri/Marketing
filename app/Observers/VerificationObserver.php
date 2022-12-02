@@ -3,8 +3,9 @@
 namespace App\Observers;
 
 
-use App\Facades\SMS;
+
 use App\Models\Verification;
+use App\Sms\SMS;
 
 class VerificationObserver
 {
@@ -16,15 +17,9 @@ class VerificationObserver
      */
     public function created(Verification $verification)
     {
-        $apiKey = "NmxgXph4NawzHQrmpTaMRbWZigexb2xp3MkimwrTUNE=";
-        $client = new \IPPanel\Client($apiKey);
-        $bulkID = $client->sendPattern(
-            "uw6nxcuhaj",    // pattern code
-            "3000505",      // originator
-            "$verification->mobile",  // recipient
-            ['OTP' =>  "$verification->code"] // pattern values
-        );
-
-        //SMS::send($verification->mobile , $verification->code);
+        SMS::for($verification->mobile)
+            ->template('verify')
+            ->setFirstToken($verification->code)
+            ->sendLookUp();
     }
 }

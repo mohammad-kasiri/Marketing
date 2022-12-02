@@ -113,6 +113,10 @@
                                                 </div>
                                                 <x-dashboard.form.row-input label="درصد بازاریاب"  name="percentage" type="number" value="{{$agent->percentage}}"/>
                                                 <x-dashboard.form.row-input label="شماره شبا"     name="sheba_number" type="number" value="{{$agent->sheba_number}}"/>
+                                                <x-dashboard.form.select.row label="وضعیت" name="is_active">
+                                                    <option {{$agent->is_active ? 'selected' : ''}} value="1">فعال</option>
+                                                    <option {{!$agent->is_active ? 'selected' : ''}} value="0">غیر فعال</option>
+                                                </x-dashboard.form.select.row>
                                             </div>
                                         </div>
                                     </div>

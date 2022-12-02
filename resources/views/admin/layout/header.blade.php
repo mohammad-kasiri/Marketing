@@ -4,7 +4,9 @@
     <div class=" container-fluid  d-flex align-items-stretch justify-content-end">
         <!--begin::Topbar-->
         <div class="topbar">
-
+            <!--begin::اعلان ها-->
+            <x-dashboard.notification/>
+            <!--end::اعلان ها-->
 
             <!--begin::User-->
             <div class="topbar-item">

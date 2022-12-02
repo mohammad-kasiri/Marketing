@@ -6,6 +6,8 @@ use App\Functions\DateFormatter;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\Product;
+use App\Models\SalesCase;
+use App\Models\SalesCaseStatus;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -24,8 +26,11 @@ class InvoiceController extends Controller
     public function edit(Invoice $invoice)
     {
         $products= Product::all();
+        $saleCase= SalesCase::query()->where('invoice_id', $invoice->id)->first();
+
         return view('admin.invoices.edit')
             ->with(['invoice' => $invoice])
+            ->with(['saleCase' => $saleCase])
             ->with(['products' => $products]);
     }
 
@@ -35,8 +40,8 @@ class InvoiceController extends Controller
             'price'                 => ['required'],
             'paid_by'               => ['required','in:card,gateway,site'],
 
-            'account_number'        => ['required_if:paid_by,==,card'   ],
-            'gateway_tracking_code' => ['required_if:paid_by,==,gateway'],
+            'account_number'        => ['required_if:paid_by,==,card', 'numeric' , 'min:1000', 'max:9999'],
+            'gateway_tracking_code' => ['required_if:paid_by,==,gateway', 'numeric'],
             'order_number'          => ['required_if:paid_by,==,site'   ],
 
             'description'           => ['nullable'],
@@ -46,7 +51,7 @@ class InvoiceController extends Controller
             'paid_at_date'          => ['required' , 'min:10' , 'max:10'],
             'paid_at_time'          => ['required'],
         ]);
-
+        $firstStatus= $invoice->status;
         $invoice->update([
             'price'                 => str_replace(',' , '' , $request->price),
             'paid_by'               => $request->paid_by,
@@ -61,6 +66,16 @@ class InvoiceController extends Controller
         if(isset($request->products) && is_array($request->products) && count($request->products) > 0)
         {
             $invoice->products()->sync($request->products);
+        }
+
+        if ($firstStatus != 'approved' && $request->status == 'approved'){
+            $saleCase= SalesCase::query()->where('invoice_id', $invoice->id)->first();
+            if ($saleCase) {
+                $saleCaseLastStatus = SalesCaseStatus::query()->where('is_last_step', true)->first();
+                $saleCase->update([
+                    'status_id' => $saleCaseLastStatus->id
+                ]);
+            }
         }
 
         Session::flash('message', 'رسید با موفقیت ویرایش شد.');
@@ -79,6 +94,15 @@ class InvoiceController extends Controller
         $this->validate($request, [
             'status' => ['required' , 'in:approved,rejected,sent']
         ]);
+        if ($invoice->status != 'approved' && $request->status == 'approved'){
+            $saleCase= SalesCase::query()->where('invoice_id', $invoice->id)->first();
+            if ($saleCase) {
+                $saleCaseLastStatus = SalesCaseStatus::query()->where('is_last_step', true)->first();
+                $saleCase->update([
+                    'status_id' => $saleCaseLastStatus->id
+                ]);
+            }
+        }
 
         $invoice->status = $request->status;
         $invoice->save();

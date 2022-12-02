@@ -26,6 +26,7 @@ class User extends Authenticatable implements HasMedia
         'email',
         'percentage',
         'sheba_number',
+        'is_active',
         'password',
     ];
 
@@ -41,6 +42,16 @@ class User extends Authenticatable implements HasMedia
     public function scopeAgents($query)
     {
         return $query->where('level','agent');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
+
+    public function scopeInactive($query)
+    {
+        return $query->where('is_active', 0);
     }
 
     public function getFullNameAttribute()
@@ -89,5 +100,10 @@ class User extends Authenticatable implements HasMedia
     public function invoice()
     {
         return $this->hasMany(Invoice::class);
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
     }
 }

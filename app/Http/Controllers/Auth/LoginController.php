@@ -25,7 +25,7 @@ class LoginController extends Controller
             ->orWhere('email', $request->username)->first();
 
 
-        if (!$user or !Hash::check($request->password, $user->password)) {
+        if (!$user or !Hash::check($request->password, $user->password) or !$user->is_active) {
             throw ValidationException::withMessages([
                 'password' => __('auth.login.messages.failed')
             ]);

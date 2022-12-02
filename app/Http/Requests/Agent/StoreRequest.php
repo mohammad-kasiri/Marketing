@@ -25,7 +25,8 @@ class StoreRequest extends FormRequest
             'password'        => ['nullable' , 'min:4' , 'max:20' , 'confirmed'],
             'percentage'      => ['nullable' , 'numeric'],
             'sheba_number'    => ['nullable' , 'string' , 'min:24' , 'max:24'],
-            'avatar'          => ['nullable' , 'image'  , 'max:2048']
+            'avatar'          => ['nullable' , 'image'  , 'max:2048'],
+            'is_active'       => ['required' , 'in:0,1']
         ];
     }
 }

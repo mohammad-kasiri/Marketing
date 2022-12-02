@@ -72,6 +72,7 @@ class AgentController extends Controller
             'email'        => $request->validated('email'),
             'percentage'   => $request->validated('percentage'),
             'sheba_number' => $request->validated('sheba_number'),
+            'is_active'    => $request->validated('is_active'),
         ];
     }
 }

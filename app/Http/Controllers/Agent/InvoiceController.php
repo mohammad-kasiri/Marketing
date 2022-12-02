@@ -6,6 +6,7 @@ use App\Functions\DateFormatter;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\Product;
+use App\Models\SalesCase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -30,8 +31,8 @@ class InvoiceController extends Controller
             'price'                 => ['required'],
             'paid_by'               => ['required' , 'in:card,gateway,site'],
 
-            'account_number'        => ['required_if:paid_by,==,card'   ],
-            'gateway_tracking_code' => ['required_if:paid_by,==,gateway'],
+            'account_number'        => ['required_if:paid_by,==,card', 'numeric' , 'min:1000', 'max:9999'   ],
+            'gateway_tracking_code' => ['required_if:paid_by,==,gateway',  'numeric'],
             'order_number'          => ['required_if:paid_by,==,site'   ],
 
             'description'           => ['nullable'],
@@ -57,6 +58,12 @@ class InvoiceController extends Controller
         {
             $invoice->products()->attach($request->products);
         }
+        if ($request->has('salesCase')){
+            SalesCase::query()->where('id', $request->salesCase)->firstOrFail()->update([
+                'invoice_id'  => $invoice->id
+            ]);
+        }
+
 
         Session::flash('message', 'رسید با موفقیت ایجاد شد.');
         return redirect()->route('agent.invoice.index');

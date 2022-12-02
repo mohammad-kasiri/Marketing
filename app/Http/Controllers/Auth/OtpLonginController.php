@@ -18,7 +18,7 @@ class OtpLonginController extends Controller
 
     public function login(OtpLoginRequest $request)
     {
-        $user = User::query()->where('mobile' , $request->validated('mobile'))->firstOrFail();
+        $user = User::query()->where('mobile' , $request->validated('mobile'))->active()->firstOrFail();
 
         Auth::login($user , $request->has('remember'));
 

@@ -40,10 +40,10 @@
                             </x-dashboard.form.radio.row>
                         </div>
                         <div class="col-md-8" id="AccountNumberRow">
-                            <x-dashboard.form.row-input label="چهار رقم آخر شماره کارت" name="account_number"  value="{{$invoice->account_number}}"/>
+                            <x-dashboard.form.row-input label="چهار رقم آخر شماره کارت" type="number" name="account_number"  value="{{$invoice->account_number}}"/>
                         </div>
                         <div class="col-md-8" id="GatewayTrackingCodeRow">
-                            <x-dashboard.form.row-input label="شماره پیگیری درگاه" name="gateway_tracking_code" value="{{$invoice->gateway_tracking_code}}"/>
+                            <x-dashboard.form.row-input label="شماره تراکنش" name="gateway_tracking_code" value="{{$invoice->gateway_tracking_code}}"/>
                         </div>
                         <div class="col-md-8" id="OrderNumberRow">
                             <x-dashboard.form.row-input label="شماره سفارش" name="order_number" value="{{$invoice->order_number}}"/>

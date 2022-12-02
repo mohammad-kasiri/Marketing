@@ -10,7 +10,7 @@
             </h4>
             @if(count($notifications) > 0)
                 <h4 class="d-flex flex-center rounded-top">
-                    <a class="btn btn-outline-white btn-sm">ثبت همه به عنوان خوانده شده</a>
+                    <a href="{{route('agent.task.mark-all-as-done')}}" class="btn btn-outline-white btn-sm">ثبت همه به عنوان خوانده شده</a>
                 </h4>
             @endif
 
@@ -31,21 +31,26 @@
                     @foreach($notifications as $notification)
                         <div class="d-flex align-items-center mb-6">
                             <!--begin::سیمبل-->
-                            <div class="symbol symbol-40 symbol-light-primary mr-5">
+                            <a href="{{route('agent.task.mark-as-done',['task' => $notification->id])}}">
+                                <div class="symbol symbol-40 symbol-light-success mr-5">
                                 <span class="symbol-label">
-                                    <span class="svg-icon svg-icon-lg svg-icon-primary">
-                                        {!! $notification->icon !!}
+                                    <span class="svg-icon svg-icon-lg svg-icon-success">
+                                        <i class="far fa-check-circle"></i>
                                    </span>
                                 </span>
-                            </div>
+                                </div>
+                            </a>
+
                             <!--end::سیمبل-->
 
                             <!--begin::متن-->
+
                                 <div class="d-flex flex-column font-weight-bold">
-                                    <a href="#" class="text-dark text-hover-primary mb-1 ">
-                                        {{$notification->message}}
+                                    <a href="{{route('agent.sales-case.show', ['salesCase' => $notification->sales_case_id])}}" class="text-dark text-hover-primary mb-1 ">
+                                        {{$notification->title}}
                                     </a>
-                                    <span class="text-muted">{{$notification->time}}</span>
+
+                                    <span class="text-muted">{{$notification->remined_at()}}</span>
                                 </div>
                             <!--end::متن-->
                         </div>

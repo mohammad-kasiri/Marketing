@@ -21,4 +21,12 @@ class Product extends Model
             'product_id',
             'invoice_id');
     }
+
+    public function sales_cases()
+    {
+        return $this->belongsToMany(SalesCase::class,
+            'product_sales_case',
+            'product_id',
+            'sales_case_id');
+    }
 }

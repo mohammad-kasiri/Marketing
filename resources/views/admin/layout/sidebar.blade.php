@@ -48,6 +48,48 @@
                         <span class="menu-text">بازاریاب ها</span>
                     </a>
                 </li>
+                <li class="menu-item {{ request()->is('admin/customer*') ? 'menu-item-active' : '' }}" >
+                    <a  href="{{route('admin.customer.index')}}" class="menu-link ">
+                        <i class="menu-icon flaticon-customer"><span></span></i>
+                        <span class="menu-text">مشتری ها</span>
+                    </a>
+                </li>
+
+                <li class="menu-item  menu-item-submenu
+                {{ request()->is('admin/sales_case*') ||  request()->is('admin/sales_case_status*') || request()->is('admin/sales_case_status_rule*')
+                    ? ' menu-item-open'
+                    : ''
+                }}
+                " aria-haspopup="true"  data-menu-toggle="hover">
+                    <a  href="javascript:;" class="menu-link menu-toggle">
+                        <i class="menu-icon flaticon-file-2"><span></span></i>
+                        <span class="menu-text">پرونده های فروش</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="menu-submenu ">
+                        <i class="menu-arrow"></i>
+                        <ul class="menu-subnav">
+                            <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
+                                <a  href="{{route('admin.sales-case.index')}}" class="menu-link ">
+                                    <i class="menu-bullet menu-bullet-dot"><span></span></i>
+                                    <span class="menu-text">لیست پرونده ها</span>
+                                </a>
+                            </li>
+                            <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
+                                <a href="{{route('admin.sales-case-status.index')}}" class="menu-link ">
+                                    <i class="menu-bullet menu-bullet-dot"><span></span></i>
+                                    <span class="menu-text">مدیریت وضعیت ها</span>
+                                </a>
+                            </li>
+                            <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
+                                <a href="{{route('admin.sales-case-status-rule.index')}}" class="menu-link ">
+                                    <i class="menu-bullet menu-bullet-dot"><span></span></i>
+                                    <span class="menu-text">مدیریت جریان پرونده</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 <li class="menu-item {{ request()->is('admin/product*') ? 'menu-item-active' : '' }}">
                     <a  href="{{route('admin.product.index')}}" class="menu-link menu-toggle">
                         <i class="menu-icon flaticon-shopping-basket"></i>
@@ -57,7 +99,7 @@
                 <li class="menu-item  {{ request()->is('admin/invoice*') ? 'menu-item-active' : '' }}">
                     <a  href="{{route('admin.invoice.index')}}" class="menu-link menu-toggle">
                         <i class="menu-icon flaticon2-chart"></i>
-                        <span class="menu-text">مدیریت رسید   ها</span>
+                        <span class="menu-text">مدیریت رسید ها</span>
                     </a>
                 </li>
                 <li class="menu-item c">
@@ -72,11 +114,57 @@
                         <span class="menu-text">لیست  پورسانت   ها</span>
                     </a>
                 </li>
-                <li class="menu-item {{ request()->is('admin/setting*') ? 'menu-item-active' : '' }}">
-                    <a  href="{{route('admin.setting.index')}}" class="menu-link menu-toggle">
+                <li class="menu-item {{ request()->is('admin/saleCase*') ? 'menu-item-active' : '' }}" >
+                    <a  href="{{route('admin.task.index')}}" class="menu-link ">
+                        <i class="menu-icon fas fa-tasks"><span></span></i>
+                        <span class="menu-text">لیست کارها</span>
+                    </a>
+                </li>
+                <li class="menu-item  menu-item-submenu
+                {{ request()->is('admin/setting*')
+                    ? ' menu-item-open'
+                    : ''}}"
+                    aria-haspopup="true"  data-menu-toggle="hover">
+                    <a  href="javascript:;" class="menu-link menu-toggle">
                         <i class="menu-icon flaticon-cogwheel-2"></i>
                         <span class="menu-text">تنظیمات</span>
+                        <i class="menu-arrow"></i>
                     </a>
+                    <div class="menu-submenu ">
+                        <i class="menu-arrow"></i>
+                        <ul class="menu-subnav">
+                            <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
+                                <a href="{{route('admin.setting.index')}}" class="menu-link ">
+                                    <i class="menu-bullet menu-bullet-dot"><span></span></i>
+                                    <span class="menu-text">تنظیمات عمومی</span>
+                                </a>
+                            </li>
+                            <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
+                                <a href="{{route('admin.failure-reasons.index')}}" class="menu-link ">
+                                    <i class="menu-bullet menu-bullet-dot"><span></span></i>
+                                    <span class="menu-text">دلایل شکست فروش</span>
+                                </a>
+                            </li>
+                            <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
+                                <a href="{{route('admin.sms.index')}}" class="menu-link ">
+                                    <i class="menu-bullet menu-bullet-dot"><span></span></i>
+                                    <span class="menu-text">پیامک های تعریف شده</span>
+                                </a>
+                            </li>
+                            <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
+                                <a href="{{route('admin.distribute.index')}}" class="menu-link ">
+                                    <i class="menu-bullet menu-bullet-dot"><span></span></i>
+                                    <span class="menu-text">تخس کردن پرونده ها</span>
+                                </a>
+                            </li>
+                            <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
+                                <a href="{{route('admin.delete.sales.cases.index')}}" class="menu-link ">
+                                    <i class="menu-bullet menu-bullet-dot"><span></span></i>
+                                    <span class="menu-text">حذف گروهی پرونده ها</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </div>

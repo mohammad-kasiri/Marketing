@@ -105,6 +105,10 @@
                                             </div>
                                             <x-dashboard.form.row-input label="درصد بازاریاب"  name="percentage" type="number"/>
                                             <x-dashboard.form.row-input label="شماره شبا"     name="sheba_number" type="number"/>
+                                            <x-dashboard.form.select.row label="وضعیت" name="is_active">
+                                                <option value="1">فعال</option>
+                                                <option value="0">غیر فعال</option>
+                                            </x-dashboard.form.select.row>
                                         </div>
                                     </div>
                                 </div>

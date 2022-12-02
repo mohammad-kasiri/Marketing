@@ -46,7 +46,7 @@
                         <span class="svg-icon svg-icon-white svg-icon-3x ml-n1">
                             <x-dashboard.icons.svg.equalizer/>
                         </span>
-                            <div class="text-inverse-dark font-weight-bolder font-size-h5 mb-2 mt-5">میزان فروش این ماه</div>
+                            <div class="text-inverse-dark font-weight-bolder font-size-h5 mb-2 mt-5">میزان فروش از ابتدای ماه مالی</div>
                             <div class="font-weight-bold text-inverse-dark font-size-sm"> {{number_format($monthly_sum)}} تومان </div>
                         </div>
                         <!--end::Body-->
@@ -110,7 +110,7 @@
                                     <tr class="text-muted">
                                         <th class="text-center">#</th>
                                         <th class="text-center">عنوان</th>
-                                        <th class="text-center">تاریخ ثبت</th>
+                                        <th class="text-center">تاریخ تراکنش</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -118,7 +118,7 @@
                                         <tr>
                                             <td class="text-center align-middle"> {{ $key +1}} </td>
                                             <td class="text-center align-middle text-nowrap"> {{$invoice->price()}} تومان </td>
-                                            <td class="text-center align-middle text-nowrap"> {{$invoice->created_at()}}</td>
+                                            <td class="text-center align-middle text-nowrap"> {{$invoice->paid_at()}}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
