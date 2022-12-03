@@ -13,8 +13,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('city_id')->nullable();
 
-            $table->string('first_name', 60)->nullable();
-            $table->string('last_name', 60)->nullable();
+            $table->string('fullname', 60)->nullable();
             $table->string('mobile', 13)->unique();
             $table->string('email', 50)->nullable();
             $table->timestamp('birth_date')->nullable();

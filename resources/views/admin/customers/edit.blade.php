@@ -75,8 +75,7 @@
                                         <h3 class="mb-10 font-weight-bold text-dark">اطلاعات اصلی :</h3>
                                         <div class="row">
                                             <div class="col-xl-12">
-                                                <x-dashboard.form.row-input label="نام" name="first_name" value="{{$customer->first_name}}"/>
-                                                <x-dashboard.form.row-input label=" نام خانوادگی" name="last_name" value="{{$customer->last_name}}"/>
+                                                <x-dashboard.form.row-input label="نام" name="fullname" value="{{$customer->fullname}}"/>
                                                 <x-dashboard.form.row-input label="تلفن همراه"  name="mobile" type="number" value="{{$customer->mobile}}" disabled="true"/>
                                                 <x-dashboard.form.row-input label="آدرس ایمیل" name="email" type="email" value="{{$customer->email}}"/>
                                                 <x-dashboard.form.radio.row label="جنسیت">

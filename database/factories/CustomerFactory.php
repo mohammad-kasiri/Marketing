@@ -17,8 +17,7 @@ class CustomerFactory extends Factory
         $gender = Arr::random(['male', 'female']);
         $email = Arr::random([$this->faker->unique()->safeEmail(), null]);
         return [
-            'first_name'                => $this->getFirstName($gender),
-            'last_name'                 => $this->getRandomLastName(),
+            'fullname'                => $this->getFirstName($gender)." ". $this->getRandomLastName(),
             'mobile'                    => $this->getUniqePhoneNumber(),
             'email'                     => $email,
             'birth_date'                =>  $this->faker->dateTimeBetween('-30 years', '-5 years', 'Asia/Tehran'),

@@ -82,7 +82,7 @@
                         @foreach($customers as $key=>$customer)
                             <tr>
                                 <td class="text-center align-middle"> {{\App\Functions\PaginationCounter::item($customers , $key)}} </td>
-                                <td class="text-center align-middle"> {{$customer->full_name}} </td>
+                                <td class="text-center align-middle"> {{$customer->fullname}} </td>
                                 <td class="text-center align-middle text-nowrap"><a href="tel:{{$customer->mobile}}">{{$customer->mobile}}</a></td>
                                 <td class="text-center align-middle text-nowrap">
                                     <a href="{{route('admin.customer.show' , $customer->id)}}"

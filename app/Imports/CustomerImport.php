@@ -39,7 +39,7 @@ class CustomerImport implements ToCollection
                 if(!$customer){
                     $customer= Customer::query()->create([
                         'mobile'      =>  $phone,
-                        'first_name'  =>  $row[1],
+                        'fullname'    =>  $row[1],
                     ]);
                 }
 //                && $customer->DoesNotHaveSalesCase()

@@ -37,8 +37,7 @@ class CustomerController extends Controller
     public function update(Customer $customer, Request $request)
     {
         $this->validate($request, [
-            "first_name" => ['required', 'max:30'],
-            "last_name"  => ['required', 'max:30'],
+            "fullname"   => ['required', 'max:60'],
             "email"      => ['nullable', 'max:60', 'email'],
             "gender"     => ['required', 'in:male,female'],
             "birth_date" => ['nullable', 'min:10' , 'max:10'],
@@ -47,8 +46,7 @@ class CustomerController extends Controller
         ]);
 
         $customer->update([
-            "first_name" => $request->first_name,
-            "last_name"  => $request->last_name,
+            "fullname"   => $request->fullname,
             "email"      => $request->email,
             "gender"     => $request->gender,
             "birth_date" => Date::format($request->birth_date),
