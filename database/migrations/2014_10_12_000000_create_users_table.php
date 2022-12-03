@@ -23,6 +23,7 @@ return new class extends Migration
             $table->float('percentage')->default(5);
             $table->string('sheba_number',30)->nullable();
 
+            $table->string('voip_number',15)->nullable();
             $table->string('mobile' , 13)->unique();
             $table->string('email'  , 50)->unique()->nullable();
 

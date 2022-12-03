@@ -22,6 +22,7 @@ class StoreRequest extends FormRequest
             'mobile'          => ['required' , new PhoneNumber() , 'unique:users,mobile' , 'bail'] ,
             'gender'          => ['required' , Rule::in(['male' , 'female']), 'bail'],
             'email'           => ['nullable' , 'email' , 'unique:users,email' , 'bail'],
+            'voip_number'     => ['nullable' , 'bail'] ,
             'password'        => ['nullable' , 'min:4' , 'max:20' , 'confirmed'],
             'percentage'      => ['nullable' , 'numeric'],
             'sheba_number'    => ['nullable' , 'string' , 'min:24' , 'max:24'],

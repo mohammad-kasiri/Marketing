@@ -104,6 +104,7 @@
                                                 </div>
                                             </div>
                                             <x-dashboard.form.row-input label="درصد بازاریاب"  name="percentage" type="number"/>
+                                            <x-dashboard.form.row-input label="تلفن ویپ"    name="voip_number" type="text"/>
                                             <x-dashboard.form.row-input label="شماره شبا"     name="sheba_number" type="number"/>
                                             <x-dashboard.form.select.row label="وضعیت" name="is_active">
                                                 <option value="1">فعال</option>

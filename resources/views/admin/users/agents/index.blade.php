@@ -44,6 +44,7 @@
                                 <th class="text-center">تصویر</th>
                                 <th class="text-center">نام</th>
                                 <th class="text-center">تلفن همراه</th>
+                                <th class="text-center">ویپ</th>
                                 <th class="text-center">عملیات</th>
                             </tr>
                             </thead>
@@ -54,6 +55,7 @@
                                     <td class="text-center align-middle"> <img src="{{$agent->avatar()}}" width="40px"></td>
                                     <td class="text-center align-middle text-nowrap"> {{$agent->full_name}}</td>
                                     <td class="text-center align-middle"> <a href="tel:{{$agent->mobile}}">{{$agent->mobile}}</a> </td>
+                                    <td class="text-center align-middle"> <a href="tel:{{$agent->voip_number}}">{{$agent->voip_number}}</a> </td>
                                     <td class="text-center align-middle text-nowrap">
                                         <a href="{{route('admin.agent.show' , $agent->id)}}"
                                            class="btn btn-icon btn-circle btn-sm btn-outline-info"

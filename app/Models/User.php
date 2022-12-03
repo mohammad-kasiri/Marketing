@@ -22,6 +22,7 @@ class User extends Authenticatable implements HasMedia
         'level',
         'first_name',
         'last_name',
+        'voip_number',
         'mobile',
         'email',
         'percentage',
