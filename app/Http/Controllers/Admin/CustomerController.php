@@ -11,6 +11,7 @@ use App\Models\Province;
 use App\Models\SalesCase;
 use App\Models\SalesCaseStatus;
 use App\Models\SalesCaseTag;
+use App\Models\SMSLog;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -101,5 +102,13 @@ class CustomerController extends Controller
 
         Session::flash('message', 'مشتری با موفقیت ویرایش شد.');
         return redirect()->route('admin.customer.edit', ['customer' => $customer->id]);
+    }
+
+    public function smslog(Customer $customer, Request $request)
+    {
+        $smslogs= SMSLog::query()->where('customer_id', $customer->id)->with('agent')->get();
+        return view('admin.customers.smslog.index')
+            ->with(['customer' => $customer])
+            ->with(['smslogs' => $smslogs]);
     }
 }

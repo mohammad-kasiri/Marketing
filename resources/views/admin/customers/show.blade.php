@@ -105,7 +105,7 @@
                                 </a>
                             </div>
                             <div class="navi-item mb-2">
-                                <a  href="{{route('admin.customer.edit' , $customer->id)}}" class="navi-link py-4 ">
+                                <a  href="{{route('admin.customer.smslog' , $customer->id)}}" class="navi-link py-4 ">
                                 <span class="navi-icon mr-2">
                                     <span class="svg-icon">
                                         <!--begin::Svg Icon | path:assets/media/svg/icons/عمومی/User.svg-->
