@@ -49,6 +49,10 @@
                             <div class="col-md-3 py-5">
                                 <a href="tel:{{$salesCase->customer->mobile}}" class="btn btn-success btn-block"> <i class="fas fa-phone mr-2"></i> تماس با کاربر </a>
                                 <br>
+                                <a  onclick="copyToClipboard('{{$salesCase->customer->mobile}}')"  class="btn btn-danger btn-block">
+                                    <i class="far fa-copy mr-2"></i>کپی شماره تماس
+                                </a>
+                                <br>
                                 <a href="https://wa.me/{{$salesCase->customer->mobile}}" class="btn btn-success btn-block"> <i class="fab fa-whatsapp mr-2"></i> ارتباط در واتس اپ</a>
                                 <br>
                                 @if(! $salesCase->is_promoted)
@@ -283,7 +287,17 @@
     </div>
 @endsection
 
-
+<script>
+    function copyToClipboard(number)
+    {
+        navigator.clipboard.writeText(number);
+        Swal.fire(
+            'حله !',
+            'شماره تماس کاربر کپی شد.',
+            'success'
+        )
+    }
+</script>
 
 {{--<div class="card card-custom mb-4">--}}
 {{--    <div class="card-header flex-wrap border-0 pt-6 pb-0">--}}

@@ -49,6 +49,10 @@
                             <div class="col-md-3 py-5">
                                 <a href="tel:{{$salesCase->customer->mobile}}" class="btn btn-success btn-block"> <i class="fas fa-phone mr-2"></i> تماس با کاربر </a>
                                 <br>
+                                <a  onclick="copyToClipboard('{{$salesCase->customer->mobile}}')"  class="btn btn-danger btn-block">
+                                    <i class="far fa-copy mr-2"></i>کپی شماره تماس
+                                </a>
+                                <br>
                                 <a href="https://wa.me/{{$salesCase->customer->mobile}}" class="btn btn-success btn-block"> <i class="fab fa-whatsapp mr-2"></i> ارتباط در واتس اپ</a>
                                 <br>
                                 <a href="{{route('agent.task.create', ['salesCase' => $salesCase->id])}}" class="btn btn-primary btn-block">
@@ -240,7 +244,17 @@
         </div>
     </div>
 @endsection
-
+<script>
+    function copyToClipboard(number)
+    {
+        navigator.clipboard.writeText(number);
+        Swal.fire(
+            'حله !',
+            'شماره تماس کاربر کپی شد.',
+            'success'
+        )
+    }
+</script>
 
 
 {{--<div class="card card-custom mb-4">--}}
