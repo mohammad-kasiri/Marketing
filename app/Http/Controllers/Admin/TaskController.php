@@ -13,7 +13,7 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $tasks= Task::query()->with('salesCase')->latest()->get();
+        $tasks= Task::query()->with('salesCase')->where('user_id', auth()->id())->latest()->get();
         return view('admin.tasks.index')
             ->with(['tasks' => $tasks]);
     }
@@ -47,11 +47,13 @@ class TaskController extends Controller
 
     public function edit(Task $task)
     {
+        if ($task->user_id != auth()->id())    abort(401);
         return view('admin.tasks.edit')->with(['task'=> $task]);
     }
 
     public function update(Task $task, Request $request)
     {
+        if ($task->user_id != auth()->id())    abort(401);
         $this->validate($request, [
             'title'       => ['required' ,'max:200'],
             'note'        => ['nullable'],
@@ -71,6 +73,7 @@ class TaskController extends Controller
 
     public function destroy(SalesCase $salesCase, Task $task)
     {
+        if ($task->user_id != auth()->id())    abort(401);
         $task->delete();
         Session::flash('message', 'کار با موفقیت حذف شد.');
         return redirect()->route('admin.task.index', ['saleCase' => $salesCase->id]);
@@ -78,11 +81,13 @@ class TaskController extends Controller
 
     public function markAsDone(Task $task)
     {
+        if ($task->user_id != auth()->id())    abort(401);
         $task->markAsDone();
         return redirect()->back();
     }
     public function markAllAsDone(Task $task)
     {
+        if ($task->user_id != auth()->id())    abort(401);
         Task::markAllAsRead();
         return redirect()->back();
     }

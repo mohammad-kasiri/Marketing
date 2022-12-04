@@ -88,6 +88,7 @@ Route::middleware(['auth' , 'is_admin'])->prefix('admin')->name('admin.')->group
     Route::get('customer/{customer}/edit',                  [CustomerController::class , 'edit'])       ->name('customer.edit');
     Route::patch('customer/{customer}/update',              [CustomerController::class , 'update'])     ->name('customer.update');
     Route::get('customer/{customer}/smslog',                [CustomerController::class , 'smslog'])     ->name('customer.smslog');
+    Route::get('customer/{customer}/calllog',               [CustomerController::class , 'calllog'])    ->name('customer.calllog');
 
     Route::get ('sales_case',                               [SalesCaseController::class , 'index'])     ->name('sales-case.index');
     Route::get ('sales_case/{salesCase}',                   [SalesCaseController::class , 'show'])      ->name('sales-case.show');

@@ -91,7 +91,7 @@
                                 </a>
                             </div>
                             <div class="navi-item mb-2">
-                                <a  href="{{route('admin.customer.edit' , $customer->id)}}" class="navi-link py-4 ">
+                                <a  href="{{route('admin.customer.calllog' , $customer->id)}}" class="navi-link py-4 ">
                                 <span class="navi-icon mr-2">
                                     <span class="svg-icon">
                                         <!--begin::Svg Icon | path:assets/media/svg/icons/عمومی/User.svg-->
@@ -167,8 +167,11 @@
                                             <span class="h6 mr-3 text-muted">آخرین ویرایش:</span><span class="h6">{{$salesCase->updated_at()}}</span>
                                         </div>
                                         <div class="col-md-2">
-                                            <div class="text-center col bg-light-primary px-6 py-8 rounded-xl mb-7"><span class="svg-icon svg-icon-3x svg-icon-primary d-block my-5"><x-dashboard.icons.svg.money/></span>
-                                                <a class="text-primary font-weight-bold font-size-h6 mt-5">
+                                            <div class="text-center col bg-{{$salesCase->status->color}} px-6 py-8 rounded-xl mb-7">
+                                                <span class="svg-icon svg-icon-3x svg-icon-white d-block my-5">
+                                                   <x-dashboard.icons.svg.money/>
+                                                </span>
+                                                <a class="text-white font-weight-bold font-size-h6 mt-5">
                                                     {{$salesCase->status->name}}
                                                 </a>
                                             </div>
@@ -180,6 +183,7 @@
                                                     data-delay="500"
                                                     data-toggle="popover"
                                                     data-placement="top"
+                                                    data-html="true"
                                                     data-content="{!! $salesCase->admin_note ?? "خالی" !!}">توضیحات مدیر</button>
                                             <br>
                                             <button class="btn btn-info btn-block"
@@ -188,6 +192,7 @@
                                                     data-delay="500"
                                                     data-toggle="popover"
                                                     data-placement="top"
+                                                    data-html="true"
                                                     data-content="{!! $salesCase->description ?? "خالی" !!}">یادداشت ایجنت</button>
                                             <br>
                                             <a href="{{route('admin.sales-case.show', ['salesCase' => $salesCase])}}" class="btn btn-primary btn-block">جزئیات پرونده</a>

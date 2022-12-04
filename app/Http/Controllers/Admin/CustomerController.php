@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Functions\Date;
 use App\Http\Controllers\Controller;
 use App\Imports\CustomerImport;
+use App\Models\CallLog;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Province;
@@ -104,11 +105,19 @@ class CustomerController extends Controller
         return redirect()->route('admin.customer.edit', ['customer' => $customer->id]);
     }
 
-    public function smslog(Customer $customer, Request $request)
+    public function smslog(Customer $customer)
     {
         $smslogs= SMSLog::query()->where('customer_id', $customer->id)->with('agent')->get();
         return view('admin.customers.smslog.index')
             ->with(['customer' => $customer])
             ->with(['smslogs' => $smslogs]);
+    }
+
+    public function calllog(Customer$customer)
+    {
+        $callLogs= CallLog::query()->where('from',$customer->mobile)->orWhere('to', $customer->mobile)->get();
+        return view('admin.customers.calllog.index')
+            ->with(['customer' => $customer])
+            ->with(['callLogs' => $callLogs]);
     }
 }

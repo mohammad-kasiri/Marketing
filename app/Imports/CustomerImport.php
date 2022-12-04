@@ -43,7 +43,7 @@ class CustomerImport implements ToCollection
                     ]);
                 }
 //                && $customer->DoesNotHaveSalesCase()
-                if (!is_null($this->products) && count($this->products) > 0){
+                if (!is_null($this->products) && count($this->products) > 0 && $customer->DoesNotHaveSalesCase()){
                      $salesCase= SalesCase::query()->create([
                          'agent_id'     => null,
                          'customer_id'  => $customer->id,

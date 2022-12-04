@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SalesCaseStatus extends Model
 {
     use HasFactory;
-    protected $fillable= ['name', 'sort', 'is_active', 'is_first_step', 'is_before_last_step', 'is_last_step'];
+    protected $fillable= ['name', 'sort', 'color', 'icon', 'is_active', 'is_first_step', 'is_before_last_step', 'is_last_step'];
 
     public function salesCases()
     {

@@ -20,9 +20,20 @@ class SalesCaseController extends Controller
     {
         $statuses= SalesCaseStatus::query()->active()->get();
 
-        $promotedSalesCases=  SalesCase::query()->where('is_promoted', true)->get();
+        $promotedSalesCases=  SalesCase::query()
+            ->where('is_promoted', true)
+            ->where('agent_id', auth()->id())
+            ->get();
 
         $salesCases= SalesCase::query();
+
+        if (request()->has('fullname') && request()->input('fullname') != null )
+        {
+            $salesCases= $salesCases->whereRelation('customer','fullname', 'LIKE' , '%'.\request()->input('fullname').'%');
+        }else{
+            $salesCases= $salesCases->with('customer');
+        }
+
         if (request()->has('mobile') && request()->input('mobile') != null )
         {
             $salesCases= $salesCases->whereRelation('customer','mobile', 'LIKE' , '%'.\request()->input('mobile').'%');
@@ -39,6 +50,7 @@ class SalesCaseController extends Controller
             ->with('products')
             ->with('agent')
             ->with('status')
+            ->where('agent_id', auth()->id())
             ->latest()
             ->paginate(30);
 
@@ -93,6 +105,11 @@ class SalesCaseController extends Controller
             'description' => ['required', 'max:190']
         ]);
         $status= SalesCaseStatus::query()->findOrFail($request->status_id);
+
+        SalesCaseStatusRule::query()
+            ->where('from', $salesCase->status_id)
+            ->where('to', $request->status_id)
+            ->findOrFail();
 
         SalesCaseStatusHistory::query()->create([
             'sales_case_id' => $salesCase->id,

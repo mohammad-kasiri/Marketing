@@ -24,6 +24,13 @@ class SalesCaseController extends Controller
         $statuses= SalesCaseStatus::query()->active()->get();
         $salesCases= SalesCase::query();
 
+        if (request()->has('fullname') && request()->input('fullname') != null )
+        {
+            $salesCases= $salesCases->whereRelation('customer','fullname', 'LIKE' , '%'.\request()->input('fullname').'%');
+        }else{
+            $salesCases= $salesCases->with('customer');
+        }
+
         if (request()->has('mobile') && request()->input('mobile') != null )
         {
             $salesCases= $salesCases->whereRelation('customer','mobile', 'LIKE' , '%'.\request()->input('mobile').'%');

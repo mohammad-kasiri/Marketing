@@ -139,7 +139,13 @@
                                    </x-dashboard.form.select.row>
                                </div>
                                @if($salesCase->status->is_before_last_step)
-                                   <a href="{{route('agent.invoice.create', ['salesCase' => $salesCase->id])}}" class="btn btn-success">لینک کردن به رسید</a>
+                                   <a href="{{route('agent.invoice.create', ['salesCase' => $salesCase->id])}}" class="btn btn-success
+                                        @if($salesCase->invoice_id != null)
+                                            disabled
+                                        @endif
+                                   ">لینک کردن به رسید</a>
+                               @elseif($salesCase->status->	is_last_step)
+                                   <a class="btn btn-success disabled">فروش به پایان رسید</a>
                                @else
                                     <div class="col-12">
                                         <x-dashboard.form.row-input  name="description"   label=" توضیح تغییر وضعیت" />

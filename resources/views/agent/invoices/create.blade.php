@@ -81,7 +81,12 @@
                                     </x-dashboard.form.checkbox>
                                 </div>
                             @endforeach
+
+
                         </div>
+                        @error('products')
+                             <small class="text-danger">انتخاب یک کالا الزامی است</small>
+                        @enderror
                     </div>
                 </div>
 

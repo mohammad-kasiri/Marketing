@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('name', 40);
             $table->integer('sort')->nullable();
+            $table->string('color')->default('primary');
+            $table->string('icon')->nullable();
             $table->boolean('is_active')->default(true);
             $table->boolean('is_first_step')->default(false);
             $table->boolean('is_before_last_step')->default(false);

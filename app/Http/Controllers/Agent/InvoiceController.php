@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\SalesCase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\ValidationException;
 
 class InvoiceController extends Controller
 {
@@ -32,7 +33,7 @@ class InvoiceController extends Controller
             'paid_by'               => ['required' , 'in:card,gateway,site'],
 
             'account_number'        => ['required_if:paid_by,==,card', 'numeric' , 'min:1000', 'max:9999'   ],
-            'gateway_tracking_code' => ['required_if:paid_by,==,gateway',  'numeric'],
+            'gateway_tracking_code' => ['required_if:paid_by,==,gateway','nullable' , 'numeric'],
             'order_number'          => ['required_if:paid_by,==,site'   ],
 
             'description'           => ['nullable'],
@@ -41,6 +42,12 @@ class InvoiceController extends Controller
             'paid_at_date'          => ['required' , 'min:10' , 'max:10'],
             'paid_at_time'          => ['required'],
         ]);
+
+        if (count($request->products) != 1 ){
+            return redirect()->back()->withErrors([
+                'products' => "تنها یک کالا میتوانید انتخاب کنید"
+            ]);
+        }
 
         $status = $this->checkStatus();
 
@@ -58,7 +65,7 @@ class InvoiceController extends Controller
         {
             $invoice->products()->attach($request->products);
         }
-        if ($request->has('salesCase')){
+        if ($request->has('salesCase') && $request->get('salesCase') != null){
             SalesCase::query()->where('id', $request->salesCase)->firstOrFail()->update([
                 'invoice_id'  => $invoice->id
             ]);
