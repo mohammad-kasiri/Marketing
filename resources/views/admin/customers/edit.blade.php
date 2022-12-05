@@ -82,6 +82,27 @@
                                                     <x-dashboard.form.radio.button label="آقا" name="gender" value="male" color="danger" checked="{{$customer->gender == 'male'}}"/>
                                                     <x-dashboard.form.radio.button label="خانم" name="gender" value="female" color="success" checked="{{$customer->gender == 'female'}}"/>
                                                 </x-dashboard.form.radio.row>
+                                                <br><br>
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <button type="button" class="btn btn-primary btn-block" onclick="copyToClipboard('{{$customer->fullname}}')">
+                                                            کپی نام
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <button type="button" class="btn btn-info btn-block" onclick="copyToClipboard('{{$customer->mobile}}')">
+                                                            کپی شماره تماس
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <button type="button" class="btn btn-success btn-block" onclick="copyToClipboard('{{$customer->email ?? null}}')">
+                                                            کپی ایمیل
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+
+
                                             </div>
                                         </div>
                                     </div>
@@ -146,4 +167,17 @@
         <!--end::Container-->
     </div>
     <!--end::Entry-->
+@endsection
+@section('script')
+    <script>
+        function copyToClipboard(number)
+        {
+            navigator.clipboard.writeText(number);
+            Swal.fire(
+                'حله !',
+                number +' در کلیپ برد ذخیره شد! ',
+                'success'
+            )
+        }
+    </script>
 @endsection

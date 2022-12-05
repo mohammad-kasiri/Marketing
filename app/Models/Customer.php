@@ -11,7 +11,7 @@ class Customer extends Model
 {
     use HasFactory;
 
-    const PAGINATION_LIMIT = 20;
+    const PAGINATION_LIMIT = 50;
 
     protected $fillable=['fullname', 'mobile', 'email', 'birth_date', 'gender', 'city', 'possibility_of_purchase', 'description', 'status'];
 
@@ -62,21 +62,16 @@ class Customer extends Model
     {
         return ($key == null) ? $query : $query->where("gender", $key);
     }
-    public function scopeLastnamefilter($query , $key)
-    {
-        return ($key == null) ? $query : $query->OrWhere("last_name" ,'LIKE' , '%'.$key.'%');
-    }
 
-    public function scopeFirstnamefilter($query , $key)
+    public function scopeFullnamefilter($query , $key)
     {
-        return ($key == null) ? $query : $query->Where("first_name", 'LIKE' , '%'.$key.'%');
+        return ($key == null) ? $query : $query->Where("fullname", 'LIKE' , '%'.$key.'%');
     }
 
     public function scopeFilter($query , $key)
     {
         return $query
-            ->firstnamefilter($key["name"] ?? null)
-            ->lastnamefilter($key["name"] ?? null)
+            ->fullnamefilter($key["name"] ?? null)
             ->mobilefilter($key["mobile"] ?? null)
             ->genderfilter($key["gender"] ?? null)
             ->latest()

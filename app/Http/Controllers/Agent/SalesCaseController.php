@@ -52,7 +52,7 @@ class SalesCaseController extends Controller
             ->with('status')
             ->where('agent_id', auth()->id())
             ->latest()
-            ->paginate(30);
+            ->paginate(50);
 
 
         return view('agent.sales_cases.index')

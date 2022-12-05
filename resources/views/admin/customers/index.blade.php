@@ -61,9 +61,15 @@
         <!--begin::Card-->
         <div class="card card-custom">
             <div class="card-header flex-wrap border-0 pt-6 pb-0">
-                <div class="card-title">
+                <div class="card-title d-inline">
                     <h3 class="card-label">
-                        لیست مشتری ها
+                        <span>لیست مشتری ها </span>
+                    </h3>
+                </div>
+                <div class="card-title d-inline">
+                    <h3 class="card-label float-left text-success">
+                           تعداد کل مشتری ها:
+                            {{number_format($customersCount)}}
                     </h3>
                 </div>
             </div>
@@ -104,7 +110,11 @@
         </div>
         <!--end::Card-->
         <div class="text-center mt-5">
-            {{$customers->render()}}
+            {{$customers->appends([
+            'name' => request()->input('name'),
+            'mobile' => request()->input('mobile'),
+            'gender' => request()->input('gender')
+            ])->render()}}
         </div>
     </div>
     <!--end::Container-->

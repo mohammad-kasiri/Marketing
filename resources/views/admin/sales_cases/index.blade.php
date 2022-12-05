@@ -73,7 +73,7 @@
                 <div class="card card-custom @if($salesCase->failure_reason_id)bg-light-danger @endif @if($salesCase->is_promoted) border border-left-warning border-5 @endif mt-3">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <h5>لیست محصولات پرونده فروش</h5>
                                 <ul>
                                     @foreach($salesCase->products as $product)
@@ -92,7 +92,7 @@
                                 <br><br>
                                 <span class="h6 mr-3 text-muted">آخرین ویرایش:</span><span class="h6">{{$salesCase->updated_at()}}</span>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <div class="text-center col bg-{{$salesCase->status->color}} px-6 py-8 rounded-xl mb-7">
                                      <span class="svg-icon svg-icon-3x svg-icon-white d-block my-5">
                                         <x-dashboard.icons.svg.money/>
@@ -130,7 +130,12 @@
             @endforeach
             <!--end::Card-->
             <div class="text-center mt-5">
-                {{$salesCases->links()}}
+                {{$salesCases->appends([
+                    'fullname'  => request()->input('fullname'),
+                    'mobile'    => request()->input('mobile'),
+                    'status_id' => request()->input('status_id'),
+                    'agent_id'  => request()->input('agent_id')
+                ])->render()}}
             </div>
         </div>
         <!--end::Container-->

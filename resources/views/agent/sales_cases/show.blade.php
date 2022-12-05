@@ -53,7 +53,7 @@
                                     <i class="far fa-copy mr-2"></i>کپی شماره تماس
                                 </a>
                                 <br>
-                                <a href="https://wa.me/{{$salesCase->customer->mobile}}" class="btn btn-success btn-block"> <i class="fab fa-whatsapp mr-2"></i> ارتباط در واتس اپ</a>
+                                <a href="https://wa.me/{{Illuminate\Support\Str::replaceFirst('0', '98', $salesCase->customer->mobile)}}" class="btn btn-success btn-block"> <i class="fab fa-whatsapp mr-2"></i> ارتباط در واتس اپ</a>
                                 <br>
                                 <a href="{{route('agent.task.create', ['salesCase' => $salesCase->id])}}" class="btn btn-primary btn-block">
                                     <i class="far fa-bell mr-2"></i>افزودن کار و یادآور

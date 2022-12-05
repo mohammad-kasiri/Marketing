@@ -53,7 +53,7 @@
                                     <i class="far fa-copy mr-2"></i>کپی شماره تماس
                                 </a>
                                 <br>
-                                <a href="https://wa.me/{{$salesCase->customer->mobile}}" class="btn btn-success btn-block"> <i class="fab fa-whatsapp mr-2"></i> ارتباط در واتس اپ</a>
+                                <a href="https://wa.me/{{Illuminate\Support\Str::replaceFirst('0', '98', $salesCase->customer->mobile)}}" class="btn btn-success btn-block"> <i class="fab fa-whatsapp mr-2"></i> ارتباط در واتس اپ</a>
                                 <br>
                                 @if(! $salesCase->is_promoted)
                                     <form action="{{route('admin.sales-case.promotion', ['salesCase' => $salesCase->id])}}" method="post">

@@ -68,8 +68,6 @@ class Kavenegar
             $body['token2']= $this->refactor($this->thirdToken);
 
         $response = Http::get(config('sms.services.kavenegar.lookup_address'),$body);
-        dd($response->body() , $body);
-
     }
 
     private function refactor(string $token) :string

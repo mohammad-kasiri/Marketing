@@ -55,7 +55,7 @@ class SalesCaseController extends Controller
             ->with('agent')
             ->with('status')
             ->latest()
-            ->paginate(30);
+            ->paginate(50);
 
         return view('admin.sales_cases.index')
             ->with(['statuses'  => $statuses])

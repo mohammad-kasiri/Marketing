@@ -23,7 +23,10 @@ class CustomerController extends Controller
     public function index()
     {
         $customers= Customer::query()->filter(request()->all());
-        return view('admin.customers.index')->with(['customers' => $customers]);
+        $customersCount= Customer::query()->count();
+        return view('admin.customers.index')
+            ->with(['customersCount' => $customersCount])
+            ->with(['customers'     => $customers]);
     }
 
     public function show(Customer $customer)

@@ -176,7 +176,11 @@
             @endforeach
             <!--end::Card-->
             <div class="text-center mt-5">
-                {{$salesCases->links()}}
+                {{$salesCases->appends([
+                    'fullname'  => request()->input('fullname'),
+                    'mobile'    => request()->input('mobile'),
+                    'status_id' => request()->input('status_id'),
+                ])->render()}}
             </div>
         </div>
         <!--end::Container-->
