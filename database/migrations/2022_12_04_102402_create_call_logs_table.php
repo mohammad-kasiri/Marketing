@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('to');
             $table->string('uid');
             $table->string('cuid');
+            $table->boolean('is_notified')->default(false);
             $table->timestamps();
         });
     }

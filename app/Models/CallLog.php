@@ -9,7 +9,7 @@ use Morilog\Jalali\Jalalian;
 class CallLog extends Model
 {
     use HasFactory;
-    protected $fillable=['event_name', 'from', 'to', 'uid', 'cuid'];
+    protected $fillable=['event_name', 'from', 'to', 'uid', 'cuid', 'is_notified'];
     public function created_at()
     {
         return Jalalian::forge($this->created_at)->format('%A, %d %B %Y');

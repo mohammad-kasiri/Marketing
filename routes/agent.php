@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Agent\CallCheckController;
 use App\Http\Controllers\Agent\CustomerController;
 use App\Http\Controllers\Agent\HomeController;
 use App\Http\Controllers\Agent\InvoiceController;
@@ -42,6 +43,7 @@ Route::middleware(['auth'])->prefix('agent')->name('agent.')->group(function () 
     Route::get('customer/{customer}/edit',                  [CustomerController::class , 'edit'])       ->name('customer.edit');
     Route::patch('customer/{customer}/update',              [CustomerController::class , 'update'])     ->name('customer.update');
 
-    Route::get('chart/w/{agent}' ,         [ChartController::class   , 'agentWeekly'])   ->name('chart.agent.weekly');
-    Route::get('chart/m/{agent}' ,         [ChartController::class   , 'agentMonthly'])  ->name('chart.agent.monthly');
+    Route::get('chart/w/{agent}' ,                          [ChartController::class   , 'agentWeekly'])   ->name('chart.agent.weekly');
+    Route::get('chart/m/{agent}' ,                          [ChartController::class   , 'agentMonthly'])  ->name('chart.agent.monthly');
+    Route::post('call-check' ,                              [CallCheckController::class   , 'check'])     ->name('call.check');
 });

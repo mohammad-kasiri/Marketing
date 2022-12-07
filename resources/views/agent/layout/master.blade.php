@@ -6,7 +6,8 @@
     <title>   @yield('title')  </title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link href="{{mix('dashboard/css/dashboard.css')}}" rel="stylesheet" type="text/css"/>
-    <link  href="{{asset("dashboard/css/jalaliDatepicker.min.css")}}"type="text/css" rel="stylesheet">
+    <link  href="{{asset("dashboard/css/jalaliDatepicker.min.css")}}" type="text/css" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/png" href="{{asset('/dashboard/img/logo.png')}}">
     <style>
         /* Chrome, Safari, Edge, Opera */
@@ -44,6 +45,29 @@
                 @yield('subheader')
                 <div class="d-flex flex-column-fluid">
                     @yield('content')
+                    <!-- مودال-->
+                    <div class="modal fade" id="callmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Incoming Call</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="نزدیک">
+                                        <i aria-hidden="true" class="ki ki-close"></i>
+                                    </button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <i class="fa fa-phone  text-warning icon-3x d-block my-5"></i>
+                                    <span> تماس ورودی از </span><span id="contactName"></span>
+                                    :
+                                    <br>
+                                    <h4 id="contactPhone" class="text-center my-5">09109529484</h4>
+                                </div>
+                                <div class="modal-footer">
+                                    <a id="contactProfile" class="btn btn-primary font-weight-bold">مشاهده پروفایل</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             @include('agent.layout.footer')
@@ -84,6 +108,29 @@
     })
 </script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
+<script>
+    setInterval(get_fb, 3000);
+    function get_fb(){
+       $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: "POST",
+            url: "{{route('agent.call.check')}}",
+            async: false,
+           success: function(data){
+                let status= data.status
+                if(status === 100)
+                {
+                     $('#contactName').text(data.name);
+                     $('#contactPhone').text(data.mobile);
+                     $('#contactProfile').attr('href', 'https://panel.studio-mim.com/agent/customer/' + data.id);
+                     $('#callmodal').modal().show();
+                }
+           }
+       });
+    }
+</script>
 @yield('script')
 </body>
 
