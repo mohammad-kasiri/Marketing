@@ -160,14 +160,12 @@
                                             <span class="h6 mr-3 text-muted">آخرین ویرایش:</span><span class="h6">{{$salesCase->updated_at()}}</span>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="text-center col bg-{{$salesCase->status->color}} px-6 py-8 rounded-xl mb-7">
-                                                <span class="svg-icon svg-icon-3x svg-icon-white d-block my-5">
-                                                   <x-dashboard.icons.svg.money/>
-                                                </span>
-                                                <a class="text-white font-weight-bold font-size-h6 mt-5">
+                                            <button class="btn btn-{{$salesCase->status->color}} btn-block">
+                                                <img src="{{$salesCase->status->icon()}}"  class="mx-auto d-block pb-4"/>
+                                                <a class="text-white font-weight-bold font-size-h6 mx-auto">
                                                     {{$salesCase->status->name}}
                                                 </a>
-                                            </div>
+                                            </button>
                                         </div>
                                         <div class="col-md-2">
                                             <button class="btn btn-danger btn-block"

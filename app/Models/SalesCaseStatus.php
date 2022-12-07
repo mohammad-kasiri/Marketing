@@ -14,6 +14,10 @@ class SalesCaseStatus extends Model
     {
         return $this->hasMany(SalesCase::class, 'status_id');
     }
+    public function icon()
+    {
+        return asset('/images/static/icon/'. $this->icon);
+    }
 
     public function scopeActive($query)
     {
