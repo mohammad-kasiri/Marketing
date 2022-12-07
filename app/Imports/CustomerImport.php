@@ -14,12 +14,12 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 class CustomerImport implements ToCollection
 {
     private array $wrongList= [];
-    private $products;
+    private $product;
     private string $tag;
 
-    public function __construct($products, $tag)
+    public function __construct($product, $tag)
     {
-        $this->products= $products;
+        $this->product= $product;
         $this->tag = $tag;
     }
 
@@ -43,14 +43,14 @@ class CustomerImport implements ToCollection
                     ]);
                 }
 //                && $customer->DoesNotHaveSalesCase()
-                if (!is_null($this->products) && count($this->products) > 0 && $customer->DoesNotHaveSalesCase()){
+                if (!is_null($this->product) && count($this->product) > 0 && $customer->DoesNotHaveSalesCase($this->product)){
                      $salesCase= SalesCase::query()->create([
                          'agent_id'     => null,
                          'customer_id'  => $customer->id,
                          'status_id'    => $firstStatus->id,
                          'tag_id'       => $this->tag,
                      ]);
-                     $salesCase->products()->attach($this->products);
+                     $salesCase->products()->attach($this->product);
                 }
             }
             $this->setToWrongList($row);

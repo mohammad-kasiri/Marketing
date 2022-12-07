@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Functions\Avatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Morilog\Jalali\Jalalian;
 
 class Customer extends Model
@@ -78,8 +79,16 @@ class Customer extends Model
             ->paginate(static::PAGINATION_LIMIT);
     }
 
-    public function DoesNotHaveSalesCase()
+    public function DoesNotHaveSalesCase($product)
     {
-        return $this->salesCases()->count() == 0;
+        $salesCases=$this->salesCases()->pluck('id');
+
+        $exists = DB::table('product_sales_case')
+            ->whereIn('sales_case_id', $salesCases)
+            ->where('product_id', $product)
+            ->exists();
+
+        return !$exists;
+
     }
 }

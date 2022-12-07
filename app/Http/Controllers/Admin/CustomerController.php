@@ -54,16 +54,21 @@ class CustomerController extends Controller
     {
         $this->validate($request, [
            'file'      => ['required','max:2048', 'mimes:xlsx,xls'],
-           'products'  => ['nullable' , 'array'],
-           'products.*'=> ['nullable' , 'numeric'],
+           'products'  => ['required' , 'array'],
+           'products.*'=> ['required' , 'numeric'],
            'source'    =>['required'],
         ]);
 
-        if (!is_null($request->products) && count($request->products) > 0) {
-            $firstStatus= SalesCaseStatus::query()->where('is_first_step', true)->first();
-            if (!$firstStatus)
-                return redirect()->back()->withErrors(['file' => 'هنوز هیچ وضعیت اولیه ای در سیستم تعریف نشده است.']);
+        if (!is_null($request->products) && count($request->products) != 1)
+        {
+            return redirect()->back()->withErrors(['products' => 'تنها یک کالا باید انتخاب شود']);
         }
+
+
+        $firstStatus= SalesCaseStatus::query()->where('is_first_step', true)->first();
+        if (!$firstStatus)
+            return redirect()->back()->withErrors(['file' => 'هنوز هیچ وضعیت اولیه ای در سیستم تعریف نشده است.']);
+
 
         $tag= SalesCase::makeUniqueGroupTag();
         $tag= SalesCaseTag::query()->create([
