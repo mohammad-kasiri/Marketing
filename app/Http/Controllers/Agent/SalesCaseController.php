@@ -109,7 +109,7 @@ class SalesCaseController extends Controller
         SalesCaseStatusRule::query()
             ->where('from', $salesCase->status_id)
             ->where('to', $request->status_id)
-            ->findOrFail();
+            ->firstOrFail();
 
         SalesCaseStatusHistory::query()->create([
             'sales_case_id' => $salesCase->id,
