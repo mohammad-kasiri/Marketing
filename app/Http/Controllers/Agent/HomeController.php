@@ -42,7 +42,7 @@ class HomeController extends Controller
             ->sum('price');
 
         // Users Ranking
-        $users = User::all();
+        $users = User::query()->active()->get();
         $monthFirstDay = TimeCalculator::getMonthFirstDay();
         $ranks = DB::table('invoices')
             ->select(DB::raw('sum(price) as total, user_id'))

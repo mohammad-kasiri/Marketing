@@ -24,7 +24,7 @@ class MonthlyTransaction extends Command
 
         $topSellerUserId =  TimeCalculator::getFirstUserId();
         $monthFirstDay   =  TimeCalculator::getMonthFirstDay();
-        $users           =  User::query()->agents()->get();
+        $users           =  User::query()->agents()->active()->get();
 
         foreach ($users as $user)
         {

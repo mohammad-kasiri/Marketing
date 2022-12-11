@@ -175,34 +175,37 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                    @php $k= 1; @endphp
                                     @foreach($ranks as $key=>$rank)
-                                        <tr>
-                                            <td class="text-center align-middle text-nowrap">
-                                                {{$key+1}}
-                                            </td>
-                                            @foreach($users as $user)
-                                                @if($rank->user_id == $user->id)
+                                        @foreach($users as $user)
+                                            @if($rank->user_id == $user->id)
+                                                <tr>
                                                     <td class="text-center align-middle text-nowrap">
-                                                        {{$user->full_name}}
+                                                        {{$k}}  @php $k = $k +1; @endphp
                                                     </td>
-                                                @endif
-                                            @endforeach
-                                            <td class="text-center align-middle text-nowrap"> {{number_format($rank->total)}}</td>
 
-                                            @foreach($users as $user)
-                                                @if($rank->user_id == $user->id && $key != 0)
-                                                    <td class="text-center align-middle text-nowrap">
-                                                        {{number_format( (($rank->total/100) * $user->percentage)) }}
-                                                    </td>
-                                                @endif
+                                                            <td class="text-center align-middle text-nowrap">
+                                                                {{$user->full_name}}
+                                                            </td>
 
-                                                @if($rank->user_id == $user->id && $key == 0)
-                                                    <td class="text-center align-middle text-nowrap">
-                                                        {{number_format( (($rank->total/100) * 8)) }}
-                                                    </td>
-                                                @endif
-                                            @endforeach
-                                    </tr>
+                                                    <td class="text-center align-middle text-nowrap"> {{number_format($rank->total)}}</td>
+
+                                                    @foreach($users as $user)
+                                                        @if($rank->user_id == $user->id && $key != 0)
+                                                            <td class="text-center align-middle text-nowrap">
+                                                                {{number_format( (($rank->total/100) * $user->percentage)) }}
+                                                            </td>
+                                                        @endif
+
+                                                        @if($rank->user_id == $user->id && $key == 0)
+                                                            <td class="text-center align-middle text-nowrap">
+                                                                {{number_format( (($rank->total/100) * 8)) }}
+                                                            </td>
+                                                        @endif
+                                                    @endforeach
+                                                </tr>
+                                            @endif
+                                        @endforeach
                                   @endforeach
                                 </tbody>
                             </table>

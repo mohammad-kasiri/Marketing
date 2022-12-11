@@ -45,7 +45,7 @@ class HomeController extends Controller
 
 
         // Users Ranking
-        $users = User::all();
+        $users = User::query()->active()->get();
         $monthFirstDay = TimeCalculator::getMonthFirstDay();
         $ranks = DB::table('invoices')
             ->select(DB::raw('sum(price) as total, user_id'))
@@ -53,6 +53,7 @@ class HomeController extends Controller
             ->where('paid_at' , '>' , $monthFirstDay)
             ->groupBy('user_id')
             ->get()->sortByDesc('total')->toArray();
+
         $ranks = array_values($ranks);
 
         // Products Ranking
