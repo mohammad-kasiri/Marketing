@@ -50,6 +50,7 @@ class HomeController extends Controller
         $ranks = DB::table('invoices')
             ->select(DB::raw('sum(price) as total, user_id'))
             ->where('status' , 'approved')
+            ->where('deleted_at' , '=',null)
             ->where('paid_at' , '>' , $monthFirstDay)
             ->groupBy('user_id')
             ->get()->sortByDesc('total')->toArray();
