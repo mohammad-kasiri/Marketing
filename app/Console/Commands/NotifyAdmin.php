@@ -31,15 +31,17 @@ class NotifyAdmin extends Command
                 ->where('agent_id', $agent->id)
                 ->where('status_id', $firstStatus->id)->count();
 
-            if ($unprocessedSalesCases <= 2)
+            if ($unprocessedSalesCases <= 2){
                 $cases= SalesCase::query()->unassigned()->take(5)->get();
                 if ($cases)
                 {
-                    foreach ($cases as $case){
+                    foreach ($cases as $case) {
                         $case->agent_id = $agent->id;
                         $case->save();
                     }
                 }
+            }
+
         }
     }
 }
