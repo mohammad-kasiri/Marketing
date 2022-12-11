@@ -39,7 +39,7 @@ class CustomerController extends Controller
         $this->validate($request, [
             "fullname"   => ['required', 'max:60'],
             "email"      => ['nullable', 'max:60', 'email'],
-            "gender"     => ['required', 'in:male,female'],
+            "gender"     => ['in:male,female'],
             "birth_date" => ['nullable', 'min:10' , 'max:10'],
             "city_id"    => ['nullable', 'numeric', 'min:'.Province::FIRST_CITY_ID , 'max:'.Province::LAST_CITY_ID],
             "description"=> ['nullable', 'max:2000'],
