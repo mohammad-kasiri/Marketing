@@ -83,16 +83,17 @@
                        <form action="{{route('agent.sales-case.send-sms', ['salesCase' => $salesCase->id])}}" method="post">
                            @csrf
                            <div class="row">
-                               <div class="col-9">
-                                   <x-dashboard.form.select.row label="متن پیام" name="sms_id">
-                                       @foreach($smsTemplates as $sms)
-                                           <option value="{{$sms->id}}">{{$sms->text}}</option>
-                                       @endforeach
-                                   </x-dashboard.form.select.row>
+                               <div class="col-12">
+                                   <x-dashboard.form.text.textarea label="متن پیامک" name="sms"/>
+                                   {{-- <x-dashboard.form.select.row label="متن پیام" name="sms_id">--}}
+                                   {{--     @foreach($smsTemplates as $sms)--}}
+                                   {{--         <option value="{{$sms->id}}">{{$sms->text}}</option>--}}
+                                   {{--     @endforeach--}}
+                                   {{-- </x-dashboard.form.select.row>--}}
                                </div>
-                               <div class="col-3">
-                                    <button class="btn btn-primary btn-block" type="submit">ارسال</button>
-                               </div>
+                           </div>
+                           <div class="float-right">
+                               <button class="btn btn-primary btn-block" type="submit">ارسال</button>
                            </div>
                        </form>
                        <div class="row">

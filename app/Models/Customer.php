@@ -14,7 +14,7 @@ class Customer extends Model
 
     const PAGINATION_LIMIT = 50;
 
-    protected $fillable=['fullname', 'mobile', 'email', 'birth_date', 'gender', 'city', 'possibility_of_purchase', 'description', 'status'];
+    protected $fillable=['fullname', 'mobile', 'email', 'birth_date', 'gender', 'city_id', 'possibility_of_purchase', 'description', 'status'];
 
     public function salesCases()
     {

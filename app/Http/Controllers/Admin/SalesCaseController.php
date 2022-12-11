@@ -84,15 +84,15 @@ class SalesCaseController extends Controller
 
     public function sendSms(SalesCase $salesCase, Request $request)
     {
-        $sms = SMS::query()->findOrFail($request->sms_id);
-        \App\Sms\SMS::for($salesCase->customer->mobile)->send($sms->text);
+        //$sms = SMS::query()->findOrFail($request->sms_id);
+        \App\Sms\SMS::for($salesCase->customer->mobile)->send($request->sms);
 
         SMSLog::query()->create([
             'sales_case_id'  => $salesCase->id,
             'customer_id'    => $salesCase->customer->id,
             'agent_id'       => auth()->id(),
-            'template_id'    => $sms->template_id,
-            'text'           => $sms->text
+            'template_id'    => 0,
+            'text'           => $request->sms
         ]);
 
         Session::flash('message', 'پیام با موفقیت ارسال شد.');
