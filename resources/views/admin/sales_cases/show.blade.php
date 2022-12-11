@@ -157,6 +157,10 @@
                                </div>
                            </div>
                        </form>
+                       @if($salesCase->invoice_id != null)
+                            {{$salesCase->invoice->products[0]->title}} محصول فروخته شده :
+                       @endif
+
                        @foreach($salesCaseStatusHistories as $history)
                            <div class="row">
                                <div class="col-12 my-5">

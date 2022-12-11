@@ -11,7 +11,7 @@
                 'route' => route('agent.invoice.index') ],
         ];
     @endphp
-    <x-dashboard.subheader :links='$buttons??[]' :title="'افزودن رسید   جدید'" />
+    <x-dashboard.subheader :links='$buttons??[]' :title="'افزودن رسید جدید'" />
 @endsection
 
 @section('content')
@@ -22,6 +22,12 @@
                 <div class="alert-text">ایجاد رسید برای پرونده فروش با شناسه ی {{request()->input('salesCase')}}</div>
             </div>
         @endif
+        @error('products')
+            <div class="alert alert-custom alert-light-danger fade show mb-5" role="alert">
+                <div class="alert-icon"><i class="flaticon2-cross"></i></div>
+                <div class="alert-text">تنها یک کالا میتوانید انتخاب کنید</div>
+            </div>
+        @enderror
         <div class="card card-custom">
             <div class="card-header flex-wrap border-0 pt-6 pb-0">
                 <div class="card-title">

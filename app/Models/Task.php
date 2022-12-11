@@ -10,7 +10,7 @@ class Task extends Model
 {
     use HasFactory;
 
-    protected $fillable= ['sales_case_id', 'user_id', 'title', 'note', 'remind_at', 'done_at'];
+    protected $fillable= ['sales_case_id', 'user_id', 'title', 'note', 'remind_at', 'done_at', 'first_notify', 'second_notify'];
 
     public function user()
     {
@@ -33,11 +33,11 @@ class Task extends Model
     public static function markAllAsRead()
     {
         static::query()
-            ->where('user_id',auth()->id())
+            ->where('user_id' ,auth()->id())
             ->where('done_at' , null)
             ->where('remind_at' , '<=', now())
             ->update([
-            ['done_at' => now()]
+            'done_at' => now()
         ]);
     }
 

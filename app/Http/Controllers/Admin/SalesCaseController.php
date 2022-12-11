@@ -126,9 +126,10 @@ class SalesCaseController extends Controller
             'description'   => ['required', 'max:600'],
             ]);
 
+        $separator = $salesCase->description != null ? "<br><br>" :null;
         $salesCase->update([
             'description'  => $salesCase->description.
-                "<br><br><b>".
+                "$separator<b>".
                 auth()->user()->full_name.
                 "</b> [ ".Jalalian::now()."] : " .$request->description
         ]);
@@ -142,9 +143,13 @@ class SalesCaseController extends Controller
             'admin_note'   => ['required', 'max:600'],
         ]);
 
+
+        $separator = $salesCase->admin_note != null ? "<br><br>" :null;
+
+
         $salesCase->update([
             'admin_note'  => $salesCase->admin_note.
-                            "<br><br><b>مدیریت: </b> [ ".Jalalian::now()." ] :" .$request->admin_note
+                            "$separator<b>مدیریت: </b> [ ".Jalalian::now()." ] :" .$request->admin_note
         ]);
 
         Session::flash('message', 'توضیحات مدیر با موفقیت ویرایش شد.');

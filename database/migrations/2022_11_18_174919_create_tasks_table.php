@@ -18,9 +18,13 @@ return new class extends Migration
             $table->foreign('sales_case_id')->references('id')->on('sales_cases')->onDelete('cascade');
 
             $table->string('title');
+
             $table->string('note', 200)->nullable();
             $table->timestamp('remind_at');
             $table->timestamp('done_at')->nullable();
+
+            $table->boolean('first_notify')->default(false);
+            $table->boolean('second_notify')->default(false);
 
             $table->timestamps();
         });

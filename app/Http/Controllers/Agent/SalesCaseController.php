@@ -129,10 +129,10 @@ class SalesCaseController extends Controller
         $this->validate($request, [
             'description'   => ['required', 'max:600'],
         ]);
-
+        $separator = $salesCase->description != null ? "<br><br>" :null;
         $salesCase->update([
             'description'  => $salesCase->description.
-                "<br><br><b>".
+                "$separator<b>".
                 auth()->user()->full_name.
                 "</b> [ ".Jalalian::now()."] : " .$request->description
         ]);

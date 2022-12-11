@@ -55,12 +55,7 @@
                     </a>
                 </li>
 
-                <li class="menu-item  menu-item-submenu
-                {{ request()->is('admin/sales_case*') ||  request()->is('admin/sales_case_status*') || request()->is('admin/sales_case_status_rule*')
-                    ? ' menu-item-open'
-                    : ''
-                }}
-                " aria-haspopup="true"  data-menu-toggle="hover">
+                <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
                     <a  href="javascript:;" class="menu-link menu-toggle">
                         <i class="menu-icon flaticon-file-2"><span></span></i>
                         <span class="menu-text">پرونده های فروش</span>
@@ -76,15 +71,9 @@
                                 </a>
                             </li>
                             <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
-                                <a href="{{route('admin.sales-case-status.index')}}" class="menu-link ">
+                                <a href="{{route('admin.distribute.index')}}" class="menu-link ">
                                     <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                                    <span class="menu-text">مدیریت وضعیت ها</span>
-                                </a>
-                            </li>
-                            <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
-                                <a href="{{route('admin.sales-case-status-rule.index')}}" class="menu-link ">
-                                    <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                                    <span class="menu-text">مدیریت جریان پرونده</span>
+                                    <span class="menu-text">تخس کردن پرونده ها</span>
                                 </a>
                             </li>
                         </ul>
@@ -120,11 +109,7 @@
                         <span class="menu-text">لیست کارها</span>
                     </a>
                 </li>
-                <li class="menu-item  menu-item-submenu
-                {{ request()->is('admin/setting*')
-                    ? ' menu-item-open'
-                    : ''}}"
-                    aria-haspopup="true"  data-menu-toggle="hover">
+                <li class="menu-item  menu-item-submenu"  aria-haspopup="true"  data-menu-toggle="hover">
                     <a  href="javascript:;" class="menu-link menu-toggle">
                         <i class="menu-icon flaticon-cogwheel-2"></i>
                         <span class="menu-text">تنظیمات</span>
@@ -152,9 +137,15 @@
                                 </a>
                             </li>
                             <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
-                                <a href="{{route('admin.distribute.index')}}" class="menu-link ">
+                                <a href="{{route('admin.sales-case-status.index')}}" class="menu-link ">
                                     <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                                    <span class="menu-text">تخس کردن پرونده ها</span>
+                                    <span class="menu-text">مدیریت وضعیت ها</span>
+                                </a>
+                            </li>
+                            <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
+                                <a href="{{route('admin.sales-case-status-rule.index')}}" class="menu-link ">
+                                    <i class="menu-bullet menu-bullet-dot"><span></span></i>
+                                    <span class="menu-text">مدیریت جریان پرونده</span>
                                 </a>
                             </li>
                             <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">

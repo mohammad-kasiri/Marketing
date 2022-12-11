@@ -11,14 +11,6 @@ class CallCheckController extends Controller
 {
     public function check()
     {
-        CallLog::query()->create([
-           'event_name'        =>  'IncomingCall',
-            'from'             =>  '09109529484',
-            'to'               =>  '983191090629',
-            'uid'              =>  '1670140616.'.rand(1000,9999),
-            'cuid'             =>  '1670140616.'.rand(1000,9999),
-        ]);
-
         $log= CallLog::query()
             ->where('created_at' , ">=", now()->subSeconds(4))
             ->where('is_notified', false)

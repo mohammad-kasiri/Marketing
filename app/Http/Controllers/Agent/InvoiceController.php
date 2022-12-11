@@ -32,13 +32,12 @@ class InvoiceController extends Controller
             'price'                 => ['required'],
             'paid_by'               => ['required' , 'in:card,gateway,site'],
 
-            'account_number'        => ['required_if:paid_by,==,card', 'numeric' , 'min:1000', 'max:9999'   ],
+            'account_number'        => ['required_if:paid_by,==,card','nullable' ,  'numeric' , 'min:1000', 'max:9999'   ],
             'gateway_tracking_code' => ['required_if:paid_by,==,gateway','nullable' , 'numeric'],
             'order_number'          => ['required_if:paid_by,==,site'   ],
 
             'description'           => ['nullable'],
             'products'              => ['required' , 'array'],
-            'products.*'            => ['required' , 'numeric'],
             'paid_at_date'          => ['required' , 'min:10' , 'max:10'],
             'paid_at_time'          => ['required'],
         ]);
@@ -127,6 +126,9 @@ class InvoiceController extends Controller
 
     public function destroy(Invoice $invoice)
     {
+        SalesCase::query()->where('invoice_id', $invoice->id)->update([
+            'invoice_id' => 'null'
+        ]);
         $invoice->delete();
         Session::flash('message', 'رسید   با موفقیت حذف شد.');
         return redirect()->route('agent.invoice.index');

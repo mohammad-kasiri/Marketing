@@ -10,7 +10,11 @@
             </h4>
             @if(count($notifications) > 0)
                 <h4 class="d-flex flex-center rounded-top">
-                    <a href="{{route('agent.task.mark-all-as-done')}}" class="btn btn-outline-white btn-sm">ثبت همه به عنوان خوانده شده</a>
+
+                    <a href="{{\Illuminate\Support\Str::startsWith(Route::current()->getName() , 'admin')
+                                ? route('admin.task.mark-all-as-done')
+                                : route('agent.task.mark-all-as-done')}}"
+                       class="btn btn-outline-white btn-sm">ثبت همه به عنوان خوانده شده</a>
                 </h4>
             @endif
 

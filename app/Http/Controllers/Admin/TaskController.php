@@ -87,7 +87,6 @@ class TaskController extends Controller
     }
     public function markAllAsDone(Task $task)
     {
-        if ($task->user_id != auth()->id())    abort(401);
         Task::markAllAsRead();
         return redirect()->back();
     }
