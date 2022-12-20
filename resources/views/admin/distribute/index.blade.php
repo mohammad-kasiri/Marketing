@@ -38,7 +38,16 @@
                         <div class="col-md-8">
                             <x-dashboard.form.row-input  name="countToAssign" type="number" label="تعداد پرونده به هر نفر"/>
                         </div>
-
+                        <div class="col-md-8">
+                            <x-dashboard.form.select.row label="کد ایجاد" name="tag" searchable="true">
+                                <option value=""></option>
+                                @foreach($tags as $tag)
+                                    <option value="{{$tag->id}}">
+                                        {{ $tag->title }}
+                                    </option>
+                                @endforeach
+                            </x-dashboard.form.select.row>
+                        </div>
                         <div class="col-md-8">
                             <button class="btn btn-success mb-4 float-right" id="selectAll" type="button">انتخاب همه</button>
                         </div>

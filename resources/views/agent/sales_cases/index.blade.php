@@ -68,7 +68,7 @@
                                     @endforeach
                                 </ul>
 
-                                <small class="text-muted"> کد ایجاد: {{$salesCase->group_tag}}</small>
+                                <small class="text-muted"> کد ایجاد: {{$salesCase->tag->title}}</small>
                             </div>
                             <div class="col-md-4 py-5">
                                 <span class="h6 mr-3 text-muted">کاربر پرونده:</span><span class="h6">{{$salesCase->customer->fullname}}</span>

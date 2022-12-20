@@ -85,7 +85,8 @@ class InvoiceController extends Controller
     public function destroy(User $agent, Invoice $invoice)
     {
         SalesCase::query()->where('invoice_id', $invoice->id)->update([
-           'invoice_id' => 'null'
+           'invoice_id' => null,
+           'status_id'  => SalesCaseStatus::query()->where('is_first_step',1)->first()->id,
         ]);
         $invoice->delete();
         Session::flash('message', 'رسید با موفقیت حذف شد.');

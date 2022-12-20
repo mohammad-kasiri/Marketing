@@ -6,18 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\CallLog;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class CallCheckController extends Controller
 {
     public function check()
     {
-        $log= CallLog::query()
-            ->where('created_at' , ">=", now()->subSeconds(4))
-            ->where('is_notified', false)
-            ->where('event_name' , '=', 'IncomingCall')
-            ->where('to' , '=', auth()->user()->voip_number)
-            ->latest()
-            ->first();
+        $log= Cache::get();
 
         if (is_null($log))
             return response()->json(["status" => 101],200);

@@ -158,8 +158,8 @@
                                </div>
                            </div>
                        </form>
-                       @if($salesCase->invoice_id != null)
-                            {{$salesCase->invoice->products[0]->title}} محصول فروخته شده :
+                       @if($salesCase->invoice_id != null && isset ($salesCase->invoice->products[0]))
+                            {{optional(optional($salesCase->invoice)->products[0])->title}} محصول فروخته شده :
                        @endif
 
                        @foreach($salesCaseStatusHistories as $history)

@@ -65,6 +65,7 @@ class SalesCaseController extends Controller
 
     public function show(SalesCase $salesCase)
     {
+        $salesCase= SalesCase::query()->where('id', $salesCase->id)->with('invoice.products')->first();
         $smsTemplates= SMS::query()->active()->get();
         $smsLogs= SMSLog::query()->where('sales_case_id', $salesCase->id)->with('agent')->get();
         $salesCaseStatuses = SalesCaseStatus::query()->where('id', '!=', $salesCase->status_id)->get();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CallLog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class SimotelController extends Controller
@@ -33,13 +34,17 @@ class SimotelController extends Controller
             ?  $request->entry_point
             :  $request->number;
 
-        CallLog::query()->create([
+        $log= CallLog::query()->create([
            'event_name' => $request->event_name,
            'from'       => $from,
            'to'         => $to,
            'uid'        => $request->unique_id,
            'cuid'       => $request->cuid,
         ]);
+
+        if ($log->event_name == 'IncomingCall') {
+            Cache::put($to, $from,30);
+        }
 
         return response()->json([
             'message' => 'Log has saved successfully'

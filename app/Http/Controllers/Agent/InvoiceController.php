@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\SalesCase;
+use App\Models\SalesCaseStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
@@ -32,9 +33,9 @@ class InvoiceController extends Controller
             'price'                 => ['required'],
             'paid_by'               => ['required' , 'in:card,gateway,site'],
 
-            'account_number'        => ['required_if:paid_by,==,card','nullable' ,  'numeric' , 'min:1000', 'max:9999'   ],
+            'account_number'        => ['required_if:paid_by,==,card','nullable' ,  'numeric' ],
             'gateway_tracking_code' => ['required_if:paid_by,==,gateway','nullable' , 'numeric'],
-            'order_number'          => ['required_if:paid_by,==,site'   ],
+            'order_number'          => ['required_if:paid_by,==,site'],
 
             'description'           => ['nullable'],
             'products'              => ['required' , 'array'],
@@ -127,7 +128,8 @@ class InvoiceController extends Controller
     public function destroy(Invoice $invoice)
     {
         SalesCase::query()->where('invoice_id', $invoice->id)->update([
-            'invoice_id' => 'null'
+            'invoice_id' => 'null',
+            'status_id'  => SalesCaseStatus::query()->where('is_first_step',1)->first()->id,
         ]);
         $invoice->delete();
         Session::flash('message', 'رسید   با موفقیت حذف شد.');

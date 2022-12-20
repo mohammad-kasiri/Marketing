@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\SalesCase;
+use App\Models\SalesCaseTag;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -14,9 +15,11 @@ class DistributeController extends Controller
     {
         $unassignedSalesCases= SalesCase::query()->unassigned()->count();
         $agents= User::query()->agents()->active()->get();
+        $tags= SalesCaseTag::query()->latest()->take(10)->get();
 
         return view('admin.distribute.index')
             ->with(['unassignedSalesCases' => $unassignedSalesCases])
+            ->with(['tags' => $tags])
             ->with(['agents' => $agents]);
 
     }
@@ -30,7 +33,10 @@ class DistributeController extends Controller
 
         foreach ($request->agents as $agent){
             $agent = User::query()->find($agent);
-            $salesCases=SalesCase::query()->unassigned()->limit($request->countToAssign)->get();
+            $salesCases=SalesCase::query();
+            $salesCases= is_null($request->tag)
+                ? $salesCases->unassigned()->limit($request->countToAssign)->get()
+                : $salesCases->unassigned()->where('tag_id', $request->tag)->limit($request->countToAssign)->get();
             foreach ($salesCases as $salesCase)
                 $salesCase->update(['agent_id' => $agent->id]);
         }
