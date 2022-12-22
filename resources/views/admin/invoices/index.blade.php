@@ -121,6 +121,20 @@
                                                 data-content="{{$invoice->description}}">توضیحات</button>
                                     </td>
                                     <td class="text-center align-middle text-nowrap">
+                                        @php
+                                            $customer_id= isset($invoice->salesCase) &&  count($invoice->salesCase) > 0
+                                                ? optional($invoice->salesCase)[0]->customer->id
+                                                :  false;
+                                        @endphp
+                                        <a  @if(!$customer_id) href="{{route('admin.customer.edit' , ['customer' => $customer_id])}}" @endif
+                                           class="btn btn-icon btn-circle btn-sm btn-outline-primary  @if(!$customer_id) disabled @endif"
+                                           data-container="body"
+                                           data-delay="500"
+                                           data-toggle="popover"
+                                           data-placement="top"
+                                           data-content="پروفایل مشتری">
+                                            <i class="far fa-user"></i>
+                                        </a>
                                         <a href="{{route('admin.invoice.edit' , ['invoice' => $invoice->id])}}"
                                            class="btn btn-icon btn-circle btn-sm btn-outline-info"
                                            data-container="body"

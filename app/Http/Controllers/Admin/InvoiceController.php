@@ -16,7 +16,7 @@ class InvoiceController extends Controller
 {
     public function index(Request $request)
     {
-        $invoices = Invoice::query()->with('user')->filter(request()->all()) ;
+        $invoices = Invoice::query()->with('user')->with('salesCase.customer')->filter(request()->all()) ;
         $users    = User::all();
 
         return view('admin.invoices.index')
