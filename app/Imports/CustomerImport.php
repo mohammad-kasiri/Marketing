@@ -33,7 +33,7 @@ class CustomerImport implements ToCollection
             $phone =Phone::convertPersianNumbersToEnglish($row[0]);
             if (Str::length($phone) == 10) $phone= $this->format10thCharacterNumber($phone);
             if (Str::length($phone) == 13) $phone= $this->format13thCharacterNumber($phone);
-            if (Str::length($phone) == 11 || $this->validatePhone($phone))
+            if (Str::length($phone) == 11 && $this->validatePhone($phone))
             {
                 $customer = Customer::query()->whereMobile($phone)->first();
                 if(!$customer){
@@ -60,14 +60,7 @@ class CustomerImport implements ToCollection
 
     private function validatePhone($phone): bool
     {
-        $validOperator= false;
-        foreach (iranOperators() as $operator) {
-            if (Str::of($phone)->startsWith($operator)){
-                $validOperator = true;
-                break;
-            }
-        }
-        return $validOperator;
+        return Str::of($phone)->startsWith('09');
     }
     private function format10thCharacterNumber($phone){
         return  "0" . $phone;
