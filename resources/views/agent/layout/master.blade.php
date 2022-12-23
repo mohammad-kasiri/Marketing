@@ -108,7 +108,7 @@
         });
     })
 </script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="{{asset("dashboard/js/highcharts.js")}}"></script>
 <script>
     setInterval(get_fb, 3000);
     function get_fb(){

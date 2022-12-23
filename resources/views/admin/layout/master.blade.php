@@ -84,7 +84,7 @@
         });
     })
 </script>
-<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="{{asset("dashboard/js/highcharts.js")}}"></script>
 @yield('script')
 </body>
 
