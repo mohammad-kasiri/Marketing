@@ -7,33 +7,26 @@ use App\Models\CallLog;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class CallCheckController extends Controller
 {
     public function check()
     {
-        $log= Cache::get();
+       if (! Cache::has(auth()->user()->voip_number)) {
+           return response()->json(["status" => 101],200);
+       }
 
-        if (is_null($log))
-            return response()->json(["status" => 101],200);
 
+       $data=  Cache::get(auth()->user()->voip_number);
+       $data= json_decode($data);
 
-        $customer= Customer::query()
-            ->select('id','fullname','mobile')
-            ->where('mobile', $log->from)
-            ->first();
+       $log= CallLog::query()->find($data->call_log);
+       $log->is_notified = true;
+       $log->save();
 
-        if (!is_null($customer))
-            $log->is_notified = true;
-            $log->save();
+        Cache::forget(auth()->user()->voip_number);
 
-            return response()->json([
-                'status'  => 100,
-                'id'      => $customer->id,
-                'name'    => $customer->fullname,
-                'mobile'  => $customer->mobile,
-            ],200);
-
-        return response()->json(["status" => 101],200);
+        return response()->json($data,200);
     }
 }
