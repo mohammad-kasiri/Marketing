@@ -73,6 +73,44 @@
                 </form>
             </div>
         </div>
+        <div class="card card-custom mt-5">
+                <div class="card-header flex-wrap border-0 pt-6 pb-0">
+                    <div class="card-title">
+                        <h3 class="card-label">
+                           پرونده های هر کد ایجاد
+                        </h3>
+                    </div>
+                </div>
+                <div class="card-body ">
+                    <div class="table-responsive-sm">
+                        <table class="table ">
+                            <thead>
+                            <tr class="text-muted">
+                                <th class="text-center">#</th>
+                                <th class="text-center">کد ایجاد</th>
+                                <th class="text-center">تگ</th>
+                                <th class="text-center">تعداد کل پرونده</th>
+                                <th class="text-center">تعداد پرونده های واگذار شده</th>
+                                <th class="text-center">تعداد پرونده های بدون فروشنده</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($tags as $key=>$tag)
+                                    <tr>
+                                        <td class="text-center">{{$key +1}}</td>
+                                        <td class="text-center">{{$tag->title}}</td>
+                                        <td class="text-center">{{$tag->tag}}</td>
+                                        <td class="text-center">{{$tag->sales_cases_count}}</td>
+                                        <td class="text-center">{{$tag->assignedSalesCasesCount}}</td>
+                                        <td class="text-center">{{$tag->unassignedSalesCasesCount}}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
     </div>
 @endsection
 @section('script')

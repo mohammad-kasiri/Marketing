@@ -15,7 +15,13 @@ class DistributeController extends Controller
     {
         $unassignedSalesCases= SalesCase::query()->unassigned()->count();
         $agents= User::query()->agents()->active()->get();
-        $tags= SalesCaseTag::query()->latest()->take(10)->get();
+
+        $tags= SalesCaseTag::query()->withCount('salesCases'
+        )->withCount(['salesCases' , 'salesCases AS unassignedSalesCasesCount' => function ($query) {
+            return $query->where('agent_id' , null);
+        }])->withCount(['salesCases' , 'salesCases AS assignedSalesCasesCount' => function ($query) {
+            return $query->where('agent_id' , "!=" , null);
+        }])->latest()->get();
 
         return view('admin.distribute.index')
             ->with(['unassignedSalesCases' => $unassignedSalesCases])

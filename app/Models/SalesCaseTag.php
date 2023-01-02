@@ -9,4 +9,8 @@ class SalesCaseTag extends Model
 {
     use HasFactory;
     protected $fillable= ['tag', 'title'];
+
+    public function salesCases() {
+        return $this->hasMany(SalesCase::class, 'tag_id');
+    }
 }

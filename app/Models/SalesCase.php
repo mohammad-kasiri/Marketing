@@ -11,7 +11,7 @@ class SalesCase extends Model
 {
     use HasFactory;
 
-    protected $fillable=['agent_id', 'customer_id', 'status_id', 'failure_reason_id', 'invoice_id', 'group_tag', 'failure_reason','admin_note', 'description', 'is_promoted', 'tag_id' ];
+    protected $fillable=['agent_id', 'customer_id', 'status_id', 'failure_reason_id', 'invoice_id', 'failure_reason','admin_note', 'description', 'is_promoted', 'tag_id' ];
 
     public function scopeUnassigned($query)
     {
