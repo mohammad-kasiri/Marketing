@@ -40,9 +40,9 @@ class InvoiceController extends Controller
             'price'                 => ['required'],
             'paid_by'               => ['required','in:card,gateway,site'],
 
-            'account_number'        => ['required_if:paid_by,==,card', 'numeric' , 'min:1000', 'max:9999'],
-            'gateway_tracking_code' => ['required_if:paid_by,==,gateway', 'numeric'],
-            'order_number'          => ['required_if:paid_by,==,site'   ],
+            'account_number'        => ['required_if:paid_by,==,card'   ,'bail'],
+            'gateway_tracking_code' => ['required_if:paid_by,==,gateway','bail'],
+            'order_number'          => ['required_if:paid_by,==,site'   ,'bail'],
 
             'description'           => ['nullable'],
             'products'              => ['required' , 'array'],

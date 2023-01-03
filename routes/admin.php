@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AgentController;
+use App\Http\Controllers\Admin\BackupController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DeleteGroupOfSalesCases;
 use App\Http\Controllers\Admin\DistributeController;
@@ -119,6 +120,9 @@ Route::middleware(['auth' , 'is_admin'])->prefix('admin')->name('admin.')->group
     Route::get ('sales_case_status_rule',                   [SalesCaseStatusRuleController::class, 'index'])   ->name('sales-case-status-rule.index');
     Route::post ('sales_case_status_rule',                  [SalesCaseStatusRuleController::class, 'store'])   ->name('sales-case-status-rule.store');
     Route::delete('sales_case_status_rule/{rule}',          [SalesCaseStatusRuleController::class, 'destroy']) ->name('sales-case-status-rule.destroy');
+
+    Route::get ('backup/customers_by_product',              [BackupController::class, 'customersByProductIndex']) ->name('backup.customers-by-product.index');
+    Route::post('backup/customers_by_product',              [BackupController::class, 'customersByProductPost'])  ->name('backup.customers-by-product.post');
 
 
 

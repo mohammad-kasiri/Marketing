@@ -154,6 +154,25 @@
                                     <span class="menu-text">حذف گروهی پرونده ها</span>
                                 </a>
                             </li>
+
+                        </ul>
+                    </div>
+                </li>
+                <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
+                    <a  href="javascript:;" class="menu-link menu-toggle">
+                        <i class="menu-icon flaticon-file"><span></span></i>
+                        <span class="menu-text">پشتیبان گیری</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="menu-submenu ">
+                        <i class="menu-arrow"></i>
+                        <ul class="menu-subnav">
+                            <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
+                                <a  href="{{route('admin.backup.customers-by-product.index')}}" class="menu-link ">
+                                    <i class="menu-bullet menu-bullet-dot"><span></span></i>
+                                    <span class="menu-text">از مشتری بر اساس محصول</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

@@ -51,6 +51,7 @@ class SalesCaseController extends Controller
             ->with('agent')
             ->with('status')
             ->where('agent_id', auth()->id())
+            ->with('tag')
             ->latest()
             ->paginate(50);
 
