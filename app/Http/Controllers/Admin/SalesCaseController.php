@@ -8,6 +8,7 @@ use App\Models\SalesCase;
 use App\Models\SalesCaseStatus;
 use App\Models\SalesCaseStatusHistory;
 use App\Models\SalesCaseStatusRule;
+use App\Models\SalesCaseTag;
 use App\Models\SMS;
 use App\Models\SMSLog;
 use App\Models\User;
@@ -21,6 +22,8 @@ class SalesCaseController extends Controller
     public function index()
     {
         $agents= User::query()->agents()->get();
+        $tags= SalesCaseTag::query()->latest()->get();
+
         $statuses= SalesCaseStatus::query()->active()->get();
         $salesCases= SalesCase::query();
 
@@ -49,6 +52,12 @@ class SalesCaseController extends Controller
                 ? $salesCases->where('agent_id', null)
                 : $salesCases->where('agent_id', \request()->get('agent_id'));
         }
+        if (\request()->has('tag_id')  &&  \request()->input('tag_id') != null)
+        {
+            $salesCases= \request()->input('tag_id') == 0
+                ? $salesCases
+                : $salesCases->where('tag_id', \request()->get('tag_id'));
+        }
 
         $salesCases= $salesCases
             ->with('products')
@@ -60,6 +69,7 @@ class SalesCaseController extends Controller
         return view('admin.sales_cases.index')
             ->with(['statuses'  => $statuses])
             ->with(['agents'  => $agents])
+            ->with(['tags'  => $tags])
             ->with(['salesCases'  => $salesCases]);
     }
 

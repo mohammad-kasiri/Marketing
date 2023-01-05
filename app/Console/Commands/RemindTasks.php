@@ -18,15 +18,17 @@ class RemindTasks extends Command
         $tasks= Task::query()
             ->where('done_at', null)
             ->where('remind_at','<=', now())
-            ->where('remind_at', '>=', now()->minutes(5))
+            ->where('remind_at', '>=', now()->subMinutes(5))
             ->where('first_notify', null)
             ->with('user')
             ->get();
 
         foreach ($tasks as $task)
         {
-            $message='این پیام جهت یادآوری کار" '. Str::limit($task->title , 25) .' "ارسال شده است. ';
-            SMS::for($task->user->mobile)->send($message);
+            SMS::for($task->user->mobile)
+                ->template('reminder')
+                ->setFirstToken($task->user->first_name)
+                ->sendLookUp();
             $task->first_notify = true;
             $task->save();
         }
@@ -34,7 +36,7 @@ class RemindTasks extends Command
         $tasks= Task::query()
             ->where('done_at', null)
             ->where('remind_at','<=', now()->subMinutes(5))
-            ->where('remind_at', '>=', now()->minutes(10))
+            ->where('remind_at', '>=', now()->subMinutes(10))
             ->where('first_notify', true)
             ->where('second_notify', null)
             ->with('user')
@@ -42,8 +44,10 @@ class RemindTasks extends Command
 
         foreach ($tasks as $task)
         {
-            $message='این دومین پیام جهت یادآوری کار" '. Str::limit($task->title , 25) .' "ارسال شده است. ';
-            SMS::for($task->user->mobile)->send($message);
+            SMS::for($task->user->mobile)
+                ->template('reminder')
+                ->setFirstToken($task->user->first_name)
+                ->sendLookUp();
             $task->second_notify = true;
             $task->save();
         }

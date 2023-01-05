@@ -61,7 +61,17 @@
                                 </x-dashboard.form.select.row>
                             </div>
 
-
+                            <div class="col-md-8">
+                                <x-dashboard.form.select.row label="کد ایجاد" name="tag_id" searchable="1" >
+                                    <option></option>
+                                    <option value="0">همه تگ ها</option>
+                                    @foreach($tags as $tag)
+                                        <option value="{{$tag->id}}" {{request()->input('tag_id') == $tag->id ? 'selected' : ''}}>
+                                            {{$tag->title}}
+                                        </option>
+                                    @endforeach
+                                </x-dashboard.form.select.row>
+                            </div>
                             <div class="col-md-8">
                                 <button class="btn btn-primary float-right"> اعمال فیلتر </button>
                             </div>

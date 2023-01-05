@@ -126,7 +126,7 @@
                                                 ? optional($invoice->salesCase)[0]->customer->id
                                                 :  false;
                                         @endphp
-                                        <a  @if(!$customer_id) href="{{route('admin.customer.edit' , ['customer' => $customer_id])}}" @endif
+                                        <a href="{{route('admin.customer.edit' , ['customer' => $customer_id])}}"
                                            class="btn btn-icon btn-circle btn-sm btn-outline-primary  @if(!$customer_id) disabled @endif"
                                            data-container="body"
                                            data-delay="500"

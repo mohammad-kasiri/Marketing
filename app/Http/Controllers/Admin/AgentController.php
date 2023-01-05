@@ -15,7 +15,7 @@ class AgentController extends Controller
 {
     public function index()
     {
-        $agents = User::query()->agents()->paginate(User::PAGINATION_LIMIT);
+        $agents = User::query()->agents()->orderBy('is_active', 'DESC')->paginate(User::PAGINATION_LIMIT);
         return view('admin.users.agents.index')->with(['agents' => $agents]);
     }
 

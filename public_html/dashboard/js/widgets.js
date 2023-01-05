@@ -70,7 +70,9 @@ var KTWidgets = function() {
             .then((response) => response.json())
             .then((data) => {
                 Highcharts.chart('agent_weekly', {
-
+                    style:{
+                        direction: 'rtl'
+                    },
                     title: {
                         text: ''
                     },
@@ -133,7 +135,9 @@ var KTWidgets = function() {
             .then((response) => response.json())
             .then((data) => {
                 Highcharts.chart('agent_monthly', {
-
+                    style:{
+                        direction: 'rtl'
+                    },
                     title: {
                         text: ''
                     },
@@ -194,7 +198,9 @@ var KTWidgets = function() {
             .then((response) => response.json())
             .then((data) => {
                 Highcharts.chart('total_weekly', {
-
+                    style:{
+                        direction: 'rtl'
+                    },
                     title: {
                         text: ''
                     },
@@ -208,15 +214,10 @@ var KTWidgets = function() {
                     xAxis: {
                         categories: data.days
                     },
-
-
-
-
                     series: [{
                         name: '',
                         data: data.sale
                     }],
-
                     responsive: {
                         rules: [{
                             condition: {
@@ -254,7 +255,9 @@ var KTWidgets = function() {
             .then((response) => response.json())
             .then((data) => {
                 Highcharts.chart('total_monthly', {
-
+                    style:{
+                        direction: 'rtl'
+                    },
                     title: {
                         text: ''
                     },
@@ -316,7 +319,9 @@ var KTWidgets = function() {
             .then((response) => response.json())
             .then((data) => {
                 Highcharts.chart('agent_total_weekly', {
-
+                    style:{
+                        direction: 'rtl'
+                    },
                     title: {
                         text: ''
                     },
@@ -377,7 +382,9 @@ var KTWidgets = function() {
             .then((response) => response.json())
             .then((data) => {
                 Highcharts.chart('agent_total_monthly', {
-
+                    style:{
+                        direction: 'rtl'
+                    },
                     title: {
                         text: ''
                     },
