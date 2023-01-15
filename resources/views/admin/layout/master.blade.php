@@ -6,9 +6,11 @@
     <title>   @yield('title')  </title>
     <link rel="icon" type="image/png" href="{{asset('/dashboard/img/logo.png')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="refresh" content="240">
     <link href="{{mix('dashboard/css/dashboard.css')}}" rel="stylesheet" type="text/css"/>
-    <link  href="{{asset("./dashboard/css/jalaliDatepicker.min.css")}}"type="text/css" rel="stylesheet">
+    <link  href="{{asset("./dashboard/css/jalaliDatepicker.min.css")}}" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{asset("./dashboard/css/datatables.min.css")}}"/>
     <style>
         /* Chrome, Safari, Edge, Opera */
         input::-webkit-outer-spin-button,
@@ -58,6 +60,8 @@
 <script src="{{asset('./dashboard/js/widgets.js')}}"></script>
 <script src="{{mix('dashboard/js/dashboard.js')}}"></script>
 <script src="{{asset("./dashboard/js/jalaliDatepicker.min.js")}}" type="text/javascript"></script>
+<script  src="{{asset('./dashboard/js/jquery-ui.min.js')}}"></script>
+<script  src="{{asset('./dashboard/js/datatables.min.js')}}"></script>
 <script>
     jalaliDatepicker.startWatch();
     $('input.number_sep').keyup(function(event) {

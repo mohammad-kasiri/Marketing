@@ -16,7 +16,7 @@ class LoginController extends Controller
 {
     public function form()
     {
-        \auth()->loginUsingId(1);
+      //  \auth()->loginUsingId(1);
         return view('auth.login.login');
     }
 

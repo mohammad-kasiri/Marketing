@@ -125,6 +125,12 @@
                                 </a>
                             </li>
                             <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
+                                <a href="{{route('admin.sales-case-tag.index')}}" class="menu-link ">
+                                    <i class="menu-bullet menu-bullet-dot"><span></span></i>
+                                    <span class="menu-text">الویت بندی کدهای ایجاد</span>
+                                </a>
+                            </li>
+                            <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
                                 <a href="{{route('admin.failure-reasons.index')}}" class="menu-link ">
                                     <i class="menu-bullet menu-bullet-dot"><span></span></i>
                                     <span class="menu-text">دلایل شکست فروش</span>

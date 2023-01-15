@@ -23,7 +23,10 @@ class DistributorCommand extends Command
             {
                 foreach ($agents as $agent)
                 {
-                    $cases= SalesCase::query()->unassigned()->take((int)$count)->get();
+                    $cases = SalesCase::query()->unassigned()->join('sales_case_tags', 'sales_cases.tag_id', '=', 'sales_case_tags.id')
+                        ->orderBy('sales_case_tags.sort', 'ASC')
+                        ->take((int)$count)->get();
+
                     foreach ($cases as $case){
                         $case->agent_id = $agent->id;
                         $case->save();

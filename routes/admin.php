@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SalesCaseController;
 use App\Http\Controllers\Admin\SalesCaseStatusController;
 use App\Http\Controllers\Admin\SalesCaseStatusRuleController;
+use App\Http\Controllers\Admin\SalesCaseTagController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SMSController;
 use App\Http\Controllers\Admin\TaskController;
@@ -62,6 +63,9 @@ Route::middleware(['auth' , 'is_admin'])->prefix('admin')->name('admin.')->group
 
     Route::get('setting/distribute',                        [DistributeController::class, 'index'])      ->name('distribute.index');
     Route::post('setting/distribute',                       [DistributeController::class, 'distribute']) ->name('distribute.action');
+
+    Route::get('setting/sales_case_tag',                    [SalesCaseTagController::class, 'index'])    ->name('sales-case-tag.index');
+    Route::post('setting/sales_case_tag',                   [SalesCaseTagController::class, 'sort'])     ->name('tag-case-sales.sort');
 
 
     Route::get ('setting/sms',                              [SMSController::class, 'index'])             ->name('sms.index');

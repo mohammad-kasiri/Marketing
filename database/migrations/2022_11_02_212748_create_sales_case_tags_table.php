@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('tag');
             $table->string('title');
+            $table->integer('sort')->nullable();
             $table->timestamps();
         });
     }

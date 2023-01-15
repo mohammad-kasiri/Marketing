@@ -21,7 +21,7 @@ class DistributeController extends Controller
             return $query->where('agent_id' , null);
         }])->withCount(['salesCases' , 'salesCases AS assignedSalesCasesCount' => function ($query) {
             return $query->where('agent_id' , "!=" , null);
-        }])->latest()->get();
+        }])->orderBy('sort')->get();
 
         return view('admin.distribute.index')
             ->with(['unassignedSalesCases' => $unassignedSalesCases])
