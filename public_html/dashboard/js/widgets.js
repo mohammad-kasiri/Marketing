@@ -87,11 +87,6 @@ var KTWidgets = function() {
                         categories: data.days
                     },
 
-                    tooltip: {
-                        style: {
-                            direction: 'rtl',
-                        },
-                    },
 
                     series: [{
                         name: '',
@@ -155,11 +150,6 @@ var KTWidgets = function() {
                         categories: data.days
                     },
 
-                    tooltip: {
-                        style: {
-                            direction: 'rtl',
-                        },
-                    },
 
                     series: [{
                         name: '',
@@ -216,11 +206,6 @@ var KTWidgets = function() {
                             text: 'فروش خالص'
                         }
                     },
-                    tooltip: {
-                        style: {
-                            direction: 'rtl',
-                        },
-                    },
                     xAxis: {
                         categories: data.days
                     },
@@ -276,11 +261,6 @@ var KTWidgets = function() {
                         title: {
                             text: 'فروش خالص'
                         }
-                    },
-                    tooltip: {
-                        style: {
-                            direction: 'rtl',
-                        },
                     },
                     xAxis: {
                         categories: data.days
@@ -349,12 +329,6 @@ var KTWidgets = function() {
                     xAxis: {
                         categories: data.days
                     },
-
-                    tooltip: {
-                        style: {
-                            direction: 'rtl',
-                        },
-                    },
                     series: [{
                         name: '',
                         data: data.sale
@@ -413,12 +387,6 @@ var KTWidgets = function() {
 
                     xAxis: {
                         categories: data.days
-                    },
-
-                    tooltip: {
-                        style: {
-                            direction: 'rtl',
-                        },
                     },
                     series: [{
                         name: '',

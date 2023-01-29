@@ -147,20 +147,15 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @php $k= 1; @endphp
-                                        @foreach($ranks as $key=>$rank)
-                                            @foreach($users as $user)
-                                                @if($rank->user_id == $user->id)
-                                                    <tr>
-                                                        <td class="text-center align-middle text-nowrap">
-                                                            {{$k}}  @php $k = $k +1; @endphp
-                                                        </td>
-                                                        <td class="text-center align-middle text-nowrap">
-                                                            {{$user->full_name}}
-                                                        </td>
-                                                    </tr>
-                                                @endif
-                                            @endforeach
+                                        @foreach($usersRanking as $key=>$user)
+                                            <tr   @if($key == 0) class="bg-light-success" @endif>
+                                                <td class="text-center align-middle text-nowrap">
+                                                    {{$key+1}}
+                                                </td>
+                                                <td class="text-center align-middle text-nowrap">
+                                                    {{ $user->fullName }}
+                                                </td>
+                                            </tr>
                                         @endforeach
                                         </tbody>
                                     </table>

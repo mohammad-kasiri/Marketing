@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Functions\Ranking;
 use App\Functions\TimeCalculator;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
@@ -22,7 +23,7 @@ class HomeController extends Controller
 
         //Today Sum
         $today_sum  = (int) Invoice::query()
-            ->whereDate('paid_at', Carbon::today())
+            ->whereDate('paid_at','>=' , Carbon::today())
             ->approved()
             ->sum('price');
 
@@ -33,7 +34,6 @@ class HomeController extends Controller
                 ->sum('price');
 
         //Monthly Sum
-        TimeCalculator::getMonthFirstDay();
         $monthly_sum = (int) Invoice::query()
             ->whereDate('paid_at','>=', TimeCalculator::getMonthFirstDay())
             ->approved()
@@ -44,18 +44,7 @@ class HomeController extends Controller
         $invoices   = Invoice::query()->with('user')->orderBy('paid_at' , 'DESC')->take(10)->get();
 
 
-        // Users Ranking
-        $users = User::query()->active()->get();
-        $monthFirstDay = TimeCalculator::getMonthFirstDay();
-        $ranks = DB::table('invoices')
-            ->select(DB::raw('sum(price) as total, user_id'))
-            ->where('status' , 'approved')
-            ->where('deleted_at' , '=',null)
-            ->where('paid_at' , '>' , $monthFirstDay)
-            ->groupBy('user_id')
-            ->get()->sortByDesc('total')->toArray();
-
-        $ranks = array_values($ranks);
+        $usersRanking= Ranking::get();
 
         // Products Ranking
         $products= Product::query()
@@ -71,14 +60,13 @@ class HomeController extends Controller
         $products = $products->values();
 
         return view('admin.index')
-            ->with(['invoices'              => $invoices])
-            ->with(['today_sum'             => $today_sum])
-            ->with(['weekly_sum'            => $weekly_sum])
-            ->with(['monthly_sum'           => $monthly_sum])
-            ->with(['products'              => $products])
-            ->with(['users'                 => $users])
+            ->with(['invoices'                   => $invoices])
+            ->with(['today_sum'                  => $today_sum])
+            ->with(['weekly_sum'                 => $weekly_sum])
+            ->with(['monthly_sum'                => $monthly_sum])
+            ->with(['products'                   => $products])
             ->with(['unassignedSalesCasesCount'  => $unassignedSalesCasesCount])
-            ->with(['salesCasesCount'  => $salesCasesCount])
-            ->with(['ranks'                 => $ranks]);
+            ->with(['salesCasesCount'            => $salesCasesCount])
+            ->with(['usersRanking'               => $usersRanking]);
     }
 }

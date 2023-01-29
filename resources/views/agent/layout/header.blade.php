@@ -9,6 +9,11 @@
             <!--end::اعلان ها-->
             <!--begin::User-->
             <div class="topbar-item">
+                @if(auth()->user()->level == 'admin')
+                    <a href="{{route('admin.index')}}" class="btn btn-outline-primary mx-4 btn-sm">
+                        پنل مدیریت
+                    </a>
+                @endif
                 <span class="text-dark-50 font-weight-bolder font-size-base d-md-inline mr-3">
                     @yield('user_name', $name ?? 'پنل مدیریت')
                 </span>

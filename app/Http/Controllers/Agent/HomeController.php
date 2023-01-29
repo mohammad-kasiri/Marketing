@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Agent;
 
+use App\Functions\Ranking;
 use App\Functions\TimeCalculator;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
@@ -41,26 +42,15 @@ class HomeController extends Controller
             ->approved()
             ->sum('price');
 
-        // Users Ranking
-        $users = User::query()->active()->get();
-        $monthFirstDay = TimeCalculator::getMonthFirstDay();
-        $ranks = DB::table('invoices')
-            ->select(DB::raw('sum(price) as total, user_id'))
-            ->where('status' , 'approved')
-            ->where('paid_at' , '>' , $monthFirstDay)
-            ->where('deleted_at' , '=',null)
-            ->groupBy('user_id')
-            ->get()->sortByDesc('total')->toArray();
-        $ranks = array_values($ranks);
+        $usersRanking= Ranking::get();
 
         return view('agent.index')
-            ->with(['invoices'    => $invoices])
-            ->with(['today_sum'   => $today_sum])
-            ->with(['weekly_sum'  => $weekly_sum])
-            ->with(['monthly_sum' => $monthly_sum])
-            ->with(['users'       => $users])
-            ->with(['ranking'     => $ranking])
-            ->with(['ranks'       => $ranks]);
+            ->with(['invoices'     => $invoices])
+            ->with(['today_sum'    => $today_sum])
+            ->with(['weekly_sum'   => $weekly_sum])
+            ->with(['monthly_sum'  => $monthly_sum])
+            ->with(['ranking'      => $ranking])
+            ->with(['usersRanking' => $usersRanking]);
 
     }
 
