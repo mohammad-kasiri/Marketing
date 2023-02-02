@@ -144,7 +144,8 @@
                     'fullname'  => request()->input('fullname'),
                     'mobile'    => request()->input('mobile'),
                     'status_id' => request()->input('status_id'),
-                    'agent_id'  => request()->input('agent_id')
+                    'agent_id'  => request()->input('agent_id'),
+                    'tag_id'    => request()->input('tag_id')
                 ])->render()}}
             </div>
         </div>
