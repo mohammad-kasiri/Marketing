@@ -19,6 +19,37 @@
                 </div>
             </div>
         @endif
+            @if(count($similarSalesCases) > 0)
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card card-custom mb-4 h-100">
+                            <div class="card-header flex-wrap border-0 pt-6 pb-0">
+                                <div class="card-title">
+                                    <h3 class="card-label">
+                                        پرونده های مشابه
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                @foreach($similarSalesCases as $case)
+                                    <a href="{{route('agent.sales-case.show' , ['salesCase' => $case->id])}}"
+                                       class="btn btn-outline-warning btn-block
+                                       @if($case->agent_id != auth()->id())
+                                       disabled
+                                       @endif
+                                       " target="_blank">
+                                        محصولات:
+                                        {{$case->products[0]->title}}
+                                        |
+                                        وضعیت:
+                                        {{$salesCase->status->name}}
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             @endif
         <div class="row">
             <div class="col-md-12">
                 <div class="card card-custom @if($salesCase->is_promoted)  border border-left-warning border-3 @endif mt-3">
@@ -145,7 +176,7 @@
                                             disabled
                                         @endif
                                    ">لینک کردن به رسید</a>
-                               @elseif($salesCase->status->	is_last_step)
+                               @elseif($salesCase->status->is_last_step)
                                    <a class="btn btn-success disabled">فروش به پایان رسید</a>
                                @else
                                     <div class="col-12">

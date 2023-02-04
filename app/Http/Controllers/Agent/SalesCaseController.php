@@ -72,6 +72,10 @@ class SalesCaseController extends Controller
 
     public function show(SalesCase $salesCase)
     {
+        if ($salesCase->agent_id != auth()->id()){
+            abort(404);
+        }
+
         $smsTemplates= SMS::query()->active()->get();
         $smsLogs= SMSLog::query()->where('sales_case_id', $salesCase->id)->with('agent')->get();
         $salesCaseStatusRules = SalesCaseStatusRule::query()
@@ -80,6 +84,10 @@ class SalesCaseController extends Controller
             ->get();
         $failureReasons=FailureReason::query()->get();
         $salesCaseStatusHistories= SalesCaseStatusHistory::query()->where('sales_case_id', $salesCase->id)->with('status')->latest()->get();
+        $similarSalesCases= SalesCase::query()
+            ->where('customer_id', $salesCase->customer_id)
+            ->where('id', '!=', $salesCase->id)
+            ->get();
 
         return view('agent.sales_cases.show')
             ->with(['smsTemplates' => $smsTemplates])
@@ -87,6 +95,7 @@ class SalesCaseController extends Controller
             ->with(['salesCaseStatusRules' => $salesCaseStatusRules])
             ->with(['salesCaseStatusHistories' => $salesCaseStatusHistories])
             ->with(['failureReasons' => $failureReasons])
+            ->with(['similarSalesCases' => $similarSalesCases])
             ->with(['salesCase' => $salesCase]);
     }
 

@@ -25,11 +25,13 @@ class DistributorCommand extends Command
                 {
                     $cases = SalesCase::query()->unassigned()->join('sales_case_tags', 'sales_cases.tag_id', '=', 'sales_case_tags.id')
                         ->orderBy('sales_case_tags.sort', 'ASC')
-                        ->take((int)$count)->get();
+                        ->with('products')
+                        ->take((int)$count)->get(); // E.g => 10 SalesCases
 
                     foreach ($cases as $case){
                         $case->agent_id = $agent->id;
                         $case->save();
+                        SalesCase::assignDuplicateSalesCases($case, $agent);
                     }
                 }
             }else{
@@ -40,6 +42,7 @@ class DistributorCommand extends Command
                     foreach ($cases as $case){
                         $case->agent_id = $agent->id;
                         $case->save();
+                        SalesCase::assignDuplicateSalesCases($case, $agent);
                     }
                 }
             }

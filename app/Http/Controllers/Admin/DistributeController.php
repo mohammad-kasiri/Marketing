@@ -43,8 +43,12 @@ class DistributeController extends Controller
             $salesCases= is_null($request->tag)
                 ? $salesCases->unassigned()->limit($request->countToAssign)->get()
                 : $salesCases->unassigned()->where('tag_id', $request->tag)->limit($request->countToAssign)->get();
-            foreach ($salesCases as $salesCase)
+
+            foreach ($salesCases as $salesCase){
                 $salesCase->update(['agent_id' => $agent->id]);
+                SalesCase::assignDuplicateSalesCases($salesCase, $agent);
+            }
+
         }
         Session::flash('message', 'پرونده ها با موفقیت توزیع شدند.');
         return redirect()->route('admin.distribute.index');

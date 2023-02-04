@@ -65,4 +65,21 @@ class SalesCase extends Model
             ? static::makeUniqueGroupTag()
             : $tag;
     }
+    public static function assignDuplicateSalesCases(SalesCase $salesCase, User $user)
+    {
+        foreach ($salesCase->products as $product){
+            $customer_salesCase_products= SalesCase::query()
+                ->join('product_sales_case', 'sales_cases.id', '=', 'product_sales_case.sales_case_id')
+                ->where('product_sales_case.product_id' , '=', $product->id)
+                ->where('sales_cases.customer_id' , '=' ,  $salesCase->customer_id)
+                ->where('sales_cases.id' , '!=' , $salesCase->id)
+                ->whereNull('sales_cases.agent_id')
+                ->get();
+
+            foreach($customer_salesCase_products as $agentSalesCase) {
+                $agentSalesCase->agent_id = $user->id;
+                $agentSalesCase->save();
+            }
+        }
+    }
 }

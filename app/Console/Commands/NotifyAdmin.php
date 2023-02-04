@@ -38,6 +38,7 @@ class NotifyAdmin extends Command
                     foreach ($cases as $case) {
                         $case->agent_id = $agent->id;
                         $case->save();
+                        SalesCase::assignDuplicateSalesCases($case, $agent);
                     }
                 }
             }

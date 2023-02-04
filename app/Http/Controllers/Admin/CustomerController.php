@@ -71,11 +71,11 @@ class CustomerController extends Controller
 
 
         $tag= SalesCase::makeUniqueGroupTag();
-        $lastTag= SalesCaseTag::query()->orderBy('sort','DESC')->first()->sort;
+        $lastTag= SalesCaseTag::query()->orderBy('sort','DESC')->first()->sort ?? 1;
         $tag= SalesCaseTag::query()->create([
             'tag' => $tag,
             'title'=> $request->source,
-            'sort' => $lastTag  ? $lastTag + 1 : 10
+            'sort' => $lastTag + 1
         ]);
 
         Excel::import(new CustomerImport($request->products, $tag->id),  $request->file("file"));
