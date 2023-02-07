@@ -90,7 +90,7 @@ class InvoiceController extends Controller
         ]);
         $invoice->delete();
         Session::flash('message', 'رسید با موفقیت حذف شد.');
-        return redirect()->route('admin.invoice.index');
+        return redirect()->back();
     }
 
     public function status(Invoice $invoice, Request $request)
