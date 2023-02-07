@@ -44,6 +44,16 @@
                                 </x-dashboard.form.select.row>
                             </div>
                             <div class="col-md-8">
+                                <x-dashboard.form.select.row label="محصول" name="product_id" searchable="1" >
+                                    <option></option>
+                                    @foreach($products as $product)
+                                        <option value="{{$product->id}}" {{request()->input('product_id') == $product->id ? 'selected' : ''}}>
+                                            {{$product->title}}
+                                        </option>
+                                    @endforeach
+                                </x-dashboard.form.select.row>
+                            </div>
+                            <div class="col-md-8">
                                 <x-dashboard.form.row-input label="از تاریخ"  name="from_date" datepicker="true" value="{{request()->input('from_date')}}"/>
                             </div>
                             <div class="col-md-8">
