@@ -78,11 +78,12 @@
                                 <span class="h6 mr-3 text-muted">آخرین ویرایش:</span><span class="h6">{{$salesCase->updated_at()}}</span>
                             </div>
                             <div class="col-md-3 py-5">
-                                <a href="tel:{{$salesCase->customer->mobile}}" class="btn btn-success btn-block"> <i class="fas fa-phone mr-2"></i> تماس با کاربر </a>
-                                <br>
                                 <a  onclick="copyToClipboard('{{$salesCase->customer->mobile}}')"  class="btn btn-danger btn-block">
                                     <i class="far fa-copy mr-2"></i>کپی شماره تماس
                                 </a>
+                                <br>
+                                <a href="zoiper:{{$salesCase->customer->mobile}}" class="btn btn-success btn-block"> <i class="fas fa-phone mr-2"></i> تماس با کاربر </a>
+                                <br>
                                 <br>
                                 <a href="https://wa.me/{{Illuminate\Support\Str::replaceFirst('0', '98', $salesCase->customer->mobile)}}" class="btn btn-success btn-block"> <i class="fab fa-whatsapp mr-2"></i> ارتباط در واتس اپ</a>
                                 <br>
