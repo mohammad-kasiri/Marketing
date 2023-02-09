@@ -47,7 +47,6 @@ class ReportController extends Controller
             ->where('paid_at' , '<=' , $to_date)
             ->get();
 
-            dd($invoices->pluck('id'));
 
         $total_amount = Invoice::query();
         if (request()->has('product_id') && !is_null(request()->input('product_id'))) {
