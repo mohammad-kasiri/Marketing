@@ -13,12 +13,26 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth'])->prefix('agent')->name('agent.')->group(function () {
     Route::get ('',       [HomeController::class ,  'index'])->name('index');
 
-    Route::get ('invoice',                 [InvoiceController::class , 'index'])         ->name('invoice.index');
-    Route::get('invoice/create',           [InvoiceController::class , 'create'])        ->name('invoice.create');
-    Route::post('invoice',                 [InvoiceController::class , 'store'])         ->name('invoice.store');
-    Route::get('invoice/{invoice}/edit',   [InvoiceController::class , 'edit'])          ->name('invoice.edit');
-    Route::patch('invoice/{invoice}',      [InvoiceController::class , 'update'])        ->name('invoice.update');
-    Route::delete('invoice/{invoice}',     [InvoiceController::class , 'destroy'])       ->name('invoice.destroy');
+    Route::get ('invoice',                 [InvoiceController::class , 'index'])                ->name('invoice.index');
+
+    Route::get('invoice/create',                                        [InvoiceController::class , 'createInvoice'])              ->name('invoice.create');
+    Route::get('invoice/create/check_customer_exists',                  [InvoiceController::class , 'checkCustomerExists'])        ->name('invoice.create.check-customer-exists');
+
+    Route::get('invoice/create/without_customer',                       [InvoiceController::class , 'createWithoutCustomer'])      ->name('invoice.create.without_customer');
+    Route::post('invoice/store/without_customer',                       [InvoiceController::class , 'storeWithOutCustomer'])       ->name('invoice.store.without-customer');
+
+    Route::get('invoice/create/customer_exist',                         [InvoiceController::class , 'customerExists'])             ->name('invoice.create.customer_exist');
+
+    Route::get('invoice/create/customer_exist/{salesCase}',             [InvoiceController::class , 'createWithSalesCase'])        ->name('invoice.create.with-sales-case');
+    Route::post('invoice/store/with_sales_case',                        [InvoiceController::class , 'storeWithSalesCase'])         ->name('invoice.store.with-sales-case');
+
+    Route::get('invoice/create/customer_exist_without_sales_case/',     [InvoiceController::class , 'createWithoutSalesCase'])      ->name('invoice.create.without-sales-case');
+    Route::post('invoice/store/without_sales_case',                     [InvoiceController::class , 'storeWithoutSalesCase'])      ->name('invoice.store.without-sales-case');
+
+
+    Route::get('invoice/{invoice}/edit',            [InvoiceController::class , 'edit'])          ->name('invoice.edit');
+    Route::patch('invoice/{invoice}',               [InvoiceController::class , 'update'])        ->name('invoice.update');
+    Route::delete('invoice/{invoice}',              [InvoiceController::class , 'destroy'])       ->name('invoice.destroy');
 
     Route::get ('report',                  [ReportController::class , 'index'])          ->name('report.index');
 

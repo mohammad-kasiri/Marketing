@@ -32,7 +32,7 @@
                                     @endforeach
                                 </ul>
 
-                                <small class="text-muted">{{$salesCase->tag->tag . ":" . $salesCase->tag->title}}</small>
+                                <small class="text-muted">{{$salesCase->tag?->tag . ":" . $salesCase->tag?->title}}</small>
                             </div>
                             <div class="col-md-3 py-5">
                                 <a href="{{ route('admin.customer.show', ['customer' => $salesCase->customer_id]) }}" class="h6 mr-3 text-muted">کاربر پرونده:<span class="text-black h6">{{$salesCase->customer->fullname}}</span></a>

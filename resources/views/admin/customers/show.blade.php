@@ -157,7 +157,7 @@
                                                 @endforeach
                                             </ul>
 
-                                            <small class="text-muted"> کد ایجاد: {{$salesCase->tag->title}}</small>
+                                            <small class="text-muted"> کد ایجاد: {{$salesCase->tag?->title}}</small>
                                         </div>
                                         <div class="col-md-4 py-5">
                                             <span class="h6 mr-3 text-muted">ایجنت پرونده:</span><span class="h6">{{!is_null($salesCase->agent) ? $salesCase->agent->fullname : 'بدون ایجنت'}}</span>

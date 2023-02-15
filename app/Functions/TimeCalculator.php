@@ -13,7 +13,10 @@ class TimeCalculator
 
     public static function getMonthFirstDay()
     {
-        $month = (int) Jalalian::now()->getMonth();
+        if(Jalalian::now()->getDay() == static::MONTH_FIRST_DAY) {
+            $array = CalendarUtils::toGregorian(Jalalian::now()->getYear(), Jalalian::now()->getMonth(), Jalalian::now()->getDay());
+            return Carbon::create($array[0], $array[1], $array[2], 2, 0, 0);
+        }
 
        for ($i= 1; $i <= 32; $i++)
        {
