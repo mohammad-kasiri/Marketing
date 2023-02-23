@@ -25,10 +25,11 @@ class RemindTasks extends Command
 
         foreach ($tasks as $task)
         {
-            SMS::for($task->user->mobile)
-                ->template('reminder')
-                ->setFirstToken($task->user->first_name)
-                ->sendLookUp();
+            SMS::for($task->user->mobile)->send("موعد یادآوری یکی از کارهای شما رسیده است. لطفا آن را بررسی و تعیین وضعیت کنید.");
+            //SMS::for($task->user->mobile)
+            //    ->template('reminder')
+            //    ->setFirstToken($task->user->first_name)
+            //    ->sendLookUp();
             $task->first_notify = true;
             $task->save();
         }
@@ -44,10 +45,11 @@ class RemindTasks extends Command
 
         foreach ($tasks as $task)
         {
-            SMS::for($task->user->mobile)
-                ->template('reminder')
-                ->setFirstToken($task->user->first_name)
-                ->sendLookUp();
+            SMS::for($task->user->mobile)->send("موعد یادآوری یکی از کارهای شما رسیده است. لطفا آن را بررسی و تعیین وضعیت کنید.");
+            //SMS::for($task->user->mobile)
+            //    ->template('reminder')
+            //    ->setFirstToken($task->user->first_name)
+            //    ->sendLookUp();
             $task->second_notify = true;
             $task->save();
         }

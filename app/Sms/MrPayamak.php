@@ -5,7 +5,7 @@ namespace App\Sms;
 
 
 use Illuminate\Support\Facades\Http;
-
+use SoapClient;
 
 
 class MrPayamak
@@ -46,15 +46,14 @@ class MrPayamak
 
     public function send($message)
     {
-        $body = [
-            "uname"    => 'mrp09135355259',
-            "pass"     => '@@GavGav8585@@',
-            "from"     => '+9890009376',
-            "to"       => json_encode([$this->phone]),
-            "message"  => $message ,
-            'op'=>'send'
-        ];
-        $response = Http::post('https://ippanel.com/services.jspd',$body);
+        	$client = new SoapClient("http://ippanel.com/class/sms/wsdlservice/server.php?wsdl");
+        	$user = "mrp09135355259";
+            $pass = '@@GavGav8585@@';
+            $fromNum = '+9890009376';
+            $toNum = [$this->phone];
+            $messageContent = $message;
+        	$op  = "send";
+        	$client->SendSMS($fromNum,$toNum,$messageContent,$user,$pass,$op);
     }
     public function sendLookUp()
     {

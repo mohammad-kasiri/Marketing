@@ -17,9 +17,10 @@ class VerificationObserver
      */
     public function created(Verification $verification)
     {
-        SMS::for($verification->mobile)
-            ->template('verify')
-            ->setFirstToken($verification->code)
-            ->sendLookUp();
+        SMS::for($verification->mobile)->send("کد تایید شما $verification->code");
+        // SMS::for($verification->mobile)
+        //     ->template('verify')
+        //     ->setFirstToken($verification->code)
+        //     ->sendLookUp();
     }
 }
