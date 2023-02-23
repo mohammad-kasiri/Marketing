@@ -81,6 +81,7 @@
                                 <th class="text-center">مقصد</th>
                                 <th class="text-center">وضعیت</th>
                                 <th class="text-center">تاریخ ایجاد</th>
+                                <th class="text-center">تاریخ فروش</th>
                                 <th class="text-center">توضیحات</th>
                                 <th class="text-center">عملیات</th>
                                 <th class="text-center">کنترل</th>
@@ -111,6 +112,7 @@
                                     <td class="text-center align-middle text-nowrap
                                          text-{{$invoice->status_color()}}">
                                         {{ $invoice->status()}} </td>
+                                    <td class="text-center align-middle text-nowrap"> {{ $invoice->created_at()}} </td>
                                     <td class="text-center align-middle text-nowrap"> {{ $invoice->paid_at()}} </td>
                                     <td class="text-center align-middle text-nowrap">
                                         <button class="btn btn-outline-danger"

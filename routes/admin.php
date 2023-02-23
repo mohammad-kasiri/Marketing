@@ -135,5 +135,10 @@ Route::middleware(['auth' , 'is_admin'])->prefix('admin')->name('admin.')->group
 
     Route::get('chart/w/{agent}' ,                          [ChartController::class   , 'agentWeekly']) ->name('chart.agent.weekly');
     Route::get('chart/m/{agent}' ,                          [ChartController::class   , 'agentMonthly'])->name('chart.agent.monthly');
+
+
+    Route::get('testSMS', function (){
+        \App\Sms\SMS::for('09109529484')->send('سلام. این پیامک جهت تست است');
+    });
 });
 

@@ -94,28 +94,6 @@
                         </div>
                     </div>
 
-                    <h4 class="card-label mt-10">
-                        انتخاب محصولات
-                    </h4>
-
-                    <div class="row justify-content-center">
-                        <div class="col-md-8">
-                            <div class="row">
-                                @foreach($products as $product)
-                                    <div class="col-md-3 my-5">
-                                        <x-dashboard.form.checkbox
-                                            name="products[{{$product->id}}]"
-                                            value="{{ $product->id }}"
-                                            checked="{{ $invoice->products->contains($product->id) ? '1' : 0}}"
-                                        >
-                                            {{ $product->title }}
-                                        </x-dashboard.form.checkbox>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-
                     <button class="btn btn-primary float-right" type="submit"> ویرایش رسید  </button>
                 </form>
             </div>

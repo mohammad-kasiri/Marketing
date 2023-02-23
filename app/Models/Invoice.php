@@ -17,11 +17,11 @@ class Invoice extends Model
 
     public function created_at()
     {
-        return Jalalian::forge($this->created_at)->format(' H:i | %A, %d %B %Y ');
+        return Jalalian::forge($this->created_at)->format('   %A, %d %B   H:i   ');
     }
     public function paid_at()
     {
-        return Jalalian::forge($this->paid_at)->format('   %A, %d %B      H:i   ');
+        return Jalalian::forge($this->paid_at)->format('   %A, %d %B   H:i   ');
     }
 
     public function user()

@@ -51,8 +51,17 @@ class CustomerImport implements ToCollection
                     ->exists();
 
                 if (!is_null($this->product) && count($this->product) > 0 &&  !$HasNotCreatedAlready){
+
+                     $previewsSalesCaseExists= SalesCase::query()
+                         ->where('customer_id' , $customer->id)
+                         ->where('agent_id', '!=', null)
+                         ->first();
+                     $agent = is_null($previewsSalesCaseExists)
+                         ? null
+                         : $previewsSalesCaseExists->agent_id;
+
                      $salesCase= SalesCase::query()->create([
-                         'agent_id'     => null,
+                         'agent_id'     => $agent,
                          'customer_id'  => $customer->id,
                          'status_id'    => $firstStatus->id,
                          'tag_id'       => $this->tag,

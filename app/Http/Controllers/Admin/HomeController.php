@@ -8,11 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\SalesCase;
-use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Morilog\Jalali\Jalalian;
 
 class HomeController extends Controller
 {
@@ -23,25 +19,38 @@ class HomeController extends Controller
 
         //Today Sum
         $today_sum  = (int) Invoice::query()
-            ->whereDate('paid_at','>=' , Carbon::today())
+            ->whereDate('paid_at','>=' , Carbon::today()->startOfDay())
+            ->whereHas('user', function ($query){
+                return $query->agents();
+            })
             ->approved()
             ->sum('price');
 
         //Week Sum
         $weekly_sum = (int) Invoice::query()
-                ->whereDate('paid_at','>=' , Carbon::today()->subDays(6))
+                ->whereDate('paid_at','>=' , Carbon::today()->subDays(6)->startOfDay())
+                ->whereHas('user', function ($query){
+                    return $query->agents();
+                })
                 ->approved()
                 ->sum('price');
 
         //Monthly Sum
         $monthly_sum = (int) Invoice::query()
             ->whereDate('paid_at','>=', TimeCalculator::getMonthFirstDay())
+            ->whereHas('user', function ($query){
+                return $query->agents();
+            })
             ->approved()
             ->sum('price');
 
 
         //Last 10 Invoice
-        $invoices   = Invoice::query()->with('user')->orderBy('paid_at' , 'DESC')->take(10)->get();
+        $invoices   = Invoice::query()
+            ->with('user')
+            ->orderBy('created_at' , 'DESC')
+            ->take(10)
+            ->get();
 
 
         $usersRanking= Ranking::get();

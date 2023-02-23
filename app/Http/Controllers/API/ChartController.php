@@ -15,7 +15,7 @@ class ChartController extends Controller
         // GET LAST 7 DAYS
         $days = [];
         for($i = 6; $i>=0; $i-- )
-            $days[] = Carbon::today()->subDays($i);
+            $days[] = Carbon::today()->subDays($i)->startOfDay();
 
         //GET SALE AMOUNT FOR EACH DAY
         $sale = [];
@@ -51,7 +51,7 @@ class ChartController extends Controller
 
         foreach ($days as $day)
             $sale[] = (int) Invoice::query()
-                ->whereMonth('paid_at', $day)
+                ->whereMonth('paid_at', '=' , $day)
                 ->where('user_id' , $request->agent)
                 ->where('status' , 'approved')
                 ->sum('price');
@@ -73,7 +73,7 @@ class ChartController extends Controller
         // GET LAST 7 DAYS
         $days = [];
         for($i = 6; $i>=0; $i-- )
-            $days[] = Carbon::today()->subDays($i);
+            $days[] = Carbon::today()->subDays($i)->startOfDay();
 
         //GET SALE AMOUNT FOR EACH DAY
         $sale = [];
@@ -81,6 +81,9 @@ class ChartController extends Controller
         foreach ($days as $day)
             $sale[] = (int) Invoice::query()
                 ->whereDate('paid_at', $day)
+                ->whereHas('user', function ($query){
+                    return $query->agents();
+                })
                 ->where('status' , 'approved')
                 ->sum('price');
 
@@ -109,6 +112,9 @@ class ChartController extends Controller
         foreach ($days as $day)
             $sale[] = (int) Invoice::query()
                 ->whereMonth('paid_at', $day)
+                ->whereHas('user', function ($query){
+                    return $query->agents();
+                })
                 ->where('status' , 'approved')
                 ->sum('price');
 

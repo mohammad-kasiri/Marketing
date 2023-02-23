@@ -13,7 +13,7 @@ class ReportController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::query()->orderBy('is_active','desc')->get();
         $products= Product::all();
         if (!request()->has('user') || !request()->has('to_date') || !request()->has('from_date'))
         {

@@ -6,6 +6,6 @@ class SMS
 {
     public static function for($number)
     {
-        return new Kavenegar($number);
+        return new MrPayamak($number);
     }
 }

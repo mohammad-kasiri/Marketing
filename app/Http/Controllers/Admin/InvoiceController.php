@@ -45,8 +45,6 @@ class InvoiceController extends Controller
             'order_number'          => ['required_if:paid_by,==,site'   ,'bail'],
 
             'description'           => ['nullable'],
-            'products'              => ['required' , 'array'],
-            'products.*'            => ['required' , 'numeric'],
             'status'                => ['required' , 'in:sent,approved,rejected,suspicious'],
             'paid_at_date'          => ['required' , 'min:10' , 'max:10'],
             'paid_at_time'          => ['required'],
@@ -62,11 +60,6 @@ class InvoiceController extends Controller
             'status'                => $request->status,
             'paid_at'               => DateFormatter::format($request->paid_at_date , $request->paid_at_time),
         ]);
-
-        if(isset($request->products) && is_array($request->products) && count($request->products) > 0)
-        {
-            $invoice->products()->sync($request->products);
-        }
 
         if ($firstStatus != 'approved' && $request->status == 'approved'){
             $saleCase= SalesCase::query()->where('invoice_id', $invoice->id)->first();

@@ -284,8 +284,6 @@ class InvoiceController extends Controller
             'order_number'          => ['required_if:paid_by,==,site'   ,'bail'],
 
             'description'           => ['nullable'],
-            'products'              => ['required' , 'array'],
-            'products.*'            => ['required' , 'numeric'],
             'paid_at_date'          => ['required' , 'min:10' , 'max:10'],
             'paid_at_time'          => ['required'],
         ]);
@@ -302,10 +300,6 @@ class InvoiceController extends Controller
             'paid_at'               => DateFormatter::format($request->paid_at_date , $request->paid_at_time),
         ] , $status));
 
-        if(isset($request->products) && is_array($request->products) && count($request->products) > 0)
-        {
-            $invoice->products()->sync($request->products);
-        }
         Session::flash('message', 'رسید   با موفقیت ویرایش شد.');
         return redirect()->route('agent.invoice.index');
     }
