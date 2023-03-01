@@ -308,11 +308,11 @@ class InvoiceController extends Controller
     public function destroy(Invoice $invoice)
     {
         SalesCase::query()->where('invoice_id', $invoice->id)->update([
-            'invoice_id' => 'null',
+            'invoice_id' => null,
             'status_id'  => SalesCaseStatus::query()->where('is_first_step',1)->first()->id,
         ]);
         $invoice->delete();
-        Session::flash('message', 'رسید   با موفقیت حذف شد.');
+        Session::flash('message', 'رسید با موفقیت حذف شد.');
         return redirect()->route('agent.invoice.index');
     }
 
