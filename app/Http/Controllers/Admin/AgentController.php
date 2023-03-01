@@ -63,6 +63,11 @@ class AgentController extends Controller
         return redirect()->route('admin.agent.show', $agent->id)->with(['agent' => $agent]);
     }
 
+    public function login(User $agent)
+    {
+        auth()->loginUsingId($agent->id);
+        return redirect()->route('agent.index');
+    }
     private function agentInputs($request)
     {
         return [

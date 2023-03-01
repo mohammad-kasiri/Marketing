@@ -72,6 +72,15 @@
                                            data-content="مشاهده">
                                             <i class="far fa-eye"></i>
                                         </a>
+                                        <a href="{{route('admin.agent.login' , $agent->id)}}"
+                                           class="btn btn-icon btn-circle btn-sm btn-outline-success"
+                                           data-container="body"
+                                           data-delay="500"
+                                           data-toggle="popover"
+                                           data-placement="top"
+                                           data-content="ورود به عنوان کاربر">
+                                            <i class="fas fa-walking"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

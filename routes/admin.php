@@ -30,6 +30,7 @@ Route::middleware(['auth' , 'is_admin'])->prefix('admin')->name('admin.')->group
     Route::get('agents/create',                             [AgentController::class , 'create'])        ->name('agent.create');
     Route::post('agents',                                   [AgentController::class , 'store'])         ->name('agent.store');
     Route::get('agents/{agent}',                            [AgentController::class , 'show'])          ->name('agent.show');
+    Route::get('agents/{agent}/login',                      [AgentController::class , 'login'])         ->name('agent.login');
     Route::get('agents/{agent}/edit',                       [AgentController::class , 'edit'])          ->name('agent.edit');
     Route::patch('agents/{agent}',                          [AgentController::class , 'update'])        ->name('agent.update');
 
@@ -136,9 +137,5 @@ Route::middleware(['auth' , 'is_admin'])->prefix('admin')->name('admin.')->group
     Route::get('chart/w/{agent}' ,                          [ChartController::class   , 'agentWeekly']) ->name('chart.agent.weekly');
     Route::get('chart/m/{agent}' ,                          [ChartController::class   , 'agentMonthly'])->name('chart.agent.monthly');
 
-
-    Route::get('testSMS', function (){
-        \App\Sms\SMS::for('09109529484')->send('سلام. این پیامک جهت تست است');
-    });
 });
 
