@@ -37,8 +37,8 @@
                                 <x-dashboard.form.select.row label="کاربر" name="user" searchable="1" >
                                     <option></option>
                                     @foreach($users as $user)
-                                        <option value="{{$user->id}}" {{request()->input('user') == $user->id ? 'selected' : ''}}>
-                                            {{$user->full_name}}
+                                        <option value="{{$user->id}}" {{request()->input('user') == $user->id ? 'selected' : ''}}  class="@if(!$user->is_active) bg-secondary @endif">
+                                          {{$user->full_name}}
                                         </option>
                                     @endforeach
                                 </x-dashboard.form.select.row>
