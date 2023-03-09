@@ -11,18 +11,18 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
-    public function index()
+    public function userBaseReport()
     {
         $users = User::query()->orderBy('is_active','desc')->get();
         $products= Product::all();
         if (!request()->has('user') || !request()->has('to_date') || !request()->has('from_date'))
         {
-            return view('admin.report.index')
+            return view('admin.report.user_base_report')
                 ->with(['users' => $users , 'products' => $products]);
         }
         if (is_null(request()->user)  || is_null(request()->to_date) || is_null(request()->from_date))
         {
-            return view('admin.report.index')
+            return view('admin.report.user_base_report')
                 ->with(['users' => $users , 'products' => $products]);
         }
 
@@ -60,10 +60,56 @@ class ReportController extends Controller
             ->where('paid_at' , '<=' , $to_date)
             ->sum('price');
 
-        return  view('admin.report.index')
+        return  view('admin.report.user_base_report')
             ->with(['agent' => $agent])
             ->with(['invoices' => $invoices])
             ->with(['users' => $users])
+            ->with(['products' => $products])
+            ->with(['total_amount' => $total_amount]);
+    }
+    public function generalReport()
+    {
+        $products= Product::all();
+        if (!request()->has('to_date') || !request()->has('from_date'))
+        {
+            return view('admin.report.general_report')
+                ->with(['products' => $products]);
+        }
+        if (is_null(request()->to_date) || is_null(request()->from_date))
+        {
+            return view('admin.report.general_report')
+                ->with(['products' => $products]);
+        }
+
+        $to_date   = DateFormatter::format(request()->input('to_date') , '00:00');
+        $from_date = DateFormatter::format(request()->input('from_date') , '00:00');
+
+
+        $invoices = Invoice::query();
+            if (request()->has('product_id') && !is_null(request()->input('product_id'))) {
+                $invoices = $invoices
+                    ->leftJoin('invoice_product', 'invoices.id', '=', 'invoice_product.invoice_id')
+                    ->where('invoice_product.product_id', '=',request()->input('product_id') );
+            }
+        $invoices= $invoices->where('status' , '=' , 'approved')
+            ->where('paid_at' , '>=' , $from_date)
+            ->where('paid_at' , '<=' , $to_date)
+            ->get();
+
+
+        $total_amount = Invoice::query();
+        if (request()->has('product_id') && !is_null(request()->input('product_id'))) {
+            $total_amount = $total_amount
+                ->leftJoin('invoice_product', 'invoices.id', '=', 'invoice_product.invoice_id')
+                ->where('invoice_product.product_id', '=',request()->input('product_id') );
+        }
+        $total_amount= $total_amount->where('status' , '=' , 'approved')
+            ->where('paid_at' , '>=' , $from_date)
+            ->where('paid_at' , '<=' , $to_date)
+            ->sum('price');
+
+        return  view('admin.report.general_report')
+            ->with(['invoices' => $invoices])
             ->with(['products' => $products])
             ->with(['total_amount' => $total_amount]);
     }

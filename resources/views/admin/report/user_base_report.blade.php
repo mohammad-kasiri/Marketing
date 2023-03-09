@@ -1,9 +1,9 @@
 @extends('admin.layout.master')
-@section('title' , " لیست رسید   ها ")
-@section('headline', "لیست رسید   ها")
+@section('title' , " گزارش گیری بر اساس کاربر ")
+@section('headline', "گزارش گیری بر اساس کاربر")
 
 @section('subheader')
-    <x-dashboard.subheader :links='[]' :title="'لیست رسید   ها'" />
+    <x-dashboard.subheader :links='[]' :title="'گزارش گیری بر اساس کاربر'" />
 @endsection
 
 @section('content')
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('admin.report.index')}}">
+                    <form action="{{route('admin.report.userBase.index')}}">
                         <div class="row justify-content-center">
                             <div class="col-md-8">
                                 <x-dashboard.form.select.row label="کاربر" name="user" searchable="1" >

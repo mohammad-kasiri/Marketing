@@ -54,7 +54,8 @@ Route::middleware(['auth' , 'is_admin'])->prefix('admin')->name('admin.')->group
 
     Route::patch('invoice/{invoice}/status',                [InvoiceController::class , 'status'])      ->name('invoice.update.status');
 
-    Route::get ('report',                                   [ReportController::class , 'index'])        ->name('report.index');
+    Route::get ('user_base_report',                         [ReportController::class , 'userBaseReport'])->name('report.userBase.index');
+    Route::get ('general_report',                           [ReportController::class , 'generalReport'])->name('report.general.index');
     Route::get ('setting',                                  [SettingController::class , 'index'])       ->name('setting.index');
     Route::patch('setting',                                 [SettingController::class , 'update'])      ->name('setting.update');
 

@@ -91,11 +91,29 @@
                         <span class="menu-text">مدیریت رسید ها</span>
                     </a>
                 </li>
-                <li class="menu-item c">
-                    <a  href="{{route('admin.report.index')}}" class="menu-link menu-toggle">
+                <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
+                    <a  href="javascript:;" class="menu-link menu-toggle">
                         <i class="menu-icon flaticon-pie-chart-1"></i>
-                        <span class="menu-text">گزارش گیری بازه ای</span>
+                        <span class="menu-text">گزارش گیری</span>
+                        <i class="menu-arrow"></i>
                     </a>
+                    <div class="menu-submenu ">
+                        <i class="menu-arrow"></i>
+                        <ul class="menu-subnav">
+                            <li class="menu-item c">
+                                <a  href="{{route('admin.report.userBase.index')}}" class="menu-link menu-toggle">
+                                    <i class="menu-bullet menu-bullet-dot"><span></span></i>
+                                    <span class="menu-text">گزارش گیری بر اساس کاربر</span>
+                                </a>
+                            </li>
+                            <li class="menu-item  menu-item-submenu" aria-haspopup="true"  data-menu-toggle="hover">
+                                <a href="{{route('admin.report.general.index')}}" class="menu-link ">
+                                    <i class="menu-bullet menu-bullet-dot"><span></span></i>
+                                    <span class="menu-text">گزارش گیری کلی</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="menu-item {{ request()->is('admin/transaction*') ? 'menu-item-active' : '' }}">
                     <a  href="{{route('admin.transaction.index')}}" class="menu-link menu-toggle">
