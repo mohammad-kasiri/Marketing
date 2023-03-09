@@ -87,7 +87,10 @@ class Invoice extends Model
 
     public function scopeAccountfilter($query , $key)
     {
-        return ($key == null) ? $query : $query->where("account_number" , $key);
+        return ($key == null) ? $query : $query
+            ->where("account_number" , 'LIKE' , '%'.$key.'%')
+            ->orWhere('gateway_tracking_code', 'LIKE' , '%'.$key.'%')
+            ->orWhere('order_number', 'LIKE' , '%'.$key.'%');
     }
 
     public function scopeFilter($query , $key)

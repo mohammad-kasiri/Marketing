@@ -44,7 +44,7 @@
                                 </x-dashboard.form.select.row>
                             </div>
                             <div class="col-md-8">
-                                 <x-dashboard.form.row-input  name="account_number" type="number" label="چهار رقم آخر شماره کارت" value="{{request()->input('account_number')}}"/>
+                                 <x-dashboard.form.row-input  name="account_number" type="number" label="اطلاعات واریز" value="{{request()->input('account_number')}}"/>
                             </div>
                             <div class="col-md-8">
                                 <x-dashboard.form.select.row name="status"  label="وضعیت">
