@@ -127,6 +127,12 @@
                         <span class="menu-text">لیست کارها</span>
                     </a>
                 </li>
+                <li class="menu-item {{ request()->is('admin/assignment*') ? 'menu-item-active' : '' }}" >
+                    <a  href="{{route('admin.assignment.index')}}" class="menu-link ">
+                        <i class="menu-icon flaticon-rotate"><span></span></i>
+                        <span class="menu-text">انتقال گروهی پرونده ها</span>
+                    </a>
+                </li>
                 <li class="menu-item  menu-item-submenu"  aria-haspopup="true"  data-menu-toggle="hover">
                     <a  href="javascript:;" class="menu-link menu-toggle">
                         <i class="menu-icon flaticon-cogwheel-2"></i>

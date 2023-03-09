@@ -57,6 +57,14 @@ class SalesCase extends Model
             'product_id');
     }
 
+    public function assignments()
+    {
+        return $this->belongsToMany(Assignment::class,
+            'assignment_sales_case',
+            'sales_cases_id',
+            'assignment_id');
+    }
+
     public static function makeUniqueGroupTag()
     {
         $tag= Str::random(10);

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AgentController;
+use App\Http\Controllers\Admin\AssignmentController;
 use App\Http\Controllers\Admin\BackupController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DeleteGroupOfSalesCases;
@@ -113,6 +114,10 @@ Route::middleware(['auth' , 'is_admin'])->prefix('admin')->name('admin.')->group
     Route::post ('sales_case_status',                       [SalesCaseStatusController::class , 'store'])      ->name('sales-case-status.store');
     Route::get ('sales_case_status/{status}/edit',          [SalesCaseStatusController::class , 'edit'])       ->name('sales-case-status.edit');
     Route::patch ('sales_case_status/{status}/update',      [SalesCaseStatusController::class , 'update'])     ->name('sales-case-status.update');
+
+    Route::get ('assignment',                               [AssignmentController::class , 'index'])           ->name('assignment.index');
+    Route::post('assignment',                               [AssignmentController::class , 'store'])           ->name('assignment.store');
+
 
     Route::get ('task',                                     [TaskController::class , 'index'])                 ->name('task.index');
     Route::get ('sales_case/{salesCase}/task/create',       [TaskController::class , 'create'])                ->name('task.create');
