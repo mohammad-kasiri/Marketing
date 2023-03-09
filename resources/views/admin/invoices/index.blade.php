@@ -49,7 +49,7 @@
                             <div class="col-md-8">
                                 <x-dashboard.form.select.row name="status"  label="وضعیت">
                                     <option></option>
-                                    <option value="sent"     {{request()->input('status ')== 'sent' ? 'selected' : ''}}>ارسال شده</option>
+                                    <option value="sent"     {{request()->input('status ')== 'sent' ? 'selected' : ''}}>در حال بررسی</option>
                                     <option value="approved" {{request()->input('status ')== 'approved' ? 'selected' : ''}}>تایید شده</option>
                                     <option value="rejected" {{request()->input('status ')== 'rejected' ? 'selected' : ''}}>عدم تایید</option>
                                     <option value="suspicious" {{request()->input('status ')== 'suspicious' ? 'selected' : ''}}>مشکوک</option>
@@ -207,7 +207,7 @@
                                                 data-delay="500"
                                                 data-toggle="popover"
                                                 data-placement="top"
-                                                data-content="ارسال شده"
+                                                data-content="در حال بررسی"
                                                 type="submit"
                                                 form="update{{$invoice->id}}"
                                                 name="status"
