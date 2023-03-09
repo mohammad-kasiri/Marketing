@@ -32,7 +32,7 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        return view('')->with(['product' => $product]);
+        return view('admin.products.edit')->with(['product' => $product]);
     }
 
 
@@ -46,8 +46,8 @@ class ProductController extends Controller
             'title' => $request->title
         ]);
 
-        Session::flash('message', 'محصول جدید با موفقیت ویرایش شد.');
-        return redirect()->back();
+        Session::flash('message', 'محصول با موفقیت ویرایش شد.');
+        return redirect()->route('admin.product.index');
     }
 
     public function destroy(Product $product)

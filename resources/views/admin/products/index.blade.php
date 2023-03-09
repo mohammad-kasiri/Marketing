@@ -72,11 +72,18 @@
                                 <tr>
                                     <td class="text-center align-middle"> {{\App\Functions\PaginationCounter::item($products , $key)}} </td>
                                     <td class="text-center align-middle text-nowrap"> {{$product->title}}</td>
+
                                     <td class="text-center align-middle text-nowrap">
+
                                         <form action="{{route('admin.product.destroy' , $product->id)}}" method="post">
+                                            <a href="{{route('admin.product.edit', ['product' => $product->id])}}"
+                                               class="btn btn-icon btn-circle btn-sm btn-outline-primary">
+                                                <i class="far fa-edit"></i>
+                                            </a>
                                             @csrf
                                             @method('DELETE')
                                             <button
+                                                disabled
                                                 class="btn btn-icon btn-circle btn-sm btn-outline-danger"
                                                 data-container="body"
                                                 data-delay="500"
