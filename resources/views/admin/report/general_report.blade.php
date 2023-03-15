@@ -76,14 +76,25 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <a class="card card-custom bg-light bg-hover-state-light card-stretch card-stretch gutter-b">
                             <div class="card-body text-center">
                                 <span class="svg-icon svg-icon-primary svg-icon-3x ml-n1">
                                     <x-dashboard.icons.svg.equalizer/>
                                 </span>
-                                <div class="text-inverse-light font-weight-bolder font-size-h5 mb-2 mt-5"> فروش خالص </div>
+                                <div class="text-inverse-light font-weight-bolder font-size-h5 mb-2 mt-5"> فروش خالص با احتساب فروش مدیران</div>
                                 <div class="font-weight-bold text-inverse-light font-size-sm"> {{number_format($total_amount)}} تومان </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a class="card card-custom bg-light bg-hover-state-light card-stretch card-stretch gutter-b">
+                            <div class="card-body text-center">
+                                <span class="svg-icon svg-icon-danger svg-icon-3x ml-n1">
+                                    <x-dashboard.icons.svg.equalizer/>
+                                </span>
+                                <div class="text-inverse-light font-weight-bolder font-size-h5 mb-2 mt-5"> فروش خالص بدون احتساب فروش مدیران </div>
+                                <div class="font-weight-bold text-inverse-light font-size-sm"> {{number_format($total_amount_without_admin)}} تومان </div>
                             </div>
                         </a>
                     </div>

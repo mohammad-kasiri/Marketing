@@ -36,11 +36,11 @@ class ReportController extends Controller
             return redirect()->back();
 
         $invoices = Invoice::query();
-            if (request()->has('product_id') && !is_null(request()->input('product_id'))) {
-                $invoices = $invoices
-                    ->leftJoin('invoice_product', 'invoices.id', '=', 'invoice_product.invoice_id')
-                    ->where('invoice_product.product_id', '=',request()->input('product_id') );
-            }
+        if (request()->has('product_id') && !is_null(request()->input('product_id'))) {
+            $invoices = $invoices
+                ->leftJoin('invoice_product', 'invoices.id', '=', 'invoice_product.invoice_id')
+                ->where('invoice_product.product_id', '=',request()->input('product_id') );
+        }
         $invoices= $invoices->where('user_id' , request()->input('user'))
             ->where('status' , '=' , 'approved')
             ->where('paid_at' , '>=' , $from_date)
@@ -86,11 +86,11 @@ class ReportController extends Controller
 
 
         $invoices = Invoice::query();
-            if (request()->has('product_id') && !is_null(request()->input('product_id'))) {
-                $invoices = $invoices
-                    ->leftJoin('invoice_product', 'invoices.id', '=', 'invoice_product.invoice_id')
-                    ->where('invoice_product.product_id', '=',request()->input('product_id') );
-            }
+        if (request()->has('product_id') && !is_null(request()->input('product_id'))) {
+            $invoices = $invoices
+                ->leftJoin('invoice_product', 'invoices.id', '=', 'invoice_product.invoice_id')
+                ->where('invoice_product.product_id', '=',request()->input('product_id') );
+        }
         $invoices= $invoices->where('status' , '=' , 'approved')
             ->where('paid_at' , '>=' , $from_date)
             ->where('paid_at' , '<=' , $to_date)
@@ -108,9 +108,24 @@ class ReportController extends Controller
             ->where('paid_at' , '<=' , $to_date)
             ->sum('price');
 
+        $total_amount_without_admin = Invoice::query();
+        if (request()->has('product_id') && !is_null(request()->input('product_id'))) {
+            $total_amount_without_admin = $total_amount
+                ->leftJoin('invoice_product', 'invoices.id', '=', 'invoice_product.invoice_id')
+                ->where('invoice_product.product_id', '=',request()->input('product_id') );
+        }
+        $total_amount_without_admin= $total_amount_without_admin->where('status' , '=' , 'approved')
+            ->where('paid_at' , '>=' , $from_date)
+            ->where('paid_at' , '<=' , $to_date)
+            ->whereHas('user', function ($query){
+                return $query->agents();
+            })
+            ->sum('price');
+
         return  view('admin.report.general_report')
             ->with(['invoices' => $invoices])
             ->with(['products' => $products])
+            ->with(['total_amount_without_admin' => $total_amount_without_admin])
             ->with(['total_amount' => $total_amount]);
     }
 }
