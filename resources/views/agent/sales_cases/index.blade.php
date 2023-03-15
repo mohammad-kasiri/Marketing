@@ -186,6 +186,7 @@
                 {{$salesCases->appends([
                     'fullname'  => request()->input('fullname'),
                     'mobile'    => request()->input('mobile'),
+                    'tag_id'    => request()->input('tag_id'),
                     'status_id' => request()->input('status_id'),
                 ])->render()}}
             </div>
