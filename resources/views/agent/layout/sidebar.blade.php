@@ -44,6 +44,12 @@
                             <span class="menu-text">پیشخوان</span>
                         </a>
                     </li>
+                    <li class="menu-item {{ request()->is('agent/sales_case_result_determination*') ? 'menu-item-active' : '' }}">
+                        <a  href="{{route('agent.result-determination.index')}}" class="menu-link menu-toggle">
+                            <i class="menu-icon flaticon-warning"></i>
+                            <span class="menu-text text-warning">تعیین تکلیف پرونده ها</span>
+                        </a>
+                    </li>
                     <li class="menu-item {{ request()->is('agent/invoice*') ? 'menu-item-active' : '' }}">
                         <a  href="{{route('agent.invoice.index')}}" class="menu-link menu-toggle">
                             <i class="menu-icon flaticon2-checking"></i>

@@ -5,6 +5,7 @@ use App\Http\Controllers\Agent\CustomerController;
 use App\Http\Controllers\Agent\HomeController;
 use App\Http\Controllers\Agent\InvoiceController;
 use App\Http\Controllers\Agent\ReportController;
+use App\Http\Controllers\Agent\ResultDeterminationController;
 use App\Http\Controllers\Agent\SalesCaseController;
 use App\Http\Controllers\Agent\TaskController;
 use App\Http\Controllers\API\ChartController;
@@ -14,6 +15,10 @@ Route::middleware(['auth'])->prefix('agent')->name('agent.')->group(function () 
     Route::get ('',       [HomeController::class ,  'index'])->name('index');
 
     Route::get ('invoice',                 [InvoiceController::class , 'index'])                ->name('invoice.index');
+
+    Route::get ('sales_case_result_determination',                                  [ResultDeterminationController::class , 'index'])          ->name('result-determination.index');
+    Route::get ('sales_case_result_determination/{salesCase}',                      [ResultDeterminationController::class , 'chooseInvoice'])  ->name('result-determination.choose-invoice');
+    Route::post('sales_case_result_determination/{salesCase}/invoice/{invoice}',    [ResultDeterminationController::class , 'submitInvoice'])  ->name('result-determination.submit-invoice');
 
     Route::get('invoice/create',                                        [InvoiceController::class , 'createInvoice'])              ->name('invoice.create');
     Route::get('invoice/create/check_customer_exists',                  [InvoiceController::class , 'checkCustomerExists'])        ->name('invoice.create.check-customer-exists');
